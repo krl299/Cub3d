@@ -10,7 +10,7 @@ HEADERS		=	-I ${LIBMLX}/include/MLX42 -I ${LIBFT}
 
 LIBS		=	${LIBMLX}/libmlx42.a	${LIBFT}/libft.a
 
-GCC = gcc -Wall -Werror -Wextra
+GCC = gcc #-Wall -Werror -Wextra
 
 NAME = cub3d
 
@@ -19,7 +19,7 @@ RM = rm -rf
 .c.o:
 	@${GCC} -c $< ${HEADERS} -o ${<:.c=.o}
 
-all:	lib	$(NAME)
+all:	$(NAME)
 
 #lib:
 #	@git submodule update --init
@@ -29,10 +29,10 @@ all:	lib	$(NAME)
 $(NAME): ${OBJS}
 	@${GCC} ${OBJS} ${LIBS} -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" ${HEADERS} -o ${NAME}
 
-clean:
-	@${RM} ${OBJS}
-	@make -C MLX42 fclean
-	@make -C libft fclean
+# clean:
+# 	@${RM} ${OBJS}
+# 	@make -C MLX42 fclean
+# 	@make -C libft fclean
 
 fclean: clean
 	@${RM} ${NAME}
