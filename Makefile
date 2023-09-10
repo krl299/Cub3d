@@ -6,11 +6,11 @@ LIBMLX		=	./MLX42
 
 LIBFT		=	./libft
 
-HEADERS		=	-I ${LIBMLX}/include/MLX42 -I ${LIBFT} 
+HEADERS		=	-I ${LIBMLX}/include/MLX42/ -I ${LIBFT} 
 
-LIBS		=	${LIBMLX}/libmlx42.a	${LIBFT}/libft.a
+LIBS		=	${LIBMLX}/build/libmlx42.a	${LIBFT}/libft.a
 
-GCC = gcc #-Wall -Werror -Wextra
+GCC = gcc -g #-Wall -Werror -Wextra
 
 NAME = cub3d
 
