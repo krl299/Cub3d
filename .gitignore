@@ -1,3 +1,6 @@
 MLX42/
 *.o
 libft/
+.DS_Store
+RGBA Test Square/
+RGBA_Test_Square.zip

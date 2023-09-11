@@ -26,6 +26,9 @@
 #define WIDTH 2048
 #define HEIGHT 1024
 #define KOEF_X 10
+#define SPEEX 5
+#define SPEEY 5
+
 
 
 typedef struct var_idnf
@@ -34,8 +37,11 @@ typedef struct var_idnf
 	mlx_image_t* image;
 	mlx_image_t* sky;
 	mlx_image_t* gun;
+	mlx_texture_t *gun_text;
 	mlx_texture_t* texture;
 	mlx_image_t* texture2img;
+	mlx_image_t* texture3img;
+	mlx_image_t* for_texture_print;
 	xpm_t* xpm;
 	int		size_x;
 	int		size_y;
