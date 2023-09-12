@@ -6,7 +6,7 @@
 #    By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/12 15:18:41 by cmoran-l         ###   ########.fr        #
+#    Updated: 2023/09/12 15:29:57 by cmoran-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LIBFT		=	./libraries/libft	#Path of libft
 
 HEADERS		=	-I ${MLXHEADER} -I ${LIBFT} 
 
-LIBS		=	./libraries/MLX42/libmlx42.a	./libraries/libft/libft.a
+LIBS		=	./libraries/MLX42/build/libmlx42.a	./libraries/libft/libft.a
 
 GCC 		=	gcc -Wall -Werror -Wextra
 
@@ -38,17 +38,15 @@ all:	lib	$(NAME)
 lib:
 	git submodule update --init
 	make -C ${LIBFT} extra
-	cd ./libraries/MLX42
-	cmake -B build
-	cmake --build build -j4
+	cmake ${LIBMLX} -B ./libraries/MLX42/build && make -C ./libraries/MLX42/build -j4
 
 $(NAME): ${OBJS}
 	${GCC} ${OBJS} ${LIBS} -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" ${HEADERS} -o ${NAME}
 
 clean:
 	${RM} ${OBJS}
-	make -C ${LIBMLX} fclean
 	make -C ${LIBFT} fclean
+	rm -rf ./libraries/MLX42/build
 
 fclean: clean
 	${RM} ${NAME}
