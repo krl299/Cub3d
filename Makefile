@@ -6,21 +6,23 @@
 #    By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/12 09:37:30 by cmoran-l         ###   ########.fr        #
+#    Updated: 2023/09/12 11:20:15 by cmoran-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	
+SRCS		=	./src/cub3d.c
 
 OBJS		=	${SRCS:.c=.o}
 
-LIBMLX		=	#Path of MLX42
+LIBMLX		=	./libraries/MLX42	#Path of MLX42
 
-LIBFT		=	#Path of Libft
+MLXHEADER	=	./libraries/MLX42/include/MLX42
 
-HEADERS		=	-I ${LIBMLX}/include/MLX42 -I ${LIBFT} 
+LIBFT		=	./libraries/libft	#Path of libft
 
-LIBS		=	${LIBMLX}/libmlx42.a	${LIBFT}/libft.a
+HEADERS		=	-I ${MLXHEADER} -I ${LIBFT} 
+
+LIBS		=	./libraries/MLX42/libmlx42.a	./libraries/libft/libft.a
 
 GCC 		=	gcc -Wall -Werror -Wextra
 
@@ -34,20 +36,20 @@ RM 			= 	rm -rf
 all:	lib	$(NAME)
 
 lib:
-#	@git submodule update --init
-#	@make -C libft extra
-#	@make -C MLX42
+	git submodule update --init
+	make -C ${LIBFT} extra
+	make -C ${LIBMLX}
 
 $(NAME): ${OBJS}
-	@${GCC} ${OBJS} ${LIBS} -lglfw -L "/Users/$USER/.brew/opt/glfw/lib/" ${HEADERS} -o ${NAME}
+	${GCC} ${OBJS} ${LIBS} -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" ${HEADERS} -o ${NAME}
 
 clean:
-	@${RM} ${OBJS}
-#	@make -C MLX42 fclean
-#	@make -C libft fclean
+	${RM} ${OBJS}
+	make -C ${LIBMLX} fclean
+	make -C ${LIBFT} fclean
 
 fclean: clean
-	@${RM} ${NAME}
+	${RM} ${NAME}
 
 re: fclean all
 
