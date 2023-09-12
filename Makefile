@@ -6,7 +6,7 @@
 #    By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/12 11:20:15 by cmoran-l         ###   ########.fr        #
+#    Updated: 2023/09/12 15:18:41 by cmoran-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,9 @@ all:	lib	$(NAME)
 lib:
 	git submodule update --init
 	make -C ${LIBFT} extra
-	make -C ${LIBMLX}
+	cd ./libraries/MLX42
+	cmake -B build
+	cmake --build build -j4
 
 $(NAME): ${OBJS}
 	${GCC} ${OBJS} ${LIBS} -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" ${HEADERS} -o ${NAME}
