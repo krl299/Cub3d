@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: mandriic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 10:39:19 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/12 10:48:47 by cmoran-l         ###   ########.fr       */
+/*   Created: 2022/01/11 19:04:39 by mandriic          #+#    #+#             */
+/*   Updated: 2022/01/11 19:04:46 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <math.h>
+# include <stdbool.h>
+# include <string.h>
+# include "MLX42/include/MLX42/MLX42.h"
+# include <unistd.h>
+# include "./libft/libft.h"
+# include "./libft/gnl/get_next_line.h"
 
-# include "../libraries/MLX42/include/MLX42/MLX42.h"
-# include "../libraries/libft/libft.h"
 
 #define WIDTH 2048
 #define HEIGHT 1024
@@ -58,4 +60,4 @@ typedef struct var_idnf
 }t_vars;
 
 
-# endif
+#endif

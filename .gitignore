@@ -2,3 +2,7 @@ libraries/
 .DS_Store
 cub3d
 *.o
+MLX42/
+RGBA Test Square/
+RGBA_Test_Square.zip
+libft/

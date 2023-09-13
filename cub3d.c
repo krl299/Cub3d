@@ -1,17 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/12 11:02:50 by cmoran-l         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-#include "../includes/cub3d.h"
-
+#include "cub3d.h"
 
 int ft_get_rgba(int r, int g, int b, int a)
 {
@@ -312,6 +300,8 @@ int32_t	main(void)
 
 	vars = malloc(sizeof(t_vars));
 	*vars = (t_vars){};
+// se crea estructura parse 
+
 	vars->start_draw_x = 20;
 	vars->start_draw_y = 50;
 	vars->size_x = 1024;

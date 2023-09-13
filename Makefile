@@ -26,7 +26,7 @@ HEADERS		=	-I ${MLXHEADER} -I ${LIBFT}
 
 LIBS		=	./libraries/MLX42/build/libmlx42.a	./libraries/libft/libft.a
 
-GCC 		=	gcc -Wall -Werror -Wextra
+GCC 		=	gcc #-Wall -Werror -Wextra
 
 NAME 		=	cub3d
 
