@@ -6,7 +6,7 @@
 #    By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/12 15:29:57 by cmoran-l         ###   ########.fr        #
+#    Updated: 2023/09/13 08:49:18 by cmoran-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ OBJS		=	${SRCS:.c=.o}
 
 LIBMLX		=	./libraries/MLX42	#Path of MLX42
 
-MLXHEADER	=	./libraries/MLX42/include/MLX42
+MLXHEADER	=	./libraries/MLX42/include/MLX42	#Path of MLX header
+
+MLXBUILD	=	./libraries/MLX42/build	#Path of MLX build
 
 LIBFT		=	./libraries/libft	#Path of libft
 
@@ -38,7 +40,7 @@ all:	lib	$(NAME)
 lib:
 	git submodule update --init
 	make -C ${LIBFT} extra
-	cmake ${LIBMLX} -B ./libraries/MLX42/build && make -C ./libraries/MLX42/build -j4
+	cmake ${LIBMLX} -B ${MLXBUILD} && make -C ${MLXBUILD} -j4
 
 $(NAME): ${OBJS}
 	${GCC} ${OBJS} ${LIBS} -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" ${HEADERS} -o ${NAME}
