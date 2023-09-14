@@ -27,7 +27,11 @@
 #define SPEEX 5
 #define SPEEY 5
 
-
+typedef struct var_map
+{
+	char **map_matrix;
+	
+}t_map;
 
 typedef struct var_idnf
 {
@@ -55,7 +59,12 @@ typedef struct var_idnf
 	int		heightmap;
 	int		step;
 	int		check;
+	t_map	*map_mtr;
 }t_vars;
 
+
+
+int ft_get_rgba(int r, int g, int b, int a);
+void ft_create_sky(t_vars *vars, mlx_image_t *img, int size, int size2, unsigned int col);
 
 # endif

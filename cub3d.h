@@ -60,4 +60,8 @@ typedef struct var_idnf
 }t_vars;
 
 
+int ft_get_rgba(int r, int g, int b, int a);
+void ft_create_sky(t_vars *vars, mlx_image_t *img, int size, int size2, unsigned int col);
+
+
 #endif

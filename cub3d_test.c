@@ -1,19 +1,32 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/12 11:02:50 by cmoran-l         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
-
-
+int ft_get_rgba(int r, int g, int b, int a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
+void ft_create_sky(t_vars *vars, mlx_image_t *img, int size, int size2, unsigned int col)
+{
+	int start_draw_x = 0;
+	int start_draw_y = 0;
+	unsigned int start_color = col;
+	// int size_loc = size/2;
+	while (start_draw_x < WIDTH)
+	{
+		start_draw_y = 0;
+		while(start_draw_y < HEIGHT + 59)
+		{
+			if (start_draw_y > (HEIGHT + 59) / 2)
+				col = ft_get_rgba(100,100,100,100);
+			else
+				col = start_color;
+			mlx_put_pixel(img, start_draw_x, start_draw_y, col);
+			start_draw_y++;
+		}
+		// mlx_put_pixel(img, start_draw_x, start_draw_x, 0xFFFFFFFF);
+		start_draw_x++;
+	}
+}
 u_int32_t ft_get_text_col(t_vars *vars)
 {
 	static int num = 0;
@@ -281,43 +294,14 @@ void ft_put_texture_pix(t_vars *vars, mlx_image_t *img, mlx_texture_t *texture, 
 	// 	i++;
 	// }
 }
-char **temp_map()
-{
-	char **map_m;
-	map_m = malloc(sizeof(char **) * 11);
-	// map_m[0] = malloc(sizeof(char) * 13 +1);
-	map_m[0] = "1111111111";
-	map_m[1] = "1000000001";
-	map_m[2] = "1000000001";
-	map_m[3] = "1000000001";
-	map_m[4] = "1000000001";
-	map_m[5] = "1000000001";
-	map_m[6] = "100000N001";
-	map_m[7] = "1000000001";
-	map_m[8] = "1000000001";
-	map_m[9] = "1111111111";
-	// map->map_matrix[1] = [1,0,0,0,0,0,0,0,0,1];
-	// map->map_matrix[2] = [1,0,0,0,0,0,0,0,0,1];
-	// map->map_matrix[3] = [1,0,0,0,0,0,0,0,0,1];
-	// map->map_matrix[4] = [1,0,0,0,0,0,0,0,0,1];
-	// map->map_matrix[5] = [1,0,0,0,0,'N',0,0,0,1];
-	// map->map_matrix[6] = [1,0,0,0,0,0,0,0,0,1];
-	// map->map_matrix[7] = [1,0,0,0,0,0,0,0,0,1];
-	// map->map_matrix[8] = [1,0,0,0,0,0,0,0,0,1];
-	// map->map_matrix[9] = [1,1,1,1,1,1,1,1,1,1];
- return (map_m);
-}
 int32_t	main(void)
 {
 	t_vars *vars;
-	char 	**map;
-	vars = malloc(sizeof(t_vars));
-	// map = malloc(sizeof(t_map));
-	map = temp_map();
-	printf("%c\n", map[6][6]);
 
+	vars = malloc(sizeof(t_vars));
 	*vars = (t_vars){};
-	// ft_print_wall(vars, Xa, Ya,)
+// se crea estructura parse 
+
 	vars->start_draw_x = 20;
 	vars->start_draw_y = 50;
 	vars->size_x = 1024;
@@ -327,23 +311,24 @@ int32_t	main(void)
         error();
 	vars->gun_text = mlx_load_png("./gun.png");
 	vars->gun = mlx_texture_to_image(vars->mlx, vars->gun_text);
-	// vars->texture = mlx_load_png("RGBA_Test_Square_1024.png");
-	// vars->texture2img = mlx_texture_to_image(vars->mlx, vars->texture);
+	vars->texture = mlx_load_png("RGBA_Test_Square_1024.png");
+	vars->texture2img = mlx_texture_to_image(vars->mlx, vars->texture);
 	// ft_put_texture_pix(vars->texture, 0, 0);
 	// vars->texture2img = mlx_texture_to_image(vars->mlx, vars->texture);
 	// mlx_resize_image(vars->texture2img, 128, 128);
 	// mlx_resize_image(vars->gun, 100, 100);
 	vars->sky = mlx_new_image(vars->mlx, WIDTH + 60, HEIGHT + 60);
-	// vars->for_texture_print = mlx_new_image(vars->mlx, 512, 512);
+	vars->for_texture_print = mlx_new_image(vars->mlx, 512, 512);
 	ft_create_sky(vars, vars->sky, HEIGHT, WIDTH, ft_get_rgba(100, 210, 250, 250));
-	// vars->image = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
-	// if (!vars->image)
-		// error();
-
+	vars->image = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
+	if (!vars->image)
+		error();
+	uint32_t xy[2] = {100, 100};
+	uint32_t s[2] = {100, 100};
 	// printf("get time %f", mlx_get_time());
 
 	// vars->image = mlx_texture_area_to_image(vars->mlx, vars->texture, xy , s);
-	// vars->texture2img = mlx_texture_to_image(vars->mlx, vars->texture);
+	vars->texture2img = mlx_texture_to_image(vars->mlx, vars->texture);
 	// ft_put_texture_pix(vars, vars->image, vars->texture, 0, 0);
 	// ft_create_image(vars, vars->image, vars->size_x , vars->size_y, ft_get_rgba(200, 180, 100, 255));
 	// ft_create_image(vars, vars->image, vars->size_x, vars->size_y, ft_get_rgba(200, 180, 100, 255));
@@ -353,13 +338,13 @@ int32_t	main(void)
 	if (mlx_image_to_window(vars->mlx, vars->sky, 0, -60) < 0)
         error();
 		
-	// if (mlx_image_to_window(vars->mlx, vars->image, 0, 0) < 0)
-    //     error();
+	if (mlx_image_to_window(vars->mlx, vars->image, 0, 0) < 0)
+        error();
 	mlx_image_to_window(vars->mlx, vars->gun, 1024, 800);
 	// ft_put_texture_pix(vars, vars->for_texture_print, vars->texture, 0, 0);
 	// mlx_image_to_window(vars->mlx, vars->for_texture_print, 512, 512);
-	// mlx_image_to_window(vars->mlx, vars->texture2img,128, 128);
-	// mlx_image_to_window(vars->mlx, vars->texture2img,128 + vars->texture2img->width, 128);
+	mlx_image_to_window(vars->mlx, vars->texture2img,128, 128);
+	mlx_image_to_window(vars->mlx, vars->texture2img,128 + vars->texture2img->width, 128);
 	// mlx_image_to_window(vars->mlx, vars->texture2img,512,512);
 	// mlx_image_to_window(vars->mlx, vars->texture2img, 0, 0);
 	mlx_loop_hook(vars->mlx, ft_hook, vars);
