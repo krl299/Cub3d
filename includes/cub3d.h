@@ -23,7 +23,7 @@
 
 #define WIDTH 2048
 #define HEIGHT 1024
-#define KOEF_X 10
+#define KOEF 64
 #define SPEEX 5
 #define SPEEY 5
 
@@ -45,6 +45,7 @@ typedef struct var_idnf
 	mlx_image_t* texture3img;
 	mlx_image_t* for_texture_print;
 	xpm_t* xpm;
+	int cam[2];
 	int		size_x;
 	int		size_y;
 	int		new_size_h;

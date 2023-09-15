@@ -292,10 +292,14 @@ char **temp_map()
 	map_m[3] = "1000000001";
 	map_m[4] = "1000000001";
 	map_m[5] = "1000000001";
-	map_m[6] = "100000N001";
+	map_m[6] = "1000000001";
 	map_m[7] = "1000000001";
-	map_m[8] = "1000000001";
+	map_m[8] = "1000N00001";
 	map_m[9] = "1111111111";
+	map_m[10] = NULL;
+	// int i = -1;
+	// while(map_m[0][++i])
+	// 	printf("test%c\n", map_m[0][i]);
 	// map->map_matrix[1] = [1,0,0,0,0,0,0,0,0,1];
 	// map->map_matrix[2] = [1,0,0,0,0,0,0,0,0,1];
 	// map->map_matrix[3] = [1,0,0,0,0,0,0,0,0,1];
@@ -307,67 +311,153 @@ char **temp_map()
 	// map->map_matrix[9] = [1,1,1,1,1,1,1,1,1,1];
  return (map_m);
 }
+void ft_read_map(t_vars *vars)
+{
+	
+	int x = -1;
+	int y = 0;
+	while (vars->map[++x] != NULL)
+	{
+		y = -1;
+		while(vars->map[x][++y])
+		{
+			if (vars->map[x][y] == 'N')
+			{
+				printf("asd asd%d    %d", x, y);
+				vars->cam[0] = y;
+				vars->cam[1] = x;
+				return ;
+			}
+		}
+	}
+	printf("ERRRROR");
+
+}
+int ft_get_fwall(t_vars *vars)
+{
+	int x;
+	int y;
+	int dist;
+
+	x = vars->cam[0];
+	y = vars->cam[1];
+	dist = 0;
+	printf("y YYY%d", y);
+	while (y != 0)
+	{
+		printf("csedf %c\n",  vars->map[x][y]);
+		if (vars->map[x][y--] == '1')
+			break ;
+		dist++;
+		
+	}
+	return(dist);
+}
+void ft_print_other_pix(t_vars *vars)
+{
+	float sec_line = WIDTH/2;
+	float dist;
+	float len;
+	float media;
+
+	dist = sqrt((sec_line - vars->cam[0] * KOEF )*(sec_line - vars->cam[0] * KOEF));// + (0 - vars->cam[1]  * KOEF)*(0 - vars->cam[1] * KOEF));
+	printf("dist2 %f\n", dist);
+	len = HEIGHT - dist;
+	media = (HEIGHT - len) /2;
+	int step = 0;
+	float sec_step = sec_line;
+	while(--sec_line >= 0)
+	{
+		dist = sqrt((sec_step - vars->cam[1] * KOEF)*(sec_step - vars->cam[1] * KOEF )); //+ (vars->cam[1] - vars->cam[1])*(vars->cam[1] - vars->cam[1]));
+		printf("dist %f\n", dist);
+		len = HEIGHT - dist;
+		media = (HEIGHT - len) /2;
+		step = 0;
+		while (len > step)
+		{
+			step++;
+			mlx_put_pixel(vars->image, sec_line, media++, 255);
+		}
+		sec_step+=0.03;
+	}
+	sec_line = WIDTH/2;
+	dist = sqrt((sec_line - vars->cam[0] * KOEF )*(sec_line - vars->cam[0] * KOEF));// + (0 - vars->cam[1]  * KOEF)*(0 - vars->cam[1] * KOEF));
+	printf("dist2 %f\n", dist);
+	len = HEIGHT - dist;
+	media = (HEIGHT - len) /2;
+	step = 0;
+	sec_step = sec_line;
+		while(++sec_line <= WIDTH)
+	{
+		dist = sqrt((sec_step - vars->cam[1] * KOEF)*(sec_step - vars->cam[1] * KOEF )); //+ (vars->cam[1] - vars->cam[1])*(vars->cam[1] - vars->cam[1]));
+		printf("dist %f\n", dist);
+		len = HEIGHT - dist;
+		media = (HEIGHT - len) /2;
+		step = 0;
+		while (len > step)
+		{
+			step++;
+			mlx_put_pixel(vars->image, sec_line, media++, 255);
+		}
+		sec_step+=0.03;
+	}
+}
+
+void ft_print_fline(t_vars *vars)
+{
+	int dist;
+	float wall[2];
+	dist = ft_get_fwall(vars) * KOEF;
+	printf("dist%d\n", dist);
+	int len = HEIGHT - dist;
+	int media = (HEIGHT - len) /2;
+	printf("media %d\n", media);
+	int step = 0;
+	while (len != step)
+	{
+		step++;
+		mlx_put_pixel(vars->image, WIDTH/2, media++, 255);		
+	}
+	ft_print_other_pix(vars);
+}
+void ft_touch_wall(t_vars *vars)
+{
+	int wall[2];
+
+	ft_print_fline(vars);
+	// while(vars->map[i][j] != '1')
+
+
+}
+void ft_print_wall(t_vars *vars)
+{
+	ft_read_map(vars);
+	ft_touch_wall(vars);
+
+}
+
 int32_t	main(void)
 {
 	t_vars *vars;
-	char 	**map;
 	vars = malloc(sizeof(t_vars));
-	// map = malloc(sizeof(t_map));
-	map = temp_map();
-	printf("%c\n", map[6][6]);
-
 	*vars = (t_vars){};
-	// ft_print_wall(vars, Xa, Ya,)
-	vars->start_draw_x = 20;
-	vars->start_draw_y = 50;
-	vars->size_x = 1024;
-	vars->size_y = 1024;
+	// map = malloc(sizeof(t_map));
+	vars->map = temp_map();
+	// printf("%c\n", vars->map[6][6]);
 	vars->mlx = mlx_init(WIDTH, HEIGHT, "Test", true);
 	if (!vars->mlx)
         error();
-	vars->gun_text = mlx_load_png("./gun.png");
-	vars->gun = mlx_texture_to_image(vars->mlx, vars->gun_text);
-	// vars->texture = mlx_load_png("RGBA_Test_Square_1024.png");
-	// vars->texture2img = mlx_texture_to_image(vars->mlx, vars->texture);
-	// ft_put_texture_pix(vars->texture, 0, 0);
-	// vars->texture2img = mlx_texture_to_image(vars->mlx, vars->texture);
-	// mlx_resize_image(vars->texture2img, 128, 128);
-	// mlx_resize_image(vars->gun, 100, 100);
-	vars->sky = mlx_new_image(vars->mlx, WIDTH + 60, HEIGHT + 60);
-	// vars->for_texture_print = mlx_new_image(vars->mlx, 512, 512);
-	ft_create_sky(vars, vars->sky, HEIGHT, WIDTH, ft_get_rgba(100, 210, 250, 250));
-	// vars->image = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
-	// if (!vars->image)
-		// error();
-
-	// printf("get time %f", mlx_get_time());
-
-	// vars->image = mlx_texture_area_to_image(vars->mlx, vars->texture, xy , s);
-	// vars->texture2img = mlx_texture_to_image(vars->mlx, vars->texture);
-	// ft_put_texture_pix(vars, vars->image, vars->texture, 0, 0);
-	// ft_create_image(vars, vars->image, vars->size_x , vars->size_y, ft_get_rgba(200, 180, 100, 255));
-	// ft_create_image(vars, vars->image, vars->size_x, vars->size_y, ft_get_rgba(200, 180, 100, 255));
-	// ft_print_texture(vars, vars->texture2img);
-	// printf("get time %f", mlx_get_time());
-
-	if (mlx_image_to_window(vars->mlx, vars->sky, 0, -60) < 0)
+	vars->sky = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
+	vars->image = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
+	ft_create_sky(vars, vars->sky, WIDTH, HEIGHT, ft_get_rgba(100, 210, 250, 250));
+	if (mlx_image_to_window(vars->mlx, vars->sky, 0, 0) < 0)
         error();
-		
-	// if (mlx_image_to_window(vars->mlx, vars->image, 0, 0) < 0)
-    //     error();
-	mlx_image_to_window(vars->mlx, vars->gun, 1024, 800);
-	// ft_put_texture_pix(vars, vars->for_texture_print, vars->texture, 0, 0);
-	// mlx_image_to_window(vars->mlx, vars->for_texture_print, 512, 512);
-	// mlx_image_to_window(vars->mlx, vars->texture2img,128, 128);
-	// mlx_image_to_window(vars->mlx, vars->texture2img,128 + vars->texture2img->width, 128);
-	// mlx_image_to_window(vars->mlx, vars->texture2img,512,512);
-	// mlx_image_to_window(vars->mlx, vars->texture2img, 0, 0);
+	ft_print_wall(vars);
+	if (mlx_image_to_window(vars->mlx, vars->image, 0, 0) < 0)
+		error();
 	mlx_loop_hook(vars->mlx, ft_hook, vars);
-	// mlx_mouse_hook(vars->mlx, &my_mouse_hook, vars);
-	// mlx_mousefunc(vars->mlx, true);
-	// mlx_scroll_hook(vars->mlx, my_scrollhook, vars);
 	mlx_loop(vars->mlx);
-	mlx_delete_image(vars->mlx, vars->image);
+	mlx_delete_image(vars->mlx, vars->sky);
 	mlx_terminate(vars->mlx);
 	
 	return (EXIT_SUCCESS);
