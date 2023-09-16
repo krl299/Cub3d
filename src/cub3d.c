@@ -89,18 +89,32 @@ void ft_print_wall(int wall, int x, int y, t_vars *vars)
 	}
 	else if (wall == 2)
 	{
+		if (vars->mini_unit == NULL)
+			vars->mini_unit = mlx_new_image(vars->mlx, one, one);
 		int i = -1;
+		int unit_x = 0;
+		int unit_y = 0;
+		vars->put_unit_y = x * one + (HEIGHT - (WIDTH/4/vars->len_mm[1]) * vars->len_mm[0]);
+		vars->put_unit_x = y * one;
 		while(++i < one)
 		{
 			int j = -1;
+			unit_y = 0;
 			while(++j < one)
 			{
 				if (one/2 <= 5 + sqrt(pow(i - one/2, 2) + pow(j - one/2, 2)))
-					mlx_put_pixel(vars->mini_map, y * one + j, x * one + i, 0x00FF00FF);
+				{
+					mlx_put_pixel(vars->mini_unit, unit_x, unit_y++, 0x00FF00FF);
+					mlx_put_pixel(vars->mini_map, y * one + j, x * one + i, 0x00FF00FF);					
+				}
 				else
-					mlx_put_pixel(vars->mini_map, y * one + j, x * one + i, 0xFF5555FF);
+				{
+					mlx_put_pixel(vars->mini_unit, unit_x, unit_y++,  0xFF5555FF);
+					mlx_put_pixel(vars->mini_map, y * one + j, x * one + i, 0x00FF00FF);
+				}
 				// mlx_put_pixel(vars->mini_map, y * one + j, x * one + i, 0xFFFFFFFF);
 			}
+			unit_x++;
 		}
 	}
 }
@@ -120,7 +134,32 @@ void ft_maxlen_mm(t_vars *vars)
 	}
 	vars->len_mm[0] = x;
 }
+void ft_trace_line(t_vars *vars)
+{
+	int len_cube = WIDTH/4/vars->len_mm[1];
+	float trace_len = 1.5;
+	vars->mini_u_angle = 1.0;
+	float x;
+	float y;
+	tracers
+	while(trace_len != 100)
+	{
+		x = (float)vars->put_unit_x + trace_len * cos(vars->mini_u_angle);
+		y = (float)vars->put_unit_y + trace_len * sin(vars->mini_u_angle);
+		trace_len += 0.05;
+		printf("x = %d, y = %d\n", (int)x/len_cube, (int)y/len_cube);
+		mlx_put_pixel(vars->mini_map, (int)y, (int)x, 0x00000000);
+		printf("vars->map[(int)(x/len_cube)][(int)(y/len_cube)] %c\n", vars->map[(int)(x/len_cube)][(int)(y/len_cube)]);
+		if (vars->map[(int)(x/len_cube)][(int)(y/len_cube)] == '1')
+		{
+			printf("x wall = %d, y wall = %d\n", (int)(x/len_cube), (int)(y/len_cube));
+			break;
 
+		}
+	}
+	printf("vars->put_unit_x = %d, vars->put_unit_y = %d\n", vars->put_unit_x/len_cube, vars->put_unit_y/len_cube);
+
+}
 void ft_create_mmap(t_vars *vars)
 {
 	int x= -1;
@@ -143,10 +182,9 @@ void ft_create_mmap(t_vars *vars)
 			{
 				ft_print_wall(2, x, y, vars);
 			}
-		}
-		
+		}	
 	}
-	
+	ft_trace_line(vars);
 }
 int32_t	main(void)
 {
@@ -165,8 +203,10 @@ int32_t	main(void)
 	ft_create_mmap(vars);
 	mlx_image_to_window(vars->mlx, vars->sky, 0, 0);
 	mlx_image_to_window(vars->mlx, vars->mini_map, 0, HEIGHT - (WIDTH/4/vars->len_mm[1]) * vars->len_mm[0]);
+	mlx_image_to_window(vars->mlx, vars->mini_unit, vars->put_unit_x, vars->put_unit_y);
+	printf("put_unit_x = %d, put_unit_y = %d\n", vars->put_unit_x, vars->put_unit_y);
         // error();	
-	// mlx_loop_hook(vars->mlx, ft_hook, vars);
+	mlx_loop_hook(vars->mlx, ft_hook, vars);
 	mlx_loop(vars->mlx);
 	mlx_delete_image(vars->mlx, vars->sky);
 	mlx_terminate(vars->mlx);

@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	./src/cub3d.c ./src/utils.c
+SRCS		=	./src/cub3d.c ./src/utils.c ./src/hooks.c
 
 OBJS		=	${SRCS:.c=.o}
 
@@ -42,7 +42,7 @@ lib:
 	make -C ${LIBFT} extra
 	cmake ${LIBMLX} -B ${MLXBUILD} && make -C ${MLXBUILD} -j4
 
-$(NAME): ${OBJS}
+$(NAME): ${OBJS} ./includes/cub3d.h
 	${GCC} ${OBJS} ${LIBS} -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" ${HEADERS} -o ${NAME}
 
 clean:

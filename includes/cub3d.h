@@ -24,7 +24,7 @@
 #define WIDTH 2048
 #define HEIGHT 1024
 #define KOEF 64
-#define SPEEX 5
+#define SPEEX 1
 #define SPEEY 5
 
 typedef struct var_map
@@ -39,6 +39,7 @@ typedef struct var_idnf
 	mlx_image_t* image;
 	mlx_image_t* sky;
 	mlx_image_t* mini_map;
+	mlx_image_t* mini_unit;
 	mlx_image_t* gun;
 	mlx_texture_t *gun_text;
 	mlx_texture_t* texture;
@@ -46,6 +47,9 @@ typedef struct var_idnf
 	mlx_image_t* texture3img;
 	mlx_image_t* for_texture_print;
 	xpm_t* xpm;
+	float mini_u_angle;
+	int put_unit_x;
+	int put_unit_y;
 	int len_mm[2];
 	int cam[2];
 	int		size_x;
@@ -69,5 +73,6 @@ typedef struct var_idnf
 
 int ft_get_rgba(int r, int g, int b, int a);
 void ft_create_sky(t_vars *vars, mlx_image_t *img, int size, int size2, unsigned int col);
+void ft_hook(void* param);
 
 # endif
