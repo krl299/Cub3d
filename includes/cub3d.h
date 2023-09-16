@@ -38,6 +38,7 @@ typedef struct var_idnf
 	mlx_t* 	mlx;
 	mlx_image_t* image;
 	mlx_image_t* sky;
+	mlx_image_t* mini_map;
 	mlx_image_t* gun;
 	mlx_texture_t *gun_text;
 	mlx_texture_t* texture;
@@ -45,6 +46,7 @@ typedef struct var_idnf
 	mlx_image_t* texture3img;
 	mlx_image_t* for_texture_print;
 	xpm_t* xpm;
+	int len_mm[2];
 	int cam[2];
 	int		size_x;
 	int		size_y;
