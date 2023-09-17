@@ -88,60 +88,39 @@ void ft_print_wall(int wall, int x, int y, t_vars *vars)
 			}
 		}
 	}
-}
-
-void ft_mini_unit(int x, int y, t_vars *vars)
-{
-	if (vars->mini_unit == NULL)
-		vars->mini_unit = mlx_new_image(vars->mlx, vars->len_char * vars->len_mm[0], vars->len_char * vars->len_mm[0]);
-	vars->mini_unit_xy[0] = x;
-	vars->mini_unit_xy[1] = y;
-	vars->cont_y = 1;
-	vars->cont_x = 1;
-	printf("vars->mini_unit_xy[0]%d, vars->mini_unit_xy[1]%d\n", vars->mini_unit_xy[0], vars->mini_unit_xy[1]);
-	int i = -1;
-	int save_y = y;
-	int j = -1;
-	while(++i <  vars->len_char )
+	else if (wall == 2)
 	{
-		int j = -1;
-		while(++j <  vars->len_char )
+		if (vars->mini_unit == NULL)
+			vars->mini_unit = mlx_new_image(vars->mlx, vars->len_char * vars->len_mm[0], vars->len_char * vars->len_mm[1]);
+		int i = -1;
+		int unit_x = 0;
+		int unit_y = 0;
+		vars->put_unit_y = x * one + (HEIGHT - (WIDTH/4/vars->len_mm[1]) * vars->len_mm[0]);
+		vars->put_unit_x = y * one;
+		while(++i < one)
 		{
-			if (vars->len_char/2 <= 5 + sqrt(pow(i -  vars->len_char/2, 2) + pow(j -  vars->len_char/2, 2)))
+			int j = -1;
+			unit_y = 0;
+			while(++j < one)
 			{
-				mlx_put_pixel(vars->mini_map, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
-				mlx_put_pixel(vars->mini_unit, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
-				// mlx_put_pixel(vars->mini_unit, y *  vars->len_char  + j, x *  vars->len_char  + i, 0x00FF00FF);	
-			}
-			else
-			{
-				mlx_put_pixel(vars->mini_map, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
-				mlx_put_pixel(vars->mini_unit, y *  vars->len_char  + j, x *  vars->len_char  + i, ft_get_rgba(255, 0, 0, 255));
+				if (one/2 <= 5 + sqrt(pow(i - one/2, 2) + pow(j - one/2, 2)))
+				{
+					mlx_put_pixel(vars->mini_map, y * one + j, x * one + i, 0x00FF00FF);	
+					mlx_put_pixel(vars->mini_unit, unit_x, unit_y++, 0x00FF00FF);
 
+				}
+				else
+				{
+					mlx_put_pixel(vars->mini_map, y * one + j, x * one + i, 0x00FF00FF);
+					mlx_put_pixel(vars->mini_unit, unit_x, unit_y++,  0xFF5555FF);
+
+				}
+				// mlx_put_pixel(vars->mini_map, y * one + j, x * one + i, 0xFFFFFFFF);
 			}
-			// mlx_put_pixel(vars->mini_map, y *  vars->len_char  + j, x *  vars->len_char  + i, 0xFFFFFFFF);
+			unit_x++;
 		}
 	}
-		// while(++j <  vars->len_char)
-		// {
-		// 	if (vars->len_char/2 <= 5 + sqrt(pow(i -  vars->len_char/2, 2) + pow(j -  vars->len_char/2, 2)))
-		// 	{
-		// 		mlx_put_pixel(vars->mini_map, x, y + i, 0x00FF00FF);	
-		// 		mlx_put_pixel(vars->mini_unit, x, y * vars->len_char + i, 0x00FF00FF);
-
-		// 	}
-		// 	else
-		// 	{
-		// 		// mlx_put_pixel(vars->mini_map, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
-		// 		// mlx_put_pixel(vars->mini_unit,  y * vars->len_char + j, x * vars->len_char + i,  0xFF5555FF);
-
-		// 	}
-		// 	// mlx_put_pixel(vars->mini_map, y * one + j, x * one + i, 0xFFFFFFFF);
-		// }
-		// x++;
-	// }
 }
-
 void ft_maxlen_mm(t_vars *vars)
 {
 	int x = -1;
@@ -149,7 +128,10 @@ void ft_maxlen_mm(t_vars *vars)
 	{
 		int y = -1;
 		while(vars->map[x][++y])
-			;
+		{
+
+	
+		}
 		if (vars->len_mm[1] < y)
 			vars->len_mm[1] = y;
 	}
@@ -203,11 +185,11 @@ void ft_create_mmap(t_vars *vars)
 			{
 				vars->mini_unit_xy[0] = x;
 				vars->mini_unit_xy[1] = y;
-				ft_mini_unit(x, y, vars);
+				ft_print_wall(2, x, y, vars);
 			}
 		}	
 	}
-	// ft_trace_line(vars);
+	ft_trace_line(vars);
 }
 int32_t	main(void)
 {
@@ -224,13 +206,11 @@ int32_t	main(void)
 	vars->mini_map = mlx_new_image(vars->mlx, WIDTH/4, WIDTH/4);
 	ft_create_sky(vars, vars->sky, WIDTH, HEIGHT, ft_get_rgba(100, 210, 250, 250));
 	ft_create_mmap(vars);
-	vars->start_draw_y_mm = HEIGHT - (WIDTH/4/vars->len_mm[1]) * vars->len_mm[0];
 	mlx_image_to_window(vars->mlx, vars->sky, 0, 0);
-	mlx_image_to_window(vars->mlx, vars->mini_map, 0, vars->start_draw_y_mm);
-	mlx_image_to_window(vars->mlx, vars->mini_unit, 0, vars->start_draw_y_mm);
+	mlx_image_to_window(vars->mlx, vars->mini_map, 0, HEIGHT - (WIDTH/4/vars->len_mm[1]) * vars->len_mm[0]);
+	mlx_image_to_window(vars->mlx, vars->mini_unit, vars->put_unit_x, vars->put_unit_y);
 	printf("put_unit_x = %d, put_unit_y = %d\n", vars->put_unit_x, vars->put_unit_y);
         // error();	
-	
 	mlx_loop_hook(vars->mlx, ft_hook, vars);
 	mlx_loop(vars->mlx);
 	mlx_delete_image(vars->mlx, vars->sky);

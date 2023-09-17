@@ -48,10 +48,15 @@ typedef struct var_idnf
 	mlx_image_t* for_texture_print;
 	xpm_t* xpm;
 	float mini_u_angle;
+	int start_draw_y_mm;
 	int put_unit_x;
 	int put_unit_y;
+	int len_char;
+	int mini_unit_xy[2];
 	int len_mm[2];
 	int cam[2];
+	int 	cont_x;
+	int 	cont_y;
 	int		size_x;
 	int		size_y;
 	int		new_size_h;
