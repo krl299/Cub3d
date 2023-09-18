@@ -6,12 +6,11 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/18 15:12:03 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:12:00 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-#include <ctype.h>
 
 void	ft_error_msg(int i)
 {
@@ -34,35 +33,6 @@ Wrong arguments. Must execute like: ./cub3d <'path to map file'.cub>\n", 2);
 		ft_putstr_fd("Error.\nInvalid file.\n", 2);
 }
 
-void	ft_extension_file(char *str, char **file_ext)
-{
-	char	*extension;
-	char	*tmp;
-
-	extension = NULL;
-	tmp = ft_strchr(str, '/');
-	while (tmp != NULL)
-	{
-		extension = ++tmp;
-		tmp  = ft_strchr(tmp, '/');
-	}
-	extension  = ft_strchr(extension, '.');
-	if (extension != NULL)
-	{
-	extension[ft_strlen(extension)] = 0;
-		if (ft_strncmp(extension, ".cub\0", 5) == 0)
-			*file_ext = ft_strdup("cub");
-		else if (ft_strncmp(extension, ".png\0", 5) == 0)
-			*file_ext = ft_strdup("png");
-		else if (ft_strncmp(extension, ".xmp42\0", 7) == 0)
-			*file_ext = ft_strdup("xmp42");
-		else
-			*file_ext = NULL;
-	}
-	else
-		*file_ext = NULL;
-}
-
 void	ft_init_info(t_file_info *info)
 {
 	info->fd = 0;
@@ -79,59 +49,6 @@ void	ft_init_info(t_file_info *info)
 	info->floor_color = NULL;
 	info->ceiling_color = NULL;
 	info->map = NULL;
-}
-
-void	ft_get_textures(t_file_info *info)
-{
-//	search for texture of walls starting by NO, SO, WE, EA
-//	check if can open texture and extension in case that can open it
-//	check if color is on rgb spectrum (0,255)
-//	get the map with spaces
-
-	char	*line;
-	int		fd;
-
-	line = get_next_line(info->fd);
-	while (line != NULL)
-	{
-		while (isspace(*line) == 1)
-			line++;
-		if (ft_strncmp(line, "NO ", 3) == 0)
-		{
-			line += 3;
-			while (isspace(*line) == 1)
-				line++;
-			info->no_texture = ft_strtrim(line, " \n");
-			fd = open(info->no_texture, O_RDONLY);
-			if (fd == -1)
-				ft_error_msg(4);
-			else
-				close(fd);
-			ft_extension_file(info->no_texture, &info->no_extension);
-		}
-		line = get_next_line(info->fd);
-	}
-}
-
-void	ft_check_arg(char *str, t_file_info *info)
-{
-	int	fd;
-//	check if has the correct extension "*.cub"
-//	check if can open it
-//	check format of file
-
-	ft_extension_file(str, &info->file_extension);
-	if (info->file_extension != NULL && ft_strncmp(info->file_extension, "cub", 3) == 0)
-	{
-			fd = open(str, O_RDONLY);
-			if (fd == -1)
-				ft_error_msg(2);
-			info->fd = fd;
-			info->file_path = ft_strdup(str);
-			ft_get_textures(info);
-	}
-	else
-		ft_error_msg(7);
 }
 
 void	ft_print_info(t_file_info *info)
@@ -152,6 +69,14 @@ void	ft_print_info(t_file_info *info)
 //	printf("ceiling rgb : (%d, %d, %d)", info->floor_color->r, info->floor_color->g, info->floor_color->b);
 	//map
 //	ft_print_map(info->map);
+}
+
+int	ft_isspace(int c)
+{
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == 'r' || c == ' ')
+		return (1);
+	else
+		return (0);
 }
 
 int	main(int argc, char *argv[])

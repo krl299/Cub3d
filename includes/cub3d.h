@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:39:19 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/14 12:14:40 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:42:35 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,15 @@ typedef struct s_file_info
 	char	**map;
 }	t_file_info;
 
-//	Check args functions
+//	Parser.c	
 void	ft_check_arg(char *str, t_file_info *info);
+void	ft_extension_file(char *str, char **file_ext);
+void	ft_get_textures(t_file_info *info);
 
 //	Error functions
 void	ft_error_msg(int i);
+
+//	Funtions to add on libft
+int		ft_isspace(int c);
 
 #endif
