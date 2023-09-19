@@ -6,11 +6,35 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 08:49:06 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/19 12:13:24 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:56:46 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+void	ft_get_textures(t_file_info *info)
+{
+	char	*line;
+	char	*tmp;
+
+	line = get_next_line(info->fd);
+	while (line != NULL)
+	{
+		tmp = line;
+		while (ft_isspace(*line) == 1)
+			line++;
+		if (ft_strncmp(line, "NO ", 3) == 0)
+			ft_get_no_texture(info, line);
+		else if (ft_strncmp(line, "SO ", 3) == 0)
+			ft_get_so_texture(info, line);
+		else if (ft_strncmp(line, "WE ", 3) == 0)
+			ft_get_we_texture(info, line);
+		else if (ft_strncmp(line, "EA ", 3) == 0)
+			ft_get_ea_texture(info, line);
+		free(tmp);
+		line = get_next_line(info->fd);
+	}
+}
 
 void	ft_get_no_texture(t_file_info *info, char *line)
 {	
