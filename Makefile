@@ -38,17 +38,17 @@ RM 			= 	rm -rf
 all:	lib	$(NAME)
 
 lib:
-	git submodule update --init
-	make -C ${LIBFT} extra
-	cmake ${LIBMLX} -B ${MLXBUILD} && make -C ${MLXBUILD} -j4
+	# git submodule update --init
+	# make -C ${LIBFT} extra
+	# cmake ${LIBMLX} -B ${MLXBUILD} && make -C ${MLXBUILD} -j4
 
 $(NAME): ${OBJS} ./includes/cub3d.h
 	${GCC} ${OBJS} ${LIBS} -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" ${HEADERS} -o ${NAME}
 
 clean:
 	${RM} ${OBJS}
-	make -C ${LIBFT} fclean
-	rm -rf ./libraries/MLX42/build
+	# make -C ${LIBFT} fclean
+	# rm -rf ./libraries/MLX42/build
 
 fclean: clean
 	${RM} ${NAME}

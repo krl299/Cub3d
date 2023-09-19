@@ -55,8 +55,12 @@ typedef struct var_idnf
 	int mini_unit_xy[2];
 	int len_mm[2];
 	int cam[2];
-	int 	cont_x;
+	int 	cont_x_right;
+	int 	cont_x_left;
+	int 	cont_y_up;
+	int 	cont_y_down;
 	int 	cont_y;
+	int 	cont_x;
 	int		size_x;
 	int		size_y;
 	int		new_size_h;
