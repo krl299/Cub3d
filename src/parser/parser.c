@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:33:43 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/19 12:56:51 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/19 16:25:15 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ft_extension_file(char *str, char **file_ext)
 //	check format of file
 //	search for texture of walls starting by NO, SO, WE, EA
 //	check if can open texture and extension in case that can open it
+//	check if there are more than one texture
 //	check if color is on rgb spectrum (0,255)
 //	get the map with spaces
 void	ft_check_arg(char *str, t_file_info *info)

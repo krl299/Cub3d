@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/19 12:13:48 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:45:56 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main(int argc, char *argv[])
 		ft_init_info(&info);
 		ft_check_arg(argv[1], &info);
 		ft_print_info(&info);
+		ft_clean_info(&info);
 	}
 	else
 	{
