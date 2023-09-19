@@ -18,29 +18,29 @@ char **temp_map()
 {
 	char **map_m;
 	map_m = malloc(sizeof(char **) * 50);
-	map_m[0] = malloc(sizeof(char) * 13 +1);
-	map_m[0] = "111111";
-	map_m[1] = "1N0000111111111111";
-	map_m[2] = "100000000000000001";
-	map_m[3] = "100000000000000001";
-	map_m[4] = "100000000000000001";
-	map_m[5] = "101111111100000001";
-	map_m[6] = "100000000111111111";
-	map_m[7] = "1001001111";
-	map_m[8] = "1001000001";
-	map_m[9] = "1000000001";
-	map_m[10] = "1000000001";
-	map_m[11] = "1000000001";
-	map_m[12] = "1000000001";
-	map_m[13] = "1111111111";
-	map_m[14] = NULL;
-
+	// map_m[0] = malloc(sizeof(char) * 13 +1);
 	// map_m[0] = "111111";
-	// map_m[1] = "1N0001";
-	// map_m[2] = "100101";
-	// map_m[3] = "100001";
-	// map_m[4] = "111111";
-	// map_m[5] = NULL;
+	// map_m[1] = "1N0000111111111111";
+	// map_m[2] = "100000000000000001";
+	// map_m[3] = "100000000000000001";
+	// map_m[4] = "100000000000000001";
+	// map_m[5] = "101111111100000001";
+	// map_m[6] = "100000000111111111";
+	// map_m[7] = "1001001111";
+	// map_m[8] = "1001000001";
+	// map_m[9] = "1000000001";
+	// map_m[10] = "1000000001";
+	// map_m[11] = "1000000001";
+	// map_m[12] = "1000000001";
+	// map_m[13] = "1111111111";
+	// map_m[14] = NULL;
+
+	map_m[0] = "111111";
+	map_m[1] = "1N0001";
+	map_m[2] = "100101";
+	map_m[3] = "100001";
+	map_m[4] = "111111";
+	map_m[5] = NULL;
  return (map_m);
 }
 void ft_read_map(t_vars *vars)
@@ -104,7 +104,7 @@ void ft_mini_unit(int x, int y, t_vars *vars)
 	vars->mini_unit_xy[1] = y;
 	vars->cont_y_down = 1;
 	vars->cont_y_up = vars->len_char;
-	vars->cont_x_left = 1;
+	vars->cont_x_left = vars->len_char;
 	vars->cont_x_right = 1;
 	printf("vars->mini_unit_xy[0]%d, vars->mini_unit_xy[1]%d\n", vars->mini_unit_xy[0], vars->mini_unit_xy[1]);
 	int i = -1;
