@@ -6,11 +6,11 @@
 #    By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/18 16:11:23 by cmoran-l         ###   ########.fr        #
+#    Updated: 2023/09/19 10:51:29 by cmoran-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	./src/cub3d.c ./src/parser/parser.c
+SRCS		=	./src/parser/error_parser.c ./src/cub3d.c ./src/parser/parser.c	./src/parser/textures.c	./src/parser/init.c	./src/parser/test.c
 
 OBJS		=	${SRCS:.c=.o}
 
