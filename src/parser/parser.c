@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:33:43 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/19 16:25:15 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:10:02 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,51 @@ void	ft_extension_file(char *str, char **file_ext)
 		*file_ext = NULL;
 }
 
+void	ft_get_color(t_rgb *color, char *line)
+{
+	int		i;
+	int		j;
+	char	**rgb;
+
+	i = 0;
+	j = 0;
+	rgb = ft_split(line, ',');
+	while (rgb[i] != NULL)
+		i++;
+	if (i == 2)
+	{
+		color->r = ft_atoi(rgb[0]);
+		color->g = ft_atoi(rgb[1]);
+		color->b = ft_atoi(rgb[2]);
+	}
+	else
+		ft_error_msg(8, NULL);
+	while (rgb[j] != NULL)
+		free(rgb[j++]);
+	free(rgb);
+}
+
+void	ft_get_colors(t_file_info *info)
+{
+	char	*line;
+	char	*tmp;
+
+	line = get_next_line(info->fd);
+	printf("line : %s\n", line);
+	while (line != NULL || (info->floor_color == NULL && info->ceiling_color == NULL))
+	{
+		tmp = line;
+		while (ft_isspace(*line) == 1)
+			line++;
+		if (ft_strncmp(line, "F ", 2) == 0)
+			ft_get_color(info->floor_color, line);
+		else if (ft_strncmp(line, "C ", 2) == 0)
+			ft_get_color(info->ceiling_color, line);
+		free(tmp);
+		line = get_next_line(info->fd);
+	}
+}
+
 //	check if has the correct extension "*.cub"
 //	check if can open it
 //	check format of file
@@ -63,6 +108,8 @@ ft_strncmp(info->file_extension, "cub", 3) == 0)
 		info->fd = fd;
 		info->file_path = ft_strdup(str);
 		ft_get_textures(info);
+		ft_print_info(info);
+		//ft_get_colors(info);
 	}
 	else
 		ft_error_msg(7, info);

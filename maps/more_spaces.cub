@@ -1,9 +1,14 @@
-       NO      ./path_to_the_north_texture.png      
-                                 SO                          ./path_to_the_south_texture.png
-   WE    ./path_to_the_west_texture.png
-                        EA                   ./path_to_the_east_texture.png
+       NO      ./maps/no.png      
+
+                                 SO                          ./maps/so.xmp42
+
+   WE    ./maps/we.png
+
+                        EA                   ./maps/ea.xmp42
+
 
            F           220,100,0
+
   C    225,30,0
 
         1111111111111111111111111

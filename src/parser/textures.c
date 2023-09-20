@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 08:49:06 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/20 12:24:31 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:09:27 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ info->ea_texture == NULL))
 			ft_get_we_texture(info, line);
 		else if (ft_strncmp(line, "EA ", 3) == 0)
 			ft_get_ea_texture(info, line);
+		printf("line : %s\n", tmp);
 		free(tmp);
 		line = get_next_line(info->fd);
 	}
