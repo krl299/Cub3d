@@ -1,7 +1,7 @@
 NO ./maps/no.png     
-SO ./maps/no.png
+SO ./maps/so.png
 WE ./maps/we.png
-EA ./maps/ea.png
+EA ./maps/we.png
 
 F	220,100,0
 C	225,30,0
