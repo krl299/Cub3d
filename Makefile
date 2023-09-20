@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+         #
+#    By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/19 10:51:29 by cmoran-l         ###   ########.fr        #
+#    Updated: 2023/09/20 11:58:48 by cmoran-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,5 +54,8 @@ fclean: clean
 	${RM} ${NAME}
 
 re: fclean all
+
+linux: fclean lib ${OBJS}
+	${GCC} ${OBJS} ${LIBS} -ldl -lglfw -pthread -lm ${HEADERS} -o ${NAME}
 
 .PHONY: all clean fclean re lib
