@@ -91,7 +91,7 @@ void ft_hook(void* param)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_S))
 	{
 		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->len_char);
-		if(vars->map[(vars->cont_x_left + vars->len_char) / vars->len_char][(vars->cont_y_up + vars->len_char) / vars->len_char] != '1' &&\
+		if(vars->map[(vars->cont_x_left + vars->len_char) / vars->len_char][(vars->cont_y_up + vars->len_char - 1) / vars->len_char] != '1' &&\
 			vars->map[(vars->cont_x_left+ vars->len_char)/ vars->len_char][vars->cont_y_up  / vars->len_char] != '1')
 		{
 			vars->cont_x_left++;
