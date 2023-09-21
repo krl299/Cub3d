@@ -35,12 +35,13 @@ char **temp_map()
 	// map_m[13] = "1111111111";
 	// map_m[14] = NULL;
 
-	map_m[0] = "111111";
-	map_m[1] = "1N0001";
-	map_m[2] = "100101";
-	map_m[3] = "100001";
-	map_m[4] = "111111";
-	map_m[5] = NULL;
+	map_m[0] = "1111111";
+	map_m[1] = "1N00001";
+	map_m[2] = "1001001";
+	map_m[3] = "1000001";
+	map_m[4] = "1000001";
+	map_m[5] = "1111111";
+	map_m[6] = NULL;
  return (map_m);
 }
 void ft_read_map(t_vars *vars)
@@ -78,7 +79,7 @@ void ft_print_wall(int wall, int x, int y, t_vars *vars)
 			int j = -1;
 			while(++j < one)
 			{
-				mlx_put_pixel(vars->mini_map, y * one + j, x * one + i, 0x00FF00FF);
+				mlx_put_pixel(vars->mini_map, y * one + j, x * one + i, 0x00000000);
 			}
 		}
 	}
@@ -117,14 +118,14 @@ void ft_mini_unit(int x, int y, t_vars *vars)
 		{
 			if (vars->len_char/2 <= 5 + sqrt(pow(i -  vars->len_char/2, 2) + pow(j -  vars->len_char/2, 2)))
 			{
-				mlx_put_pixel(vars->mini_map, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
-				mlx_put_pixel(vars->mini_unit, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
+				// mlx_put_pixel(vars->mini_map, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
+				// mlx_put_pixel(vars->mini_unit, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
 				// mlx_put_pixel(vars->mini_unit, y *  vars->len_char  + j, x *  vars->len_char  + i, 0x00FF00FF);	
 			}
 			else
 			{
-				mlx_put_pixel(vars->mini_map, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
-				mlx_put_pixel(vars->mini_unit, y *  vars->len_char  + j, x *  vars->len_char  + i, ft_get_rgba(255, 0, 0, 255));
+				// mlx_put_pixel(vars->mini_map, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
+				mlx_put_pixel(vars->mini_unit, y *  vars->len_char  + j, x *  vars->len_char  + i, ft_get_rgba(200, 88, 60, 255));
 
 			}
 			// mlx_put_pixel(vars->mini_map, y *  vars->len_char  + j, x *  vars->len_char  + i, 0xFFFFFFFF);

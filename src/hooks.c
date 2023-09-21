@@ -10,6 +10,10 @@ void debug(t_vars *vars)
 	write(1, "\n", 1);
 	write(1, "vars->cont_x_left / vars->len_char=", 36);
 	write(1, ft_itoa(vars->cont_x_left / vars->len_char), ft_strlen(ft_itoa(vars->cont_x_left / vars->len_char)));
+	write(1, "\n", 1);
+	write(1, "vars->cont_y_up / vars->len_char=", 33);
+	write(1, ft_itoa(vars->cont_y_up / vars->len_char), ft_strlen(ft_itoa(vars->cont_y_up / vars->len_char)));
+
 	// write(1, ft_itoa(vars->mini_unit_xy[0]), ft_strlen(ft_itoa(vars->mini_unit_xy[0])));
 	// write(1, ",x= ", 4);
 	// write(1, ft_itoa(vars->mini_unit_xy[1]), ft_strlen(ft_itoa(vars->mini_unit_xy[1])));
@@ -28,8 +32,8 @@ void ft_hook(void* param)
 
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
 	{
-		if(vars->map[(vars->cont_x_left + vars->len_char)/ vars->len_char][vars->cont_y_up / vars->len_char] != '1' &&\
-			vars->map[(vars->cont_x_left + vars->len_char)/ vars->len_char][(vars->cont_y_up + vars->len_char) / vars->len_char] != '1')
+		if(vars->map[(vars->cont_x_left)/ vars->len_char][(vars->cont_y_up+ vars->len_char + 1) / vars->len_char] != '1' &&\
+			vars->map[(vars->cont_x_left + vars->len_char - 1)/ vars->len_char][(vars->cont_y_up + vars->len_char + 1) / vars->len_char] != '1')
 		{
 			vars->cont_y_up++;
 			vars->mini_unit->instances[0].x += SPEEX;
@@ -46,8 +50,8 @@ void ft_hook(void* param)
 	// 	// vars->gun->instances[0].x-= 3;
 	{
 
-		if(vars->map[vars->cont_x_left / vars->len_char][(vars->cont_y_up) / vars->len_char] != '1' &&\
-			vars->map[(vars->cont_x_left + vars->len_char) / vars->len_char][(vars->cont_y_up - 1)/ vars->len_char] != '1')
+		if(vars->map[(vars->cont_x_left) / vars->len_char][(vars->cont_y_up  - 1) / vars->len_char] != '1' &&\
+			vars->map[(vars->cont_x_left + vars->len_char - 1) / vars->len_char][(vars->cont_y_up - 1)/ vars->len_char] != '1')
 		{
 			vars->cont_y_up--;
 
@@ -73,8 +77,8 @@ void ft_hook(void* param)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_W))
 	{	
 		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->len_char);
-		if(vars->map[(vars->cont_x_left - 1)/ vars->len_char][vars->cont_y_up/ vars->len_char] != '1' &&\
-			vars->map[(vars->cont_x_left) / vars->len_char][(vars->cont_y_up + vars->len_char) / vars->len_char] != '1')
+		if(vars->map[(vars->cont_x_left - 1)/ vars->len_char][(vars->cont_y_up)/ vars->len_char] != '1' &&\
+			vars->map[(vars->cont_x_left - 1) / vars->len_char][(vars->cont_y_up + vars->len_char - 1) / vars->len_char] != '1')
 		{
 			vars->cont_x_left--;
 
@@ -87,8 +91,8 @@ void ft_hook(void* param)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_S))
 	{
 		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->len_char);
-		if(vars->map[(vars->cont_x_left + vars->len_char) / vars->len_char][vars->cont_y_up / vars->len_char] != '1' &&\
-			vars->map[((vars->cont_x_left + 1)  + vars->len_char)/ vars->len_char][vars->cont_y_up / vars->len_char] != '1')
+		if(vars->map[(vars->cont_x_left + vars->len_char) / vars->len_char][(vars->cont_y_up + vars->len_char) / vars->len_char] != '1' &&\
+			vars->map[(vars->cont_x_left+ vars->len_char)/ vars->len_char][vars->cont_y_up  / vars->len_char] != '1')
 		{
 			vars->cont_x_left++;
 			vars->mini_unit->instances[0].y += SPEEX;
