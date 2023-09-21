@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:39:19 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/19 12:10:55 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/21 12:39:37 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ typedef struct s_rgb
 	int	r;
 	int	g;
 	int	b;
+	int	is_rgb;
 }	t_rgb;
 
 typedef struct s_file_info
 {
+	int		elements;
 	int		fd;
 	char	*file_path;
 	char	*file_extension;
@@ -41,26 +43,34 @@ typedef struct s_file_info
 	char	*we_extension;
 	char	*ea_texture;
 	char	*ea_extension;
-	t_rgb	*floor_color;
-	t_rgb	*ceiling_color;
+	t_rgb	floor_color;
+	t_rgb	ceiling_color;
 	char	**map;
 }	t_file_info;
 
 //	Init.c
 void	ft_init_info(t_file_info *info);
 void	ft_clean_info(t_file_info *info);
+void	ft_init_rgb(t_rgb *rgb);
 
 //	Parser.c	
 void	ft_check_arg(char *str, t_file_info *info);
 void	ft_extension_file(char *str, char **file_ext);
-void	ft_get_textures(t_file_info *info);
+void	ft_get_info(t_file_info *info);
 
 //	Textures.c
 void	ft_get_no_texture(t_file_info *info,char *line);
 void	ft_get_so_texture(t_file_info *info,char *line);
 void	ft_get_we_texture(t_file_info *info,char *line);
 void	ft_get_ea_texture(t_file_info *info,char *line);
+void	ft_check_textures(t_file_info * info);
 
+//	Color.c
+void	ft_get_color(t_rgb *color, char *line);
+int		ft_rgb_spectrum(t_rgb *color);
+
+//	Map.c
+void	ft_get_map(t_file_info *info);
 
 //	Error functions
 void	ft_error_msg(int i, t_file_info *info);

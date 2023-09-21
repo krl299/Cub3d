@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 10:06:26 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/19 12:22:08 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/21 12:39:48 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_init_info(t_file_info *info)
 {
+	info->elements = 0;
 	info->fd = 0;
 	info->file_path = NULL;
 	info->file_extension = NULL;
@@ -25,8 +26,8 @@ void	ft_init_info(t_file_info *info)
 	info->we_extension = NULL;
 	info->ea_texture = NULL;
 	info->ea_extension = NULL;
-	info->floor_color = NULL;
-	info->ceiling_color = NULL;
+	ft_init_rgb(&info->floor_color);
+	ft_init_rgb(&info->ceiling_color);
 	info->map = NULL;
 }
 
@@ -52,4 +53,12 @@ void	ft_clean_info(t_file_info *info)
 		free(info->ea_texture);
 	if (info->ea_extension != NULL)
 		free(info->ea_extension);
+}
+
+void	ft_init_rgb(t_rgb *rgb)
+{
+	rgb->r = -1;
+	rgb->g = -1;
+	rgb->b = -1;
+	rgb->is_rgb = 0;
 }

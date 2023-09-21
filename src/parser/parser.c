@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:33:43 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/20 13:10:02 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:19:07 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,49 +41,50 @@ void	ft_extension_file(char *str, char **file_ext)
 		*file_ext = NULL;
 }
 
-void	ft_get_color(t_rgb *color, char *line)
-{
-	int		i;
-	int		j;
-	char	**rgb;
-
-	i = 0;
-	j = 0;
-	rgb = ft_split(line, ',');
-	while (rgb[i] != NULL)
-		i++;
-	if (i == 2)
-	{
-		color->r = ft_atoi(rgb[0]);
-		color->g = ft_atoi(rgb[1]);
-		color->b = ft_atoi(rgb[2]);
-	}
-	else
-		ft_error_msg(8, NULL);
-	while (rgb[j] != NULL)
-		free(rgb[j++]);
-	free(rgb);
-}
-
-void	ft_get_colors(t_file_info *info)
+void	ft_get_info(t_file_info *info)
 {
 	char	*line;
 	char	*tmp;
 
+	printf("get_info\n");
 	line = get_next_line(info->fd);
-	printf("line : %s\n", line);
-	while (line != NULL || (info->floor_color == NULL && info->ceiling_color == NULL))
+	while (line != NULL)
 	{
 		tmp = line;
+		printf("%s", tmp);
+		printf("elements : %d\n", info->elements);
 		while (ft_isspace(*line) == 1)
 			line++;
-		if (ft_strncmp(line, "F ", 2) == 0)
-			ft_get_color(info->floor_color, line);
+		printf("line : %s", line);
+		if (ft_strncmp(line, "NO ", 3) == 0)
+			ft_get_no_texture(info, line);
+		else if (ft_strncmp(line, "SO ", 3) == 0)
+			ft_get_so_texture(info, line);
+		else if (ft_strncmp(line, "WE ", 3) == 0)
+			ft_get_we_texture(info, line);
+		else if (ft_strncmp(line, "EA ", 3) == 0)
+			ft_get_ea_texture(info, line);
+		else if (ft_strncmp(line, "F ", 2) == 0)
+		{
+			ft_get_color(&info->floor_color, line);
+			info->elements++;
+		}
 		else if (ft_strncmp(line, "C ", 2) == 0)
-			ft_get_color(info->ceiling_color, line);
+		{
+			ft_get_color(&info->ceiling_color, line);
+			info->elements++;
+		}
+		else if (info->elements == 6)
+		{
+			ft_check_textures(info);
+			//ft_get_map(info, tmp);
+		}
+		else if (!(*tmp == '\n'))
+			ft_error_msg(3, info);
 		free(tmp);
 		line = get_next_line(info->fd);
 	}
+
 }
 
 //	check if has the correct extension "*.cub"
@@ -98,6 +99,7 @@ void	ft_check_arg(char *str, t_file_info *info)
 {
 	int	fd;
 
+	printf("inside check\n");
 	ft_extension_file(str, &info->file_extension);
 	if (info->file_extension != NULL && \
 ft_strncmp(info->file_extension, "cub", 3) == 0)
@@ -107,9 +109,8 @@ ft_strncmp(info->file_extension, "cub", 3) == 0)
 			ft_error_msg(2, info);
 		info->fd = fd;
 		info->file_path = ft_strdup(str);
-		ft_get_textures(info);
+		ft_get_info(info);
 		ft_print_info(info);
-		//ft_get_colors(info);
 	}
 	else
 		ft_error_msg(7, info);
