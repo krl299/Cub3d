@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/21 12:53:29 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:52:45 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char *argv[])
 		ft_init_info(&info);
 		printf("check arg\n");
 		ft_check_arg(argv[1], &info);
-//		ft_print_info(&info);
+		ft_print_info(&info);
 		ft_clean_info(&info);
 	}
 	else

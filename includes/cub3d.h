@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:39:19 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/21 12:39:37 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:45:39 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_get_color(t_rgb *color, char *line);
 int		ft_rgb_spectrum(t_rgb *color);
 
 //	Map.c
-void	ft_get_map(t_file_info *info);
+void	ft_get_map(t_file_info *info, char *line);
 
 //	Error functions
 void	ft_error_msg(int i, t_file_info *info);

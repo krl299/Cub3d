@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:33:43 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/21 13:19:07 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:54:45 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,14 @@ void	ft_get_info(t_file_info *info)
 		else if (info->elements == 6)
 		{
 			ft_check_textures(info);
-			//ft_get_map(info, tmp);
+			ft_get_map(info, tmp);
 		}
 		else if (!(*tmp == '\n'))
 			ft_error_msg(3, info);
 		free(tmp);
 		line = get_next_line(info->fd);
 	}
-
+	free(line);
 }
 
 //	check if has the correct extension "*.cub"
@@ -110,7 +110,6 @@ ft_strncmp(info->file_extension, "cub", 3) == 0)
 		info->fd = fd;
 		info->file_path = ft_strdup(str);
 		ft_get_info(info);
-		ft_print_info(info);
 	}
 	else
 		ft_error_msg(7, info);
