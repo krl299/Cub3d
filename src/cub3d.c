@@ -20,9 +20,9 @@ char **temp_map()
 	map_m = malloc(sizeof(char **) * 50);
 	map_m[0] = malloc(sizeof(char) * 13 +1);
 	map_m[0] = "111111";
-	map_m[1] = "1N0000111111111111";
+	map_m[1] = "100000111111111111";
 	map_m[2] = "100000000000000001";
-	map_m[3] = "100000000000000001";
+	map_m[3] = "10000000N000000001";
 	map_m[4] = "100000000000000001";
 	map_m[5] = "101111111100000001";
 	map_m[6] = "100000000111111111";
@@ -104,8 +104,8 @@ void ft_mini_unit(int x, int y, t_vars *vars)
 	vars->mini_unit_xy[0] = x;
 	vars->mini_unit_xy[1] = y;
 	vars->cont_y_down = 1;
-	vars->cont_y_up = vars->len_char;
-	vars->cont_x_left = vars->len_char;
+	vars->cont_y_up = y * vars->len_char;
+	vars->cont_x_left = x * vars->len_char;
 	vars->cont_x_right = 1;
 	printf("vars->mini_unit_xy[0]%d, vars->mini_unit_xy[1]%d\n", vars->mini_unit_xy[0], vars->mini_unit_xy[1]);
 	int i = -1;
@@ -173,19 +173,37 @@ void ft_trace_line(t_vars *vars)
 	float angle = M_PI/2 *3;//1.5708;
 	float angle_step = 0.1;
 	int i = -1;
-	mlx_put_pixel(vars->mini_unit, vars->mini_unit_xy[0] * vars->len_char, vars->mini_unit_xy[1] * vars->len_char, ft_get_rgba(255, 255, 255, 255));
-	while(angle_step < 200)
-	{
-		fx = x + angle_step * cos(angle);
-		fy = y + angle_step * sin(angle);
+		int mem_x;
+		int mem_y;
 
-		mlx_put_pixel(vars->mini_unit, (int)fy, (int)fx, ft_get_rgba(255, 255, 255, 255));
-		angle_step += 0.01;
-		printf("(int)fy/vars->len_char = %d, (int)fx/vars->len_char = %d\n", (int)fy/vars->len_char, (int)fx/vars->len_char);
-		printf("vars->map[(int)fy/vars->len_char][(int)fx/vars->len_char] = %c\n", vars->map[(int)fy/vars->len_char][(int)fx/vars->len_char]);
-		// if (vars->map[(int)fy/vars->len_char][(int)fx/vars->len_char] == '1')
-		// 	break;
+	mem_x = vars->mini_unit_xy[0];
+	mem_y = vars->mini_unit_xy[1];
+	while (1)
+	{
+	if(vars->map[(mem_x)/ vars->len_char][(vars->cont_y_up)/ vars->len_char] != '1' &&\
+		vars->map[(mem_x) / vars->len_char][(vars->cont_y_up + vars->len_char - 1) / vars->len_char] != '1')
+		{
+			mlx_put_pixel(vars->mini_map, mem_y + (vars->len_char/2), mem_x - (vars->len_char/2), ft_get_rgba(255, 255, 255, 255));
+			mem_x--;
+			printf("cjeckleft\n");
+		}
+		else
+			break;
 	}
+
+	// mlx_put_pixel(vars->mini_unit, vars->mini_unit_xy[0] * vars->len_char, vars->mini_unit_xy[1] * vars->len_char, ft_get_rgba(255, 255, 255, 255));
+	// while(angle_step < 200)
+	// {
+	// 	fx = x + angle_step * cos(angle);
+	// 	fy = y + angle_step * sin(angle);
+
+	// 	mlx_put_pixel(vars->mini_unit, (int)fy, (int)fx, ft_get_rgba(255, 255, 255, 255));
+	// 	angle_step += 0.01;
+	// 	printf("(int)fy/vars->len_char = %d, (int)fx/vars->len_char = %d\n", (int)fy/vars->len_char, (int)fx/vars->len_char);
+	// 	printf("vars->map[(int)fy/vars->len_char][(int)fx/vars->len_char] = %c\n", vars->map[(int)fy/vars->len_char][(int)fx/vars->len_char]);
+	// 	// if (vars->map[(int)fy/vars->len_char][(int)fx/vars->len_char] == '1')
+	// 	// 	break;
+	// }
 	// mlx_put_pixel(vars->mini_map, vars->mini_unit_xy[1] * vars->len_char + vars->len_char/2, vars->mini_unit_xy[0] * vars->len_char + vars->len_char/2, ft_get_rgba(255, 255, 255, 255));
 	// printf("vars->mini_unit_xy[1] = %d, vars->mini_unit_xy[0] = %d\n", vars->mini_unit_xy[1]* vars->len_char, vars->mini_unit_xy[0]* vars->len_char);
 
