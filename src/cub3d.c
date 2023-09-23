@@ -168,15 +168,15 @@ void ft_trace_line(t_vars *vars)
 {
 		float fx;
 		float fy;
-		int mem_x;
-		int mem_y;
+		float mem_x;
+		float mem_y;
 		static int clean_x[WIDTH/4];
 		static int clean_y[HEIGHT/4];
 		static int i = 0;
-		static float angle = M_PI/2 *3;//1.5708;
+		// vars->mini_u_angle = M_PI/2 * 3;//1.5708;
 		static float angle_step = 0.1;
-		mem_x = vars->cont_x_left;
-		mem_y = vars->cont_y_up;
+		mem_x = vars->cont_x_left + vars->len_char;
+		mem_y = vars->cont_y_up - 1;
 		if (i != 0)
 		{
 			int j = -1;
@@ -186,21 +186,23 @@ void ft_trace_line(t_vars *vars)
 			}
 			i = 0;
 		}
-		while (1)
+		while (i != HEIGHT/4)
 		{
-		if(vars->map[(mem_x)/ vars->len_char][(vars->cont_y_up+ vars->len_char/2)/ vars->len_char] != '1' &&\
-			vars->map[(mem_x - vars->len_char /2) / vars->len_char][(vars->cont_y_up + vars->len_char /2) / vars->len_char] != '1')
-			{
-				mlx_put_pixel(vars->mini_map, mem_y + (vars->len_char/2), mem_x - (vars->len_char/2), ft_get_rgba(255, 255, 255, 255));
-				clean_x[i] = mem_y + (vars->len_char/2);
-				clean_y[i++] = mem_x - (vars->len_char/2);
-				mem_x--;
-				// mem_y--;
+			mem_x = cos(vars->mini_u_angle) + mem_x;
+			mem_y = sin(vars->mini_u_angle) + mem_y;
+			if(vars->map[(int)(mem_x)/ vars->len_char][((int)mem_y+ vars->len_char/2)/ vars->len_char] != '1' &&\
+				vars->map[(int)(mem_x - vars->len_char /2) / vars->len_char][((int)mem_y + vars->len_char /2) / vars->len_char] != '1')
+				{
+					mlx_put_pixel(vars->mini_map, mem_y + (vars->len_char/2), mem_x - (vars->len_char/2), ft_get_rgba(255, 255, 255, 255));
+					clean_x[i] = mem_y + (vars->len_char/2);
+					clean_y[i++] = mem_x - (vars->len_char/2);
+					// mem_x--;
+					// mem_y--;
 
+				}
+				else
+					break;
 			}
-			else
-				break;
-		}
 
 	// }§
 
@@ -254,6 +256,8 @@ int32_t	main(void)
 	t_vars *vars;
 	vars = malloc(sizeof(t_vars));
 	*vars = (t_vars){};
+	vars->mini_u_angle = M_PI/2 * 3;
+
 	// map = malloc(sizeof(t_map));
 	vars->map = temp_map();
 	// printf("%c\n", vars->map[6][6]);
