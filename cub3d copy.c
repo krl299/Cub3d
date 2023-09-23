@@ -24,15 +24,15 @@ char **temp_map()
 	map_m[2] = "100000000000000001";
 	map_m[3] = "10000000N000000001";
 	map_m[4] = "100000000000000001";
-	map_m[5] = "100011111100000001";
+	map_m[5] = "101111111100000001";
 	map_m[6] = "100000000111111111";
-	map_m[7] = "10001001111";
-	map_m[8] = "10010000001";
-	map_m[9] = "10000000001";
+	map_m[7] = "1001001111";
+	map_m[8] = "1001000001";
+	map_m[9] = "1000000001";
 	map_m[10] = "1000000001";
-	map_m[11] = "10000000001";
-	map_m[12] = "10000000001";
-	map_m[13] = "11111111111";
+	map_m[11] = "1000000001";
+	map_m[12] = "1000000001";
+	map_m[13] = "1111111111";
 	map_m[14] = NULL;
 
 	// map_m[0] = "1111111";
@@ -166,43 +166,30 @@ void ft_maxlen_mm(t_vars *vars)
 }
 void ft_trace_line(t_vars *vars)
 {
-		float fx;
-		float fy;
+	int x = 0;
+	int y = 0;
+	float fx;
+	float fy;
+	float angle = M_PI/2 *3;//1.5708;
+	float angle_step = 0.1;
+	int i = -1;
 		int mem_x;
 		int mem_y;
-		static int clean_x[WIDTH/4];
-		static int clean_y[HEIGHT/4];
-		static int i = 0;
-		static float angle = M_PI/2 *3;//1.5708;
-		static float angle_step = 0.1;
-		mem_x = vars->cont_x_left;
-		mem_y = vars->cont_y_up;
-		if (i != 0)
-		{
-			int j = -1;
-			while(++j <= i)
-			{
-				mlx_put_pixel(vars->mini_map, clean_x[j], clean_y[j], ft_get_rgba(0, 0, 0, 255));
-			}
-			i = 0;
-		}
-		while (1)
-		{
-		if(vars->map[(mem_x)/ vars->len_char][(vars->cont_y_up+ vars->len_char/2)/ vars->len_char] != '1' &&\
-			vars->map[(mem_x - vars->len_char /2) / vars->len_char][(vars->cont_y_up + vars->len_char /2) / vars->len_char] != '1')
-			{
-				mlx_put_pixel(vars->mini_map, mem_y + (vars->len_char/2), mem_x - (vars->len_char/2), ft_get_rgba(255, 255, 255, 255));
-				clean_x[i] = mem_y + (vars->len_char/2);
-				clean_y[i++] = mem_x - (vars->len_char/2);
-				mem_x--;
-				// mem_y--;
 
-			}
-			else
-				break;
+	mem_x = vars->mini_unit_xy[0];
+	mem_y = vars->mini_unit_xy[1];
+	while (1)
+	{
+	if(vars->map[(mem_x)/ vars->len_char][(vars->cont_y_up)/ vars->len_char] != '1' &&\
+		vars->map[(mem_x) / vars->len_char][(vars->cont_y_up + vars->len_char - 1) / vars->len_char] != '1')
+		{
+			mlx_put_pixel(vars->mini_map, mem_y + (vars->len_char/2), mem_x - (vars->len_char/2), ft_get_rgba(255, 255, 255, 255));
+			mem_x--;
+			printf("cjeckleft\n");
 		}
-
-	// }§
+		else
+			break;
+	}
 
 	// mlx_put_pixel(vars->mini_unit, vars->mini_unit_xy[0] * vars->len_char, vars->mini_unit_xy[1] * vars->len_char, ft_get_rgba(255, 255, 255, 255));
 	// while(angle_step < 200)
@@ -247,7 +234,7 @@ void ft_create_mmap(t_vars *vars)
 			}
 		}	
 	}
-	ft_trace_line(vars);
+	// ft_trace_line(vars);
 }
 int32_t	main(void)
 {

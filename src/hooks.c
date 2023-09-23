@@ -38,6 +38,8 @@ void ft_hook(void* param)
 			vars->cont_y_up++;
 			vars->mini_unit->instances[0].x += SPEEX;
 		}
+		ft_trace_line(vars);
+
 		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->len_char);
 		// debug(vars);
 	}
@@ -57,6 +59,8 @@ void ft_hook(void* param)
 
 			vars->mini_unit->instances[0].x -= SPEEX;
 		}
+		ft_trace_line(vars);
+
 		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->len_char);
 		// debug(vars);
 	}
@@ -85,6 +89,7 @@ void ft_hook(void* param)
 			vars->mini_unit->instances[0].y -= SPEEX;
 		}
 		// debug(vars);
+		ft_trace_line(vars);
 
 	}
 
@@ -97,6 +102,8 @@ void ft_hook(void* param)
 			vars->cont_x_left++;
 			vars->mini_unit->instances[0].y += SPEEX;
 		}
+		ft_trace_line(vars);
+
 		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->len_char);
 		// debug(vars);
 
@@ -104,45 +111,12 @@ void ft_hook(void* param)
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 	{
-		float fx;
-		float fy;
-		int mem_x;
-		int mem_y;
-		static float angle = M_PI/2 *3;//1.5708;
-		static float angle_step = 0.1;
-		mem_x = vars->cont_x_left;
-		mem_y = vars->cont_y_up;
-		while (1)
-		{
-		if(vars->map[(mem_x)/ vars->len_char][(vars->cont_y_up+ vars->len_char/2)/ vars->len_char] != '1' &&\
-			vars->map[(mem_x - vars->len_char /2) / vars->len_char][(vars->cont_y_up + vars->len_char /2) / vars->len_char] != '1')
-			{
-				mlx_put_pixel(vars->mini_map, mem_y + (vars->len_char/2), mem_x - (vars->len_char/2), ft_get_rgba(255, 255, 255, 255));
-				mem_x--;
-
-			}
-			else
-				break;
-		}
-
+		ft_trace_line(vars);
 
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 	{
-		float fx;
-		float fy;
-		static int mem_x = -1;
-		static int mem_y = -1;
-		static float angle = M_PI/2 *3;//1.5708;
-		static float angle_step = 0.1;
-		if (mem_x != -1 && mem_y != -1)
-			mlx_put_pixel(vars->mini_map, mem_x, mem_y, ft_get_rgba(255, 255, 255, 0));
-		fx = vars->cont_x_left + (vars->len_char / 2) + angle_step * cos(angle);
-		fy =  vars->cont_y_up +(vars->len_char / 2)  + angle_step * sin(angle);
-		mlx_put_pixel(vars->mini_map, (int)fx, (int)fy, ft_get_rgba(255, 255, 255, 255));
-		mem_x = (int)fx;
-		mem_y = (int)fy;
-		angle_step += 1;
+		ft_trace_line(vars);
 
 	}
 }

@@ -83,5 +83,6 @@ typedef struct var_idnf
 int ft_get_rgba(int r, int g, int b, int a);
 void ft_create_sky(t_vars *vars, mlx_image_t *img, int size, int size2, unsigned int col);
 void ft_hook(void* param);
+void ft_trace_line(t_vars *vars);
 
 # endif
