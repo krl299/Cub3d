@@ -38,6 +38,7 @@ typedef struct var_idnf
 	mlx_t* 	mlx;
 	mlx_image_t* image;
 	mlx_image_t* sky;
+	mlx_image_t* wall;
 	mlx_image_t* mini_map;
 	mlx_image_t* mini_unit;
 	mlx_image_t* gun;

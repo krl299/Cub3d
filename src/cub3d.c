@@ -20,31 +20,47 @@ char **temp_map()
 	int i = 0;
 	map_m = malloc(sizeof(char **) * 50);
 	map_m[0] = malloc(sizeof(char) * 13 +1);
-	map_m[i++] = "111111111111111111111111111111111111111";
-	map_m[i++] = "111111111111000000111111111111111111111";
-	map_m[i++] = "111111111110000010011111111111111111111";
-	map_m[i++] = "111111111110000111001111111111111111111";
-	map_m[i++] = "111111111110001111100111111111111111111";
-	map_m[i++] = "111111111111011111110011111111111111111";
-	map_m[i++] = "100000000000000000000000000000000000001";
-	map_m[i++] = "10000000000000000N000000000000000000001";
-	map_m[i++] = "10000000000000000111111111111111111111";
-	map_m[i++] = "10111111100111111111111111111111111111";
-	map_m[i++] = "10011111001111111111111111111111111111";
-	map_m[i++] = "11001110011111111111111111111111111111";
-	map_m[i++] = "111001001111111111111111111111111111111";
-	map_m[i++] = "111100011111111111111111111111111111111";
-	map_m[i++] = "111111111111111111111111111111111111111";
-	map_m[i++] = "111111111111111111111111111111111111111";
-	map_m[i++] = "111111111111111111111111111111111111111";
-	map_m[i++] = "111111111111111111111111111111111111111";
-	map_m[i++] = "111111111111111111111111111111111111111";
-	map_m[i++] = "111111111111111111111111111111111111111";
-	map_m[i++] = "111111111111111111111111111111111111111";
-	map_m[i++] = "111111111111111111111111111111111111111";
-		map_m[i] = NULL;
-	// map_m[i++] = "1111111";
-	// map_m[i++] = "100000111111111111";
+	// map_m[i++] = "111111111111111111111111111111111111111";
+	// map_m[i++] = "111111111111000000111111111111111111111";
+	// map_m[i++] = "111111111110000010011111111111111111111";
+	// map_m[i++] = "111111111110000111001111111111111111111";
+	// map_m[i++] = "111111111110001111100111111111111111111";
+	// map_m[i++] = "111111111111011111110011111111111111111";
+	// map_m[i++] = "100000000000000000000000000000000000001";
+	// map_m[i++] = "10000000000000000N000000000000000000001";
+	// map_m[i++] = "10000000000000000111111111111111111111";
+	// map_m[i++] = "10111111100111111111111111111111111111";
+	// map_m[i++] = "10011111001111111111111111111111111111";
+	// map_m[i++] = "11001110011111111111111111111111111111";
+	// map_m[i++] = "111001001111111111111111111111111111111";
+	// map_m[i++] = "111100011111111111111111111111111111111";
+	// map_m[i++] = "111111111111111111111111111111111111111";
+	// map_m[i++] = "111111111111111111111111111111111111111";
+	// map_m[i++] = "111111111111111111111111111111111111111";
+	// map_m[i++] = "111111111111111111111111111111111111111";
+	// map_m[i++] = "111111111111111111111111111111111111111";
+	// map_m[i++] = "111111111111111111111111111111111111111";
+	// map_m[i++] = "111111111111111111111111111111111111111";
+	// map_m[i++] = "111111111111111111111111111111111111111";
+	// 	map_m[i] = NULL;
+	map_m[i++] = "111111111111111111111111";
+	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "1000000000000N0000000001";
+	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "111111111111111111111111";
+
 	// map_m[i++] = "10000000000000000111111111111111111111";
 	// map_m[i++] = "10000000000000000000000000000000000001";
 	// map_m[i++] = "10000000000000000000000000000000000001";
@@ -66,7 +82,7 @@ char **temp_map()
 	// map_m[i++] = "10000000001";
 	// map_m[i++] = "10000000001";
 	// map_m[i++] = "11111111111";
-	// map_m[i] = NULL;
+	map_m[i] = NULL;
 // map_m[i++] = "000000001111111111111111111111111";
 // map_m[i++] = "000000001000000000110000000000001";
 // map_m[i++] = "000000001011000001110000000000001";
@@ -122,7 +138,7 @@ void ft_print_wall(int wall, int x, int y, t_vars *vars)
 {
 	int one = WIDTH/4/vars->len_mm[1];
 	vars->len_char = one;
-	printf("one = %d", one);
+	// printf("one = %d", one);
 	if (wall == 0)
 	{
 		int i = -1;
@@ -216,14 +232,66 @@ void ft_maxlen_mm(t_vars *vars)
 	}
 	vars->len_mm[0] = x;
 }
+void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w)
+{
+	float dist;
+	float line_len;
+	int lenght_with_koef;
+	int x = WIDTH/2;
+	int y = 1;
+	int y_mem = 1;
+	static int clean[WIDTH * HEIGHT][2];
+	static int i_cl = 0;
+	if (i_cl != 0)
+	{
+		int j = -1;
+		while(++j <= i_cl)
+		{
+			mlx_put_pixel(vars->wall, clean[j][0], clean[j][1], ft_get_rgba(0, 0, 0, 0));
+		}
+		i_cl = 0;
+	}
+
+	dist = sqrt(pow(x_w - x_u, 2) + pow(y_w - y_u, 2));
+
+	int maxdist = WIDTH/4 - (vars->len_char*2) - vars->len_char/2;
+	float koef = (float)HEIGHT/(float)maxdist;
+	lenght_with_koef = (maxdist - (int)dist) * koef;
+
+		int i = -1;
+		while(++i < lenght_with_koef)
+		{
+			if (y % 2 == 0)
+				y = HEIGHT/2 + i/2;
+			else
+				y = HEIGHT/2 - i/2;
+			// 	y = HEIGHT/2 + i;
+			// else
+			// 	y = HEIGHT/2 - i + 2;
+				// printf("y, i = %d %d\n", y, i);
+			
+			mlx_put_pixel(vars->wall, x, y, ft_get_rgba(255, 255, 255, 255));
+			clean[i_cl][0] = x;
+			clean[i_cl++][1] = y;
+		}
+
+	printf("lenght_with_koef = %d\n", lenght_with_koef);
+	printf("maxdist = %d\n", maxdist);
+	printf("koef = %f\n", koef);
+	printf("dist = %f\n", dist);
+
+	// sleep(100);
+
+	printf("dist = %f\n", dist);
+}
 void ft_trace_line(t_vars *vars)
 {
 		float fx;
 		float fy;
 		float mem_x;
 		float mem_y;
-		static int clean_x[WIDTH/4];
-		static int clean_y[HEIGHT/4];
+		static int clean_x[WIDTH];
+		static int clean_y[HEIGHT];
 		static int i = 0;
 		// vars->mini_u_angle = M_PI/2 * 3;//1.5708;
 		static float angle_step = 0.1;
@@ -234,11 +302,11 @@ void ft_trace_line(t_vars *vars)
 			int j = -1;
 			while(++j <= i)
 			{
-				mlx_put_pixel(vars->mini_map, clean_x[j], clean_y[j], ft_get_rgba(0, 0, 0, 255));
+				mlx_put_pixel(vars->mini_map, clean_x[j], clean_y[j], ft_get_rgba(0, 0, 0, 0));
 			}
 			i = 0;
 		}
-		while (i != HEIGHT/4)
+		while (i != WIDTH/4)
 		{
 			mem_x = cos(vars->mini_u_angle) + mem_x;
 			mem_y = sin(vars->mini_u_angle) + mem_y;
@@ -255,6 +323,7 @@ void ft_trace_line(t_vars *vars)
 				else
 					break;
 			}
+		ft_draw_line(vars,vars->cont_x_left + vars->len_char, vars->cont_y_up - 1, mem_x, mem_y);
 
 	// }§
 
@@ -319,12 +388,16 @@ int32_t	main(void)
     //     error();
 	vars->sky = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
 	vars->mini_map = mlx_new_image(vars->mlx, WIDTH/4, WIDTH/4);
+	vars->wall = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
 	ft_create_sky(vars, vars->sky, WIDTH, HEIGHT, ft_get_rgba(100, 210, 250, 250));
 	ft_create_mmap(vars);
 	vars->start_draw_y_mm = HEIGHT - (WIDTH/4/vars->len_mm[1]) * vars->len_mm[0];
 	mlx_image_to_window(vars->mlx, vars->sky, 0, 0);
-	mlx_image_to_window(vars->mlx, vars->mini_map, 0, vars->start_draw_y_mm);
+	// mlx_image_to_window(vars->mlx, vars->mini_map, 0, vars->start_draw_y_mm);
 	mlx_image_to_window(vars->mlx, vars->mini_unit, 0, vars->start_draw_y_mm);
+	mlx_image_to_window(vars->mlx, vars->wall, 0, 0);
+	mlx_image_to_window(vars->mlx, vars->mini_map, 0, vars->start_draw_y_mm);
+
 	printf("put_unit_x = %d, put_unit_y = %d\n", vars->put_unit_x, vars->put_unit_y);
         // error();	
 	
