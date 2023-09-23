@@ -32,8 +32,8 @@ void ft_hook(void* param)
 
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
 	{																					//+ 1
-		if(vars->map[(vars->cont_x_left)/ vars->len_char][(vars->cont_y_up+ vars->len_char) / vars->len_char] != '1' &&\
-			vars->map[(vars->cont_x_left + vars->len_char - 1)/ vars->len_char][(vars->cont_y_up + vars->len_char + 1) / vars->len_char] != '1')
+		if(vars->map[(vars->cont_x_left)/ vars->len_char][(vars->cont_y_up) / vars->len_char + 1] != '1' &&\
+			vars->map[(vars->cont_x_left + vars->len_char - 1)/ vars->len_char][(vars->cont_y_up + vars->len_char) / vars->len_char] != '1')
 		{
 			vars->cont_y_up++;
 			vars->mini_unit->instances[0].x += SPEEX;
@@ -41,7 +41,7 @@ void ft_hook(void* param)
 		ft_trace_line(vars);
 
 		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->len_char);
-		// debug(vars);
+		debug(vars);
 	}
 
 	// 	// 	vars->mini_unit->instances[0].x += SPEEX;
@@ -62,7 +62,7 @@ void ft_hook(void* param)
 		ft_trace_line(vars);
 
 		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->len_char);
-		// debug(vars);
+		debug(vars);
 	}
 		// else if (vars->map[vars->mini_unit_xy[0]][vars->mini_unit_xy[1] - 1] == '1' && vars->cont_x_left != 1)
 		// {
@@ -88,7 +88,7 @@ void ft_hook(void* param)
 
 			vars->mini_unit->instances[0].y -= SPEEX;
 		}
-		// debug(vars);
+		debug(vars);
 		ft_trace_line(vars);
 
 	}
@@ -105,7 +105,7 @@ void ft_hook(void* param)
 		ft_trace_line(vars);
 
 		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->len_char);
-		// debug(vars);
+		debug(vars);
 
 
 	}
