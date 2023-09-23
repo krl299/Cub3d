@@ -31,8 +31,8 @@ void ft_hook(void* param)
 		mlx_close_window(vars->mlx);
 
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
-	{
-		if(vars->map[(vars->cont_x_left)/ vars->len_char][(vars->cont_y_up+ vars->len_char + 1) / vars->len_char] != '1' &&\
+	{																					//+ 1
+		if(vars->map[(vars->cont_x_left)/ vars->len_char][(vars->cont_y_up+ vars->len_char) / vars->len_char] != '1' &&\
 			vars->map[(vars->cont_x_left + vars->len_char - 1)/ vars->len_char][(vars->cont_y_up + vars->len_char + 1) / vars->len_char] != '1')
 		{
 			vars->cont_y_up++;
