@@ -17,23 +17,48 @@
 char **temp_map()
 {
 	char **map_m;
+	int i = 0;
 	map_m = malloc(sizeof(char **) * 50);
 	map_m[0] = malloc(sizeof(char) * 13 +1);
-	map_m[0] = "111111";
-	map_m[1] = "100000111111111111";
-	map_m[2] = "100000000000000001";
-	map_m[3] = "10000000N000000001";
-	map_m[4] = "100000000000000001";
-	map_m[5] = "100011111100000001";
-	map_m[6] = "100000000111111111";
-	map_m[7] = "10001001111";
-	map_m[8] = "10010000001";
-	map_m[9] = "10000000001";
-	map_m[10] = "1000000001";
-	map_m[11] = "10000000001";
-	map_m[12] = "10000000001";
-	map_m[13] = "11111111111";
-	map_m[14] = NULL;
+	// map_m[i++] = "1111111";
+	// map_m[i++] = "100000111111111111";
+	// map_m[i++] = "10000000000000000111111111111111111111";
+	// map_m[i++] = "10000000000000000000000000000000000001";
+	// map_m[i++] = "10000000000000000000000000000000000001";
+	// map_m[i++] = "10000000000000000000000000000000000001";
+	// map_m[i++] = "10000000000000000111111111111111111111";
+	// map_m[i++] = "10000000N000000001";
+	// map_m[i++] = "100000000000000001";
+	// map_m[i++] = "100011111100000001";
+	// map_m[i++] = "100000000111111111";
+	// map_m[i++] = "10001001111";
+	// map_m[i++] = "10010000001";
+	// map_m[i++] = "10000000001";
+	// map_m[i++] = "1000000001";
+	// map_m[i++] = "10000000001";
+	// map_m[i++] = "10000000001";
+	// map_m[i++] = "10000000001";
+	// map_m[i++] = "10000000001";
+	// map_m[i++] = "10000000001";
+	// map_m[i++] = "10000000001";
+	// map_m[i++] = "10000000001";
+	// map_m[i++] = "11111111111";
+	// map_m[i] = NULL;
+map_m[i++] = "000000001111111111111111111111111";
+map_m[i++] = "000000001000000000110000000000001";
+map_m[i++] = "000000001011000001110000000000001";
+map_m[i++] = "000000001001000000000000000000001";
+map_m[i++] = "111111111011000001110000000000001";
+map_m[i++] = "100000000011000001110111111111111";
+map_m[i++] = "111101111111110111000000100010000";
+map_m[i++] = "111101111111110111010100100010000";
+map_m[i++] = "110000001101010111000000100010000";
+map_m[i++] = "100000000000000111000000100010000";
+map_m[i++] = "100000N0000001111010100000010000";
+map_m[i++] = "110000011101010111110111100011100";
+map_m[i++] = "111101110111010101011110100010000";
+map_m[i++] = "111111110111111101111111111110000";
+map_m[i] = NULL;
 
 	// map_m[0] = "1111111";
 	// map_m[1] = "1N00001";
@@ -42,6 +67,10 @@ char **temp_map()
 	// map_m[4] = "1000001";
 	// map_m[5] = "1111111";
 	// map_m[6] = NULL;
+
+
+
+	
  return (map_m);
 }
 void ft_read_map(t_vars *vars)
@@ -91,7 +120,7 @@ void ft_print_wall(int wall, int x, int y, t_vars *vars)
 			int j = -1;
 			while(++j < one)
 			{
-				mlx_put_pixel(vars->mini_map, y * one + j, x * one + i, ft_get_rgba(255, 255, 0, 101));
+				mlx_put_pixel(vars->mini_map, y * one + j, x * one + i, ft_get_rgba(255, 255, 0, 255));
 			}
 		}
 	}
@@ -116,7 +145,7 @@ void ft_mini_unit(int x, int y, t_vars *vars)
 		int j = -1;
 		while(++j <  vars->len_char )
 		{
-			if (vars->len_char/2 <= 5 + sqrt(pow(i -  vars->len_char/2, 2) + pow(j -  vars->len_char/2, 2)))
+			if (vars->len_char/2 <= sqrt(pow(i -  vars->len_char/2, 2) + pow(j -  vars->len_char/2, 2)))
 			{
 				// mlx_put_pixel(vars->mini_map, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
 				// mlx_put_pixel(vars->mini_unit, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
@@ -190,7 +219,7 @@ void ft_trace_line(t_vars *vars)
 		{
 			mem_x = cos(vars->mini_u_angle) + mem_x;
 			mem_y = sin(vars->mini_u_angle) + mem_y;
-			if(vars->map[(int)(mem_x)/ vars->len_char][((int)mem_y+ vars->len_char/2)/ vars->len_char] != '1' &&\
+			if(vars->map[(int)(mem_x - vars->len_char/2)/ (vars->len_char)][((int)mem_y+ vars->len_char/2)/ vars->len_char] != '1' &&\
 				vars->map[(int)(mem_x - vars->len_char /2) / vars->len_char][((int)mem_y + vars->len_char /2) / vars->len_char] != '1')
 				{
 					mlx_put_pixel(vars->mini_map, mem_y + (vars->len_char/2), mem_x - (vars->len_char/2), ft_get_rgba(255, 255, 255, 255));
@@ -245,6 +274,7 @@ void ft_create_mmap(t_vars *vars)
 			{
 				vars->mini_unit_xy[0] = x;
 				vars->mini_unit_xy[1] = y;
+				printf("x = %d, y = %d\n", x, y);
 				ft_mini_unit(x, y, vars);
 			}
 		}	
