@@ -7,7 +7,6 @@ int32_t	main(void)
 	vars = malloc(sizeof(t_vars));
 	*vars = (t_vars){};
 // se crea estructura parse 
-
 	vars->start_draw_x = 20;
 	vars->start_draw_y = 50;
 	vars->size_x = 1024;

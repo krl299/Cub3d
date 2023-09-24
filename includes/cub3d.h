@@ -29,7 +29,20 @@
 
 typedef struct var_map
 {
-	char **map_matrix;
+	float mini_u_angle;
+	int start_draw_y_mm;
+	int len_char;
+	int mini_unit_xy[2];
+	char	**map;
+	int		lenmap;
+	int len_mm[2];
+	int cam[2];
+	int 	cont_y;
+	int 	cont_x;
+	int		size_x;
+	int		size_y;
+	int		save_pos_x;
+	int		save_pos_y;
 	
 }t_map;
 
@@ -48,35 +61,8 @@ typedef struct var_idnf
 	mlx_image_t* texture3img;
 	mlx_image_t* for_texture_print;
 	xpm_t* xpm;
-	float mini_u_angle;
-	int start_draw_y_mm;
-	int put_unit_x;
-	int put_unit_y;
-	int len_char;
-	int mini_unit_xy[2];
-	int len_mm[2];
-	int cam[2];
-	int 	cont_x_right;
-	int 	cont_x_left;
-	int 	cont_y_up;
-	int 	cont_y_down;
-	int 	cont_y;
-	int 	cont_x;
-	int		size_x;
-	int		size_y;
-	int		new_size_h;
-	int		new_size_w;
-	int		save_pos_x;
-	int		save_pos_y;
-	void	*wind;
-	char	**map;
-	int		lenmap;
-	int		start_draw_x;
-	int		start_draw_y;
-	int		heightmap;
-	int		step;
-	int		check;
-	t_map	*map_mtr;
+
+	t_map	*map_vars;
 }t_vars;
 
 

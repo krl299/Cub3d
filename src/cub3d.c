@@ -117,16 +117,16 @@ void ft_read_map(t_vars *vars)
 	
 	int x = -1;
 	int y = 0;
-	while (vars->map[++x] != NULL)
+	while (vars->map_vars->map[++x] != NULL)
 	{
 		y = -1;
-		while(vars->map[x][++y])
+		while(vars->map_vars->map[x][++y])
 		{
-			if (vars->map[x][y] == 'N')
+			if (vars->map_vars->map[x][y] == 'N')
 			{
 				printf("asd asd%d    %d", x, y);
-				vars->cam[0] = y;
-				vars->cam[1] = x;
+				vars->map_vars->cam[0] = y;
+				vars->map_vars->cam[1] = x;
 				return ;
 			}
 		}
@@ -136,8 +136,8 @@ void ft_read_map(t_vars *vars)
 }
 void ft_print_wall(int wall, int x, int y, t_vars *vars)
 {
-	int one = WIDTH/4/vars->len_mm[1];
-	vars->len_char = one;
+	int one = WIDTH/4/vars->map_vars->len_mm[1];
+	vars->map_vars->len_char = one;
 	// printf("one = %d", one);
 	if (wall == 0)
 	{
@@ -168,49 +168,48 @@ void ft_print_wall(int wall, int x, int y, t_vars *vars)
 void ft_mini_unit(int x, int y, t_vars *vars)
 {
 	if (vars->mini_unit == NULL)
-		vars->mini_unit = mlx_new_image(vars->mlx, vars->len_char * vars->len_mm[0], vars->len_char * vars->len_mm[0]);
-	vars->mini_unit_xy[0] = x;
-	vars->mini_unit_xy[1] = y;
-	vars->cont_y_down = 1;
-	vars->cont_y_up = y * vars->len_char;
-	vars->cont_x_left = x * vars->len_char;
-	vars->cont_x_right = 1;
-	printf("vars->mini_unit_xy[0]%d, vars->mini_unit_xy[1]%d\n", vars->mini_unit_xy[0], vars->mini_unit_xy[1]);
+		vars->mini_unit = mlx_new_image(vars->mlx, vars->map_vars->len_char * vars->map_vars->len_mm[0], vars->map_vars->len_char * vars->map_vars->len_mm[0]);
+	vars->map_vars->mini_unit_xy[0] = x;
+	vars->map_vars->mini_unit_xy[1] = y;
+	// vars->map_vars->cont_y_down = 1;
+	vars->map_vars->cont_y = y * vars->map_vars->len_char;
+	vars->map_vars->cont_x = x * vars->map_vars->len_char;
+	printf("vars->mini_unit_xy[0]%d, vars->mini_unit_xy[1]%d\n", vars->map_vars->mini_unit_xy[0], vars->map_vars->mini_unit_xy[1]);
 	int i = -1;
 	int save_y = y;
 	int j = -1;
-	while(++i <  vars->len_char )
+	while(++i <  vars->map_vars->len_char )
 	{
 		int j = -1;
-		while(++j <  vars->len_char )
+		while(++j <  vars->map_vars->len_char )
 		{
-			if (vars->len_char/2 <= sqrt(pow(i -  vars->len_char/2, 2) + pow(j -  vars->len_char/2, 2)))
+			if (vars->map_vars->len_char/2 <= sqrt(pow(i -  vars->map_vars->len_char/2, 2) + pow(j -  vars->map_vars->len_char/2, 2)))
 			{
-				// mlx_put_pixel(vars->mini_map, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
-				// mlx_put_pixel(vars->mini_unit, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
-				// mlx_put_pixel(vars->mini_unit, y *  vars->len_char  + j, x *  vars->len_char  + i, 0x00FF00FF);	
+				// mlx_put_pixel(vars->mini_map, y * vars->map_vars->len_char + j, x * vars->map_vars->len_char + i, 0x00FF00FF);
+				// mlx_put_pixel(vars->mini_unit, y * vars->map_vars->len_char + j, x * vars->map_vars->len_char + i, 0x00FF00FF);
+				// mlx_put_pixel(vars->mini_unit, y *  vars->map_vars->len_char  + j, x *  vars->map_vars->len_char  + i, 0x00FF00FF);	
 			}
 			else
 			{
-				// mlx_put_pixel(vars->mini_map, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
-				mlx_put_pixel(vars->mini_unit, y *  vars->len_char  + j, x *  vars->len_char  + i, ft_get_rgba(200, 88, 60, 255));
+				// mlx_put_pixel(vars->mini_map, y * vars->map_vars->len_char + j, x * vars->map_vars->len_char + i, 0x00FF00FF);
+				mlx_put_pixel(vars->mini_unit, y *  vars->map_vars->len_char  + j, x *  vars->map_vars->len_char  + i, ft_get_rgba(200, 88, 60, 255));
 
 			}
-			// mlx_put_pixel(vars->mini_map, y *  vars->len_char  + j, x *  vars->len_char  + i, 0xFFFFFFFF);
+			// mlx_put_pixel(vars->mini_map, y *  vars->map_vars->len_char  + j, x *  vars->map_vars->len_char  + i, 0xFFFFFFFF);
 		}
 	}
-		// while(++j <  vars->len_char)
+		// while(++j <  vars->map_vars->len_char)
 		// {
-		// 	if (vars->len_char/2 <= 5 + sqrt(pow(i -  vars->len_char/2, 2) + pow(j -  vars->len_char/2, 2)))
+		// 	if (vars->map_vars->len_char/2 <= 5 + sqrt(pow(i -  vars->map_vars->len_char/2, 2) + pow(j -  vars->map_vars->len_char/2, 2)))
 		// 	{
 		// 		mlx_put_pixel(vars->mini_map, x, y + i, 0x00FF00FF);	
-		// 		mlx_put_pixel(vars->mini_unit, x, y * vars->len_char + i, 0x00FF00FF);
+		// 		mlx_put_pixel(vars->mini_unit, x, y * vars->map_vars->len_char + i, 0x00FF00FF);
 
 		// 	}
 		// 	else
 		// 	{
-		// 		// mlx_put_pixel(vars->mini_map, y * vars->len_char + j, x * vars->len_char + i, 0x00FF00FF);
-		// 		// mlx_put_pixel(vars->mini_unit,  y * vars->len_char + j, x * vars->len_char + i,  0xFF5555FF);
+		// 		// mlx_put_pixel(vars->mini_map, y * vars->map_vars->len_char + j, x * vars->map_vars->len_char + i, 0x00FF00FF);
+		// 		// mlx_put_pixel(vars->mini_unit,  y * vars->map_vars->len_char + j, x * vars->map_vars->len_char + i,  0xFF5555FF);
 
 		// 	}
 		// 	// mlx_put_pixel(vars->mini_map, y * one + j, x * one + i, 0xFFFFFFFF);
@@ -222,15 +221,15 @@ void ft_mini_unit(int x, int y, t_vars *vars)
 void ft_maxlen_mm(t_vars *vars)
 {
 	int x = -1;
-	while(vars->map[++x] != NULL)
+	while(vars->map_vars->map[++x] != NULL)
 	{
 		int y = -1;
-		while(vars->map[x][++y])
-			;
-		if (vars->len_mm[1] < y)
-			vars->len_mm[1] = y;
+		while(vars->map_vars->map[x][++y])
+			printf("%c", vars->map_vars->map[x][y]);
+		if (vars->map_vars->len_mm[1] < y)
+			vars->map_vars->len_mm[1] = y;
 	}
-	vars->len_mm[0] = x;
+	vars->map_vars->len_mm[0] = x;
 }
 void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w)
 {
@@ -254,7 +253,7 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w)
 
 	dist = sqrt(pow(x_w - x_u, 2) + pow(y_w - y_u, 2));
 
-	int maxdist = WIDTH/4 - (vars->len_char*2) - vars->len_char/2;
+	int maxdist = WIDTH/4 - (vars->map_vars->len_char*2) - vars->map_vars->len_char/2;
 	float koef = (float)HEIGHT/(float)maxdist;
 	lenght_with_koef = (maxdist - (int)dist) * koef;
 
@@ -293,10 +292,10 @@ void ft_trace_line(t_vars *vars)
 		static int clean_x[WIDTH];
 		static int clean_y[HEIGHT];
 		static int i = 0;
-		// vars->mini_u_angle = M_PI/2 * 3;//1.5708;
+		// vars->map_vars->mini_u_angle = M_PI/2 * 3;//1.5708;
 		static float angle_step = 0.1;
-		mem_x = vars->cont_x_left + vars->len_char;
-		mem_y = vars->cont_y_up - 1;
+		mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
+		mem_y = vars->map_vars->cont_y + 1;
 		if (i != 0)
 		{
 			int j = -1;
@@ -308,14 +307,14 @@ void ft_trace_line(t_vars *vars)
 		}
 		while (i != WIDTH/4)
 		{
-			mem_x = cos(vars->mini_u_angle) + mem_x;
-			mem_y = sin(vars->mini_u_angle) + mem_y;
-			if(vars->map[(int)(mem_x - vars->len_char/2)/ (vars->len_char)][((int)mem_y+ vars->len_char/2)/ vars->len_char] != '1' &&\
-				vars->map[(int)(mem_x - vars->len_char /2) / vars->len_char][((int)mem_y + vars->len_char /2) / vars->len_char] != '1')
+			mem_x = cos(vars->map_vars->mini_u_angle) + mem_x;
+			mem_y = sin(vars->map_vars->mini_u_angle) + mem_y;
+			if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char] != '1' &&\
+				vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char /2) / vars->map_vars->len_char][((int)mem_y + vars->map_vars->len_char /2) / vars->map_vars->len_char] != '1')
 				{
-					mlx_put_pixel(vars->mini_map, mem_y + (vars->len_char/2), mem_x - (vars->len_char/2), ft_get_rgba(255, 255, 255, 255));
-					clean_x[i] = mem_y + (vars->len_char/2);
-					clean_y[i++] = mem_x - (vars->len_char/2);
+					mlx_put_pixel(vars->mini_map, mem_y + (vars->map_vars->len_char/2), mem_x - (vars->map_vars->len_char/2), ft_get_rgba(255, 255, 255, 255));
+					clean_x[i] = mem_y + (vars->map_vars->len_char/2);
+					clean_y[i++] = mem_x - (vars->map_vars->len_char/2);
 					// mem_x--;
 					// mem_y--;
 
@@ -323,11 +322,11 @@ void ft_trace_line(t_vars *vars)
 				else
 					break;
 			}
-		ft_draw_line(vars,vars->cont_x_left + vars->len_char, vars->cont_y_up - 1, mem_x, mem_y);
+		ft_draw_line(vars,vars->map_vars->cont_x + vars->map_vars->len_char, vars->map_vars->cont_y - 1, mem_x, mem_y);
 
 	// }§
 
-	// mlx_put_pixel(vars->mini_unit, vars->mini_unit_xy[0] * vars->len_char, vars->mini_unit_xy[1] * vars->len_char, ft_get_rgba(255, 255, 255, 255));
+	// mlx_put_pixel(vars->mini_unit, vars->mini_unit_xy[0] * vars->map_vars->len_char, vars->mini_unit_xy[1] * vars->map_vars->len_char, ft_get_rgba(255, 255, 255, 255));
 	// while(angle_step < 200)
 	// {
 	// 	fx = x + angle_step * cos(angle);
@@ -335,37 +334,37 @@ void ft_trace_line(t_vars *vars)
 
 	// 	mlx_put_pixel(vars->mini_unit, (int)fy, (int)fx, ft_get_rgba(255, 255, 255, 255));
 	// 	angle_step += 0.01;
-	// 	printf("(int)fy/vars->len_char = %d, (int)fx/vars->len_char = %d\n", (int)fy/vars->len_char, (int)fx/vars->len_char);
-	// 	printf("vars->map[(int)fy/vars->len_char][(int)fx/vars->len_char] = %c\n", vars->map[(int)fy/vars->len_char][(int)fx/vars->len_char]);
-	// 	// if (vars->map[(int)fy/vars->len_char][(int)fx/vars->len_char] == '1')
+	// 	printf("(int)fy/vars->map_vars->len_char = %d, (int)fx/vars->map_vars->len_char = %d\n", (int)fy/vars->map_vars->len_char, (int)fx/vars->map_vars->len_char);
+	// 	printf("vars->map_vars->map[(int)fy/vars->map_vars->len_char][(int)fx/vars->map_vars->len_char] = %c\n", vars->map_vars->map[(int)fy/vars->map_vars->len_char][(int)fx/vars->map_vars->len_char]);
+	// 	// if (vars->map_vars->map[(int)fy/vars->map_vars->len_char][(int)fx/vars->map_vars->len_char] == '1')
 	// 	// 	break;
 	// }
-	// mlx_put_pixel(vars->mini_map, vars->mini_unit_xy[1] * vars->len_char + vars->len_char/2, vars->mini_unit_xy[0] * vars->len_char + vars->len_char/2, ft_get_rgba(255, 255, 255, 255));
-	// printf("vars->mini_unit_xy[1] = %d, vars->mini_unit_xy[0] = %d\n", vars->mini_unit_xy[1]* vars->len_char, vars->mini_unit_xy[0]* vars->len_char);
+	// mlx_put_pixel(vars->mini_map, vars->mini_unit_xy[1] * vars->map_vars->len_char + vars->map_vars->len_char/2, vars->mini_unit_xy[0] * vars->map_vars->len_char + vars->map_vars->len_char/2, ft_get_rgba(255, 255, 255, 255));
+	// printf("vars->mini_unit_xy[1] = %d, vars->mini_unit_xy[0] = %d\n", vars->mini_unit_xy[1]* vars->map_vars->len_char, vars->mini_unit_xy[0]* vars->map_vars->len_char);
 
 }
 void ft_create_mmap(t_vars *vars)
 {
 	int x= -1;
 	ft_maxlen_mm(vars);
-	while (vars->map[++x] != NULL)
+	while (vars->map_vars->map[++x] != NULL)
 	{
 		int y = -1;
-		while (vars->map[x][++y])
+		while (vars->map_vars->map[x][++y])
 		{
-			if (vars->map[x][y] == '0')
+			if (vars->map_vars->map[x][y] == '0')
 			{
 
 				ft_print_wall(0, x, y, vars);
 			}
-			else if (vars->map[x][y] == '1')
+			else if (vars->map_vars->map[x][y] == '1')
 			{
 				ft_print_wall(1, x, y, vars);
 			}
-			else if (vars->map[x][y] == 'N')
+			else if (vars->map_vars->map[x][y] == 'N')
 			{
-				vars->mini_unit_xy[0] = x;
-				vars->mini_unit_xy[1] = y;
+				vars->map_vars->mini_unit_xy[0] = x;
+				vars->map_vars->mini_unit_xy[1] = y;
 				printf("x = %d, y = %d\n", x, y);
 				ft_mini_unit(x, y, vars);
 			}
@@ -378,11 +377,14 @@ int32_t	main(void)
 	t_vars *vars;
 	vars = malloc(sizeof(t_vars));
 	*vars = (t_vars){};
-	vars->mini_u_angle = M_PI/2 * 3;
+	vars->map_vars = malloc(sizeof(t_map));
+	*vars->map_vars = (t_map){};
+
+	vars->map_vars->mini_u_angle = M_PI/2 * 3;
 
 	// map = malloc(sizeof(t_map));
-	vars->map = temp_map();
-	// printf("%c\n", vars->map[6][6]);
+	vars->map_vars->map = temp_map();
+	// printf("%c\n", vars->map_vars->map[6][6]);
 	vars->mlx = mlx_init(WIDTH, HEIGHT, "Test", true);
 	// if (!vars->mlx)
     //     error();
@@ -391,14 +393,13 @@ int32_t	main(void)
 	vars->wall = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
 	ft_create_sky(vars, vars->sky, WIDTH, HEIGHT, ft_get_rgba(100, 210, 250, 250));
 	ft_create_mmap(vars);
-	vars->start_draw_y_mm = HEIGHT - (WIDTH/4/vars->len_mm[1]) * vars->len_mm[0];
+	vars->map_vars->start_draw_y_mm = HEIGHT - (WIDTH/4/vars->map_vars->len_mm[1]) * vars->map_vars->len_mm[0];
 	mlx_image_to_window(vars->mlx, vars->sky, 0, 0);
-	// mlx_image_to_window(vars->mlx, vars->mini_map, 0, vars->start_draw_y_mm);
-	mlx_image_to_window(vars->mlx, vars->mini_unit, 0, vars->start_draw_y_mm);
+	// mlx_image_to_window(vars->mlx, vars->mini_map, 0, vars->map_vars->start_draw_y_mm);
+	mlx_image_to_window(vars->mlx, vars->mini_unit, 0, vars->map_vars->start_draw_y_mm);
 	mlx_image_to_window(vars->mlx, vars->wall, 0, 0);
-	mlx_image_to_window(vars->mlx, vars->mini_map, 0, vars->start_draw_y_mm);
+	mlx_image_to_window(vars->mlx, vars->mini_map, 0, vars->map_vars->start_draw_y_mm);
 
-	printf("put_unit_x = %d, put_unit_y = %d\n", vars->put_unit_x, vars->put_unit_y);
         // error();	
 	
 	mlx_loop_hook(vars->mlx, ft_hook, vars);
