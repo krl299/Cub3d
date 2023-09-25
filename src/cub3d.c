@@ -48,7 +48,7 @@ char **temp_map()
 	map_m[i++] = "100000000000000000000001";
 	map_m[i++] = "100000000000000000000001";
 	map_m[i++] = "100000000000000000000001";
-	map_m[i++] = "100000000000000000000001";
+	map_m[i++] = "100101001000100010001001";
 	map_m[i++] = "100000000000000000000001";
 	map_m[i++] = "100000000000000000000001";
 	map_m[i++] = "100000000000000000000001";
@@ -289,22 +289,23 @@ void ft_trace_line(t_vars *vars)
 		float fy;
 		float mem_x;
 		float mem_y;
-		static int clean_x[WIDTH];
-		static int clean_y[HEIGHT];
+		static int clean[WIDTH/4 * HEIGHT/4][2];
+		static mem_clean = 0;
 		static int i = 0;
 		// vars->map_vars->mini_u_angle = M_PI/2 * 3;//1.5708;
 		static float angle_step = 0.1;
 		mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
 		mem_y = vars->map_vars->cont_y + 1;
-		if (i != 0)
+		if (mem_clean != 0)
 		{
 			int j = -1;
-			while(++j <= i)
+			while(++j <= mem_clean)
 			{
-				mlx_put_pixel(vars->mini_map, clean_x[j], clean_y[j], ft_get_rgba(0, 0, 0, 0));
+				mlx_put_pixel(vars->mini_map, clean[j][0], clean[j][1], ft_get_rgba(0, 0, 0, 0));
 			}
-			i = 0;
+			mem_clean = 0;
 		}
+		float mem_angle = vars->map_vars->mini_u_angle;
 		int i2 = -1;
 		while(++i2 < 60)
 		{
@@ -317,8 +318,8 @@ void ft_trace_line(t_vars *vars)
 					vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char /2) / vars->map_vars->len_char][((int)mem_y + vars->map_vars->len_char /2) / vars->map_vars->len_char] != '1')
 					{
 						mlx_put_pixel(vars->mini_map, mem_y + (vars->map_vars->len_char/2), mem_x - (vars->map_vars->len_char/2), ft_get_rgba(255, 255, 255, 255));
-						clean_x[i] = mem_y + (vars->map_vars->len_char/2);
-						clean_y[i++] = mem_x - (vars->map_vars->len_char/2);
+						clean[mem_clean][0] = mem_y + (vars->map_vars->len_char/2);
+						clean[mem_clean++][1] = mem_x - (vars->map_vars->len_char/2);
 						// mem_x--;
 						// mem_y--;
 
@@ -330,6 +331,7 @@ void ft_trace_line(t_vars *vars)
 			mem_y = vars->map_vars->cont_y + 1;
 			vars->map_vars->mini_u_angle+= 0.01;
 		}
+		vars->map_vars->mini_u_angle = mem_angle;
 		ft_draw_line(vars,vars->map_vars->cont_x + vars->map_vars->len_char, vars->map_vars->cont_y - 1, mem_x, mem_y);
 
 	// }§
@@ -387,7 +389,6 @@ int32_t	main(void)
 	*vars = (t_vars){};
 	vars->map_vars = malloc(sizeof(t_map));
 	*vars->map_vars = (t_map){};
-
 	vars->map_vars->mini_u_angle = M_PI/2 * 3;
 
 	// map = malloc(sizeof(t_map));
@@ -396,6 +397,7 @@ int32_t	main(void)
 	vars->mlx = mlx_init(WIDTH, HEIGHT, "Test", true);
 	// if (!vars->mlx)
     //     error();
+
 	vars->sky = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
 	vars->mini_map = mlx_new_image(vars->mlx, WIDTH/4, WIDTH/4);
 	vars->wall = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
