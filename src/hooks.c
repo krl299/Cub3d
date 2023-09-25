@@ -2,22 +2,22 @@
 
 void debug(t_vars *vars)
 {
-	write(1,"vars->map_vars->map[vars->mini_unit_xy[0]][vars->mini_unit_xy[1] + 1] = ", 62);
-	write(1, &vars->map_vars->map[(vars->map_vars->cont_x) / vars->map_vars->len_char][vars->map_vars->cont_y / vars->map_vars->len_char], 1);
-	write(1, "\n", 1);
-	write(1, "cont_x_left=", 13);
-	write(1, ft_itoa(vars->map_vars->cont_x), ft_strlen(ft_itoa(vars->map_vars->cont_x)));
-	write(1, "\n", 1);
-	write(1, "vars->map_vars->cont_x / vars->map_vars->len_char=", 36);
-	write(1, ft_itoa(vars->map_vars->cont_x / vars->map_vars->len_char), ft_strlen(ft_itoa(vars->map_vars->cont_x / vars->map_vars->len_char)));
-	write(1, "\n", 1);
-	write(1, "vars->map_vars->cont_y / vars->map_vars->len_char=", 33);
-	write(1, ft_itoa(vars->map_vars->cont_y / vars->map_vars->len_char), ft_strlen(ft_itoa(vars->map_vars->cont_y / vars->map_vars->len_char)));
+	// write(1,"vars->map_vars->map[vars->mini_unit_xy[0]][vars->mini_unit_xy[1] + 1] = ", 62);
+	// write(1, &vars->map_vars->map[(vars->map_vars->cont_x) / vars->map_vars->len_char][vars->map_vars->cont_y / vars->map_vars->len_char], 1);
+	// write(1, "\n", 1);
+	// write(1, "cont_x_left=", 13);
+	// write(1, ft_itoa(vars->map_vars->cont_x), ft_strlen(ft_itoa(vars->map_vars->cont_x)));
+	// write(1, "\n", 1);
+	// write(1, "vars->map_vars->cont_x / vars->map_vars->len_char=", 36);
+	// write(1, ft_itoa(vars->map_vars->cont_x / vars->map_vars->len_char), ft_strlen(ft_itoa(vars->map_vars->cont_x / vars->map_vars->len_char)));
+	// write(1, "\n", 1);
+	// write(1, "vars->map_vars->cont_y / vars->map_vars->len_char=", 33);
+	// write(1, ft_itoa(vars->map_vars->cont_y / vars->map_vars->len_char), ft_strlen(ft_itoa(vars->map_vars->cont_y / vars->map_vars->len_char)));
 
-	// write(1, ft_itoa(vars->mini_unit_xy[0]), ft_strlen(ft_itoa(vars->mini_unit_xy[0])));
-	// write(1, ",x= ", 4);
-	// write(1, ft_itoa(vars->mini_unit_xy[1]), ft_strlen(ft_itoa(vars->mini_unit_xy[1])));
-	write(1, "\n", 1);
+	// // write(1, ft_itoa(vars->mini_unit_xy[0]), ft_strlen(ft_itoa(vars->mini_unit_xy[0])));
+	// // write(1, ",x= ", 4);
+	// // write(1, ft_itoa(vars->mini_unit_xy[1]), ft_strlen(ft_itoa(vars->mini_unit_xy[1])));
+	// write(1, "\n", 1);
 }
 
 void ft_hook(void* param)
@@ -111,13 +111,13 @@ void ft_hook(void* param)
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 	{
-		vars->map_vars->mini_u_angle += 0.02;
+		vars->map_vars->mini_u_angle -= 0.02;
 		ft_trace_line(vars);
 
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 	{
-		vars->map_vars->mini_u_angle -= 0.02;
+		vars->map_vars->mini_u_angle += 0.02;
 		ft_trace_line(vars);
 
 	}

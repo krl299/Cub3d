@@ -43,23 +43,23 @@ char **temp_map()
 	// map_m[i++] = "111111111111111111111111111111111111111";
 	// map_m[i++] = "111111111111111111111111111111111111111";
 	// 	map_m[i] = NULL;
-	map_m[i++] = "111111111111111111111111";
-	map_m[i++] = "100000000000000000000001";
-	map_m[i++] = "100000000000000000000001";
-	map_m[i++] = "100000000000000000000001";
-	map_m[i++] = "100000000000000000000001";
-	map_m[i++] = "100101001000100010001001";
-	map_m[i++] = "100000000000000000000001";
-	map_m[i++] = "100000000000000000000001";
-	map_m[i++] = "100000000000000000000001";
-	map_m[i++] = "100000000000000000000001";
-	map_m[i++] = "1000000000000N0000000001";
-	map_m[i++] = "100000000000000000000001";
-	map_m[i++] = "100000000000000000000001";
-	map_m[i++] = "100000000000000000000001";
-	map_m[i++] = "100000000000000000000001";
-	map_m[i++] = "100000000000000000000001";
-	map_m[i++] = "111111111111111111111111";
+	// map_m[i++] = "111111111111111111111111";
+	// map_m[i++] = "100000000000000000000001";
+	// map_m[i++] = "100000000000000000000001";
+	// map_m[i++] = "100000000000000000000001";
+	// map_m[i++] = "100000000000000000000001";
+	// map_m[i++] = "100101001000100010001001";
+	// map_m[i++] = "100000000000000000000001";
+	// map_m[i++] = "100000000000000000000001";
+	// map_m[i++] = "100000000000000000000001";
+	// map_m[i++] = "100000000000000000000001";
+	// map_m[i++] = "100000000000000000000001";
+	// map_m[i++] = "100000000000000000000001";
+	// map_m[i++] = "100000000000000000000001";
+	// map_m[i++] = "100000000000000000000001";
+	// map_m[i++] = "100000000000000000000001";
+	// map_m[i++] = "1000000000000000000000N1";
+	// map_m[i++] = "111111111111111111111111";
 
 	// map_m[i++] = "10000000000000000111111111111111111111";
 	// map_m[i++] = "10000000000000000000000000000000000001";
@@ -82,7 +82,7 @@ char **temp_map()
 	// map_m[i++] = "10000000001";
 	// map_m[i++] = "10000000001";
 	// map_m[i++] = "11111111111";
-	map_m[i] = NULL;
+	// map_m[i] = NULL;
 // map_m[i++] = "000000001111111111111111111111111";
 // map_m[i++] = "000000001000000000110000000000001";
 // map_m[i++] = "000000001011000001110000000000001";
@@ -99,13 +99,13 @@ char **temp_map()
 // map_m[i++] = "111111110111111101111111111110000";
 // map_m[i] = NULL;
 
-	// map_m[0] = "1111111";
-	// map_m[1] = "1N00001";
-	// map_m[2] = "1001001";
-	// map_m[3] = "1000001";
-	// map_m[4] = "1000001";
-	// map_m[5] = "1111111";
-	// map_m[6] = NULL;
+	map_m[0] = "1111111";
+	map_m[1] = "1N00001";
+	map_m[2] = "1001001";
+	map_m[3] = "1000001";
+	map_m[4] = "1000001";
+	map_m[5] = "1111111";
+	map_m[6] = NULL;
 
 
 
@@ -231,7 +231,7 @@ void ft_maxlen_mm(t_vars *vars)
 	}
 	vars->map_vars->len_mm[0] = x;
 }
-void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x)
+void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, float mem_angle)
 {
 	float dist;
 	float line_len;
@@ -254,13 +254,13 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x)
 
 
 	dist = sqrt(pow(x_w - x_u, 2) + pow(y_w - y_u, 2));
-	// dist = frs_dist * cos(vars->map_vars->mini_u_angle);
-	int maxdist = WIDTH/4 - (vars->map_vars->len_char*2) - vars->map_vars->len_char/2;
+	dist = dist * cos(sin(dist/(1024 + x)));
+	int maxdist = WIDTH/4 + vars->map_vars->len_char; // /2
 	float koef = (float)HEIGHT/(float)maxdist;
 	lenght_with_koef = (maxdist - (int)dist) * koef;
-
+	int q,w,e = 0;
 		int i = -1;
-		while(++i < lenght_with_koef)
+		while(++i < lenght_with_koef + 15)
 		{
 			if (y % 2 == 0)
 				y = HEIGHT/2 + i/2;
@@ -271,7 +271,22 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x)
 			// 	y = HEIGHT/2 - i + 2;
 				// printf("y, i = %d %d\n", y, i);
 			
-			mlx_put_pixel(vars->wall, x, y, ft_get_rgba(255, 255, 255, 255));
+			mlx_put_pixel(vars->wall, x, y, ft_get_rgba(q++, w, e, 255));
+			if (q == 255)
+			{
+				q = 0;
+				w++;
+			}
+			if (w == 255)
+			{
+				w = 0;
+				e++;
+			}
+			if (e == 255)
+			{
+				e = 0;
+			}
+
 			clean[i_cl][0] = x;
 			clean[i_cl++][1] = y;
 		}
@@ -308,7 +323,7 @@ void ft_trace_line(t_vars *vars)
 		}
 		float mem_angle = vars->map_vars->mini_u_angle;
 		int i2 = -1;
-		while(++i2 < 1024)
+		while(++i2 < 2048)
 		{
 			i = 0;
 			while (i != WIDTH/4)
@@ -328,11 +343,11 @@ void ft_trace_line(t_vars *vars)
 					else
 						break;
 				}
-		ft_draw_line(vars,vars->map_vars->cont_x + vars->map_vars->len_char, vars->map_vars->cont_y - 1, mem_x, mem_y, i2);
+		ft_draw_line(vars,vars->map_vars->cont_x + vars->map_vars->len_char, vars->map_vars->cont_y - 1, mem_x, mem_y, i2, mem_angle);
 
 			mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
 			mem_y = vars->map_vars->cont_y + 1;
-			vars->map_vars->mini_u_angle+= 0.0005;
+			vars->map_vars->mini_u_angle+= 0.0003;
 		}
 		vars->map_vars->clean_walls = 1;
 		vars->map_vars->mini_u_angle = mem_angle;
@@ -393,7 +408,7 @@ int32_t	main(void)
 	*vars = (t_vars){};
 	vars->map_vars = malloc(sizeof(t_map));
 	*vars->map_vars = (t_map){};
-	vars->map_vars->mini_u_angle = M_PI/2 * 3;
+	vars->map_vars->mini_u_angle = M_PI/2 * 2;//1.5708;
 
 	// map = malloc(sizeof(t_map));
 	vars->map_vars->map = temp_map();
