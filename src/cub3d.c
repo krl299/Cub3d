@@ -289,8 +289,8 @@ void ft_trace_line(t_vars *vars)
 		float fy;
 		float mem_x;
 		float mem_y;
-		static int clean[WIDTH/4 * HEIGHT/4][2];
-		static mem_clean = 0;
+		static int clean[WIDTH * HEIGHT][2];
+		static int mem_clean = 0;
 		static int i = 0;
 		// vars->map_vars->mini_u_angle = M_PI/2 * 3;//1.5708;
 		static float angle_step = 0.1;
@@ -307,7 +307,7 @@ void ft_trace_line(t_vars *vars)
 		}
 		float mem_angle = vars->map_vars->mini_u_angle;
 		int i2 = -1;
-		while(++i2 < 60)
+		while(++i2 < 1024)
 		{
 			i = 0;
 			while (i != WIDTH/4)
@@ -329,7 +329,7 @@ void ft_trace_line(t_vars *vars)
 				}
 			mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
 			mem_y = vars->map_vars->cont_y + 1;
-			vars->map_vars->mini_u_angle+= 0.01;
+			vars->map_vars->mini_u_angle+= 0.0005;
 		}
 		vars->map_vars->mini_u_angle = mem_angle;
 		ft_draw_line(vars,vars->map_vars->cont_x + vars->map_vars->len_char, vars->map_vars->cont_y - 1, mem_x, mem_y);
