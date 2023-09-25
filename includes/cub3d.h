@@ -43,6 +43,7 @@ typedef struct var_map
 	int		size_y;
 	int		save_pos_x;
 	int		save_pos_y;
+	int		clean_walls;
 	
 }t_map;
 

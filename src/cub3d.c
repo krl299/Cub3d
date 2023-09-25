@@ -231,28 +231,30 @@ void ft_maxlen_mm(t_vars *vars)
 	}
 	vars->map_vars->len_mm[0] = x;
 }
-void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w)
+void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x)
 {
 	float dist;
 	float line_len;
 	int lenght_with_koef;
-	int x = WIDTH/2;
+
 	int y = 1;
 	int y_mem = 1;
 	static int clean[WIDTH * HEIGHT][2];
 	static int i_cl = 0;
-	if (i_cl != 0)
+	if (vars->map_vars->clean_walls == 1)
 	{
 		int j = -1;
 		while(++j <= i_cl)
 		{
 			mlx_put_pixel(vars->wall, clean[j][0], clean[j][1], ft_get_rgba(0, 0, 0, 0));
 		}
+		vars->map_vars->clean_walls = 0;
 		i_cl = 0;
 	}
 
-	dist = sqrt(pow(x_w - x_u, 2) + pow(y_w - y_u, 2));
 
+	dist = sqrt(pow(x_w - x_u, 2) + pow(y_w - y_u, 2));
+	// dist = frs_dist * cos(vars->map_vars->mini_u_angle);
 	int maxdist = WIDTH/4 - (vars->map_vars->len_char*2) - vars->map_vars->len_char/2;
 	float koef = (float)HEIGHT/(float)maxdist;
 	lenght_with_koef = (maxdist - (int)dist) * koef;
@@ -273,15 +275,14 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w)
 			clean[i_cl][0] = x;
 			clean[i_cl++][1] = y;
 		}
+	// printf("lenght_with_koef = %d\n", lenght_with_koef);
+	// printf("maxdist = %d\n", maxdist);
+	// printf("koef = %f\n", koef);
+	// printf("dist = %f\n", dist);
 
-	printf("lenght_with_koef = %d\n", lenght_with_koef);
-	printf("maxdist = %d\n", maxdist);
-	printf("koef = %f\n", koef);
-	printf("dist = %f\n", dist);
+	// // sleep(100);
 
-	// sleep(100);
-
-	printf("dist = %f\n", dist);
+	// printf("dist = %f\n", dist);
 }
 void ft_trace_line(t_vars *vars)
 {
@@ -327,12 +328,15 @@ void ft_trace_line(t_vars *vars)
 					else
 						break;
 				}
+		ft_draw_line(vars,vars->map_vars->cont_x + vars->map_vars->len_char, vars->map_vars->cont_y - 1, mem_x, mem_y, i2);
+
 			mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
 			mem_y = vars->map_vars->cont_y + 1;
 			vars->map_vars->mini_u_angle+= 0.0005;
 		}
+		vars->map_vars->clean_walls = 1;
 		vars->map_vars->mini_u_angle = mem_angle;
-		ft_draw_line(vars,vars->map_vars->cont_x + vars->map_vars->len_char, vars->map_vars->cont_y - 1, mem_x, mem_y);
+		// ft_draw_line(vars,vars->map_vars->cont_x + vars->map_vars->len_char, vars->map_vars->cont_y - 1, mem_x, mem_y);
 
 	// }§
 
