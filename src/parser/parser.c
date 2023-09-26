@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:33:43 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/21 13:54:45 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:06:11 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,20 @@ void	ft_get_info(t_file_info *info)
 			ft_get_color(&info->ceiling_color, line);
 			info->elements++;
 		}
-		else if (info->elements == 6)
+		else if (info->elements == 6 && !(*tmp == '\n'))
 		{
 			ft_check_textures(info);
+			printf("\n");
 			ft_get_map(info, tmp);
+			printf("end get function\n");
+			break;
 		}
 		else if (!(*tmp == '\n'))
 			ft_error_msg(3, info);
 		free(tmp);
 		line = get_next_line(info->fd);
 	}
-	free(line);
+	//free(line);
 }
 
 //	check if has the correct extension "*.cub"

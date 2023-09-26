@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 10:06:26 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/21 12:39:48 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/26 13:47:24 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,21 @@ void	ft_init_rgb(t_rgb *rgb)
 	rgb->g = -1;
 	rgb->b = -1;
 	rgb->is_rgb = 0;
+}
+
+void	ft_init_map(t_file_info *info, int size, char **cpy)
+{
+	int	i;
+
+	i = 0;
+	info->map_size = size;
+	info->map = malloc(sizeof(char *) * size);
+	if (!info->map)
+		return ;
+	while (i < size && cpy[i])
+	{
+		info->map[i] = ft_substr(cpy[i], 0, ft_strlen(cpy[i]));
+		printf("%s", info->map[i]);
+		i++;
+	}
 }

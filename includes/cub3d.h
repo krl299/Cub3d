@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:39:19 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/21 13:45:39 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/26 13:51:34 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,14 @@ typedef struct s_file_info
 	t_rgb	floor_color;
 	t_rgb	ceiling_color;
 	char	**map;
+	int		map_size;
 }	t_file_info;
 
 //	Init.c
 void	ft_init_info(t_file_info *info);
 void	ft_clean_info(t_file_info *info);
 void	ft_init_rgb(t_rgb *rgb);
+void	ft_init_map(t_file_info *info, int size, char **cpy);
 
 //	Parser.c	
 void	ft_check_arg(char *str, t_file_info *info);
@@ -80,5 +82,7 @@ int		ft_isspace(int c);
 
 //	Test funtions
 void	ft_print_info(t_file_info *info);
+void	ft_print_map(t_file_info *info);
+void	ft_clean_doublepointer(char **tmp, int size);
 
 #endif

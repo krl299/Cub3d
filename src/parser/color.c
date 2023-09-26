@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 12:11:07 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/21 13:14:28 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:38:13 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	ft_get_color(t_rgb *color, char *line)
 			ft_error_msg(5, NULL);
 		else
 			color->is_rgb = 1;
+		ft_clean_doublepointer(tmp, i);
+		free(tmp);
 	}
 	else
 		ft_error_msg(5, NULL);
