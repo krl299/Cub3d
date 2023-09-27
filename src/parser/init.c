@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 10:06:26 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/26 13:47:24 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/27 10:09:48 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void	ft_init_map(t_file_info *info, int size, char **cpy)
 		return ;
 	while (i < size && cpy[i])
 	{
-		info->map[i] = ft_substr(cpy[i], 0, ft_strlen(cpy[i]));
-		printf("%s", info->map[i]);
+		info->map[i] = ft_strtrim(cpy[i],"\n");
+		//printf("%s", info->map[i]);
 		i++;
 	}
 }

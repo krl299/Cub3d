@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:39:19 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/26 13:51:34 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:31:39 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_file_info
 	t_rgb	ceiling_color;
 	char	**map;
 	int		map_size;
+	int		players;
 }	t_file_info;
 
 //	Init.c
@@ -73,16 +74,19 @@ int		ft_rgb_spectrum(t_rgb *color);
 
 //	Map.c
 void	ft_get_map(t_file_info *info, char *line);
+int		ft_hasplayer(t_file_info *info);
+void	ft_checkwalls(t_file_info *info);
 
 //	Error functions
 void	ft_error_msg(int i, t_file_info *info);
 
 //	Funtions to add on libft
 int		ft_isspace(int c);
+void	ft_clean_doublepointer(char **tmp, int size);
+void	ft_replace(char *str, const char search, const char replace);
 
 //	Test funtions
 void	ft_print_info(t_file_info *info);
 void	ft_print_map(t_file_info *info);
-void	ft_clean_doublepointer(char **tmp, int size);
 
 #endif
