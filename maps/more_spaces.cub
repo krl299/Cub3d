@@ -1,10 +1,20 @@
-NO ./maps/no.png     
-SO ./maps/so.png
-WE ./maps/we.png
-EA ./maps/ea.png
+                NO               ./maps/no.png        
 
-F 220,100,0
-C 225,30,0
+          SO                ./maps/so.png    
+
+      WE        ./maps/we.png       
+
+          EA             ./maps/ea.png       
+
+
+
+
+   F      220,100,0
+      C  225,30,0   
+
+
+
+
 
         1111111111111111111111111
         1000000000110000000000001
