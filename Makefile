@@ -3,55 +3,51 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+         #
+#    By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/21 13:53:44 by cmoran-l         ###   ########.fr        #
+#    Updated: 2023/09/28 13:05:36 by mandriic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	./src/parser/error_parser.c ./src/cub3d.c ./src/parser/parser.c	./src/parser/textures.c	./src/parser/init.c	./src/parser/test.c	./src/parser/color.c	./src/parser/map.c
+
 
 OBJS		=	${SRCS:.c=.o}
 
-LIBMLX		=	./libraries/MLX42	#Path of MLX42
+LIBMLX		=	libraries/MLX42
 
-MLXHEADER	=	./libraries/MLX42/include/MLX42	#Path of MLX header
+LIBFT		=	libraries/libft
 
-MLXBUILD	=	./libraries/MLX42/build	#Path of MLX build
+HEADERS		=	-I ${LIBMLX}/include/MLX42 -I ${LIBFT} 
 
-LIBFT		=	./libraries/libft	#Path of libft
+LIBS		=	${LIBMLX}/libmlx42.a	${LIBFT}/libft.a
 
-HEADERS		=	-I ${MLXHEADER} -I ${LIBFT} 
+GCC = gcc #-Wall -Werror -Wextra
 
-LIBS		=	./libraries/MLX42/build/libmlx42.a	./libraries/libft/libft.a
+NAME = cub3d
 
-GCC 		=	gcc -Wall -Werror -Wextra
-
-NAME 		=	cub3d
-
-RM 			= 	rm -rf
+RM = rm -rf
 
 .c.o:
 	@${GCC} -c $< ${HEADERS} -o ${<:.c=.o}
 
 all:	lib	$(NAME)
 
-lib:
-	git submodule update --init
-	make -C ${LIBFT} extra
-	cmake ${LIBMLX} -B ${MLXBUILD} && make -C ${MLXBUILD} -j4
+# lib:
+# 	@git submodule update --init
+# 	@make -C libft extra
+# 	@make -C MLX42
 
 $(NAME): ${OBJS}
-	${GCC} ${OBJS} ${LIBS} -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" ${HEADERS} -o ${NAME}
+	@${GCC} ${OBJS} ${LIBS} -lglfw $(GLFWLFLAG) ${HEADERS} -o ${NAME}
 
-clean:
-	${RM} ${OBJS}
-	make -C ${LIBFT} fclean
-	rm -rf ./libraries/MLX42/build
+# clean:
+# 	@${RM} ${OBJS}
+# 	@make -C MLX42 fclean
+# 	@make -C libft fclean
 
 fclean: clean
-	${RM} ${NAME}
+	@${RM} ${NAME}
 
 re: fclean all
 
@@ -59,3 +55,6 @@ linux: fclean lib ${OBJS}
 	${GCC} ${OBJS} ${LIBS} -ldl -lglfw -pthread -lm ${HEADERS} -o ${NAME}
 
 .PHONY: all clean fclean re lib
+bonus: all
+
+.PHONY: all clean fclean re NAME LIBFT lib bonus
