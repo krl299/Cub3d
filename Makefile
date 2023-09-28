@@ -6,16 +6,16 @@
 #    By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/28 17:03:57 by cmoran-l         ###   ########.fr        #
+#    Updated: 2023/09/28 20:42:35 by mandriic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ifeq ($(USER), $(filter mandriic,cmoranl))
-       GLFWLFLAG = L/Users/$(USER)/.brew/opt/glfw/lib/
+       GLFWLFLAG = -L/Users/$(USER)/.brew/opt/glfw/lib/
        # R42IFLAG = I/Users/$(USER)/.brew/opt/readline/include
 endif
 ifeq ($(USER), sirius)
-	GLFWLFLAG = -L/opt/homebrew/opt/glfw/lib/
+	GLFWLFLAG = /opt/homebrew/opt/glfw/lib/
 endif
        # R42IFLAG = I/opt/homebrew/opt/readline/include
 
@@ -52,7 +52,7 @@ lib:
 	@cmake ${LIBMLX} -B ${MLXBUILD} && make -C ${MLXBUILD} -j4
 
 $(NAME): ${OBJS}
-	@${GCC} ${OBJS} ${LIBS} -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" ${HEADERS} -o ${NAME}
+	@${GCC} ${OBJS} ${LIBS} -lglfw -L ${GLFWLFLAG} ${HEADERS} -o ${NAME}
 
 clean:
 	@${RM} ${OBJS}
