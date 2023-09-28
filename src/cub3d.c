@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/28 14:20:35 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:16:01 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -463,9 +463,9 @@ int	main(int argc, char *argv[])
 //	atexit(ft_leaks);
 	if (argc == 2)
 	{
-		ft_init_info(&info);
-		ft_check_arg(argv[1], &info);
-		ft_clean_info(&info);
+		// ft_init_info(&info);
+		// ft_check_arg(argv[1], &info);
+		// ft_clean_info(&info);
 		submain();
 	}
 	else

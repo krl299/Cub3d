@@ -6,7 +6,7 @@
 #    By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/28 14:35:02 by mandriic         ###   ########.fr        #
+#    Updated: 2023/09/28 15:09:03 by mandriic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,17 +19,19 @@ ifeq ($(USER), sirius)
 endif
        # R42IFLAG = I/opt/homebrew/opt/readline/include
 
-SRCS           =   ./src/hooks.c ./src/utils.c ./src/parser/error_parser.c ./src/cub3d.c ./src/parser/parser.c ./src/parser/textures.c ./src/parser/init.c     ./src/parser/test.c     ./src/parser/color.c    ./src/parser/map.c
+SRCS           =  ./libraries/libft/gnl/get_next_line.c ./libraries/libft/gnl/get_next_line_utils.c ./src/hooks.c ./src/utils.c ./src/parser/error_parser.c ./src/cub3d.c ./src/parser/parser.c ./src/parser/textures.c ./src/parser/init.c     ./src/parser/test.c     ./src/parser/color.c    ./src/parser/map.c
 
 OBJS		=	${SRCS:.c=.o}
 
 LIBMLX		=	./libraries/MLX42/
 
 LIBFT		=	./libraries/libft/
+# GNL		=	./libraries/libft/gnl
+# PRF		=	./libraries/libft/printf
 
-HEADERS		=	-I ${LIBMLX}/include/MLX42 -I ${LIBFT} 
+HEADERS		=	-I ${LIBMLX}/include/MLX42 -I ${LIBFT} -I ${GNL} -I ${PRF} 
 
-LIBS		=	${LIBMLX}/libmlx42.a	${LIBFT}/libft.a
+LIBS		=	${LIBMLX}/libmlx42.a	${LIBFT}/libft.a $
 
 GCC = gcc #-Wall -Werror -Wextra
 
@@ -50,10 +52,6 @@ all:	lib	$(NAME)
 $(NAME): ${OBJS}
 	@${GCC} ${OBJS} ${LIBS} -lglfw ${GLFWLFLAG} ${HEADERS} -o ${NAME}
 
-clean:
-	@${RM} ${OBJS}
-	@make -C MLX42 fclean
-	@make -C libft fclean
 
 fclean: clean
 	@${RM} ${NAME}
