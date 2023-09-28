@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:39:19 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/28 13:07:53 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:19:11 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void ft_create_sky(t_vars *vars, mlx_image_t *img, int size, int size2, unsigned
 void ft_hook(void* param);
 void ft_trace_line(t_vars *vars);
 
-# endif
 typedef struct s_rgb
 {
 	int	r;

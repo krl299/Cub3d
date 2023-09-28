@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/28 13:09:39 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:20:35 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,7 @@ void	ft_leaks(void)
 	system("leaks -q cub3d");
 }
 
-int	main(int argc, char *argv[])
-{
-	t_file_info	info;
 
-//	atexit(ft_leaks);
-	if (argc == 2)
-	{
-		ft_init_info(&info);
-		ft_check_arg(argv[1], &info);
-		ft_clean_info(&info);
-	}
-	else
-		ft_error_msg(1, &info);
-	return (0);
-}
 
 
 
@@ -432,7 +418,7 @@ void ft_create_mmap(t_vars *vars)
 	}
 	ft_trace_line(vars);
 }
-int32_t	main(void)
+int32_t	submain(void)
 {
 	t_vars *vars;
 	vars = malloc(sizeof(t_vars));
@@ -468,4 +454,21 @@ int32_t	main(void)
 	mlx_terminate(vars->mlx);
 	
 	return (EXIT_SUCCESS);
+}
+
+int	main(int argc, char *argv[])
+{
+	t_file_info	info;
+
+//	atexit(ft_leaks);
+	if (argc == 2)
+	{
+		ft_init_info(&info);
+		ft_check_arg(argv[1], &info);
+		ft_clean_info(&info);
+		submain();
+	}
+	else
+		ft_error_msg(1, &info);
+	return (0);
 }
