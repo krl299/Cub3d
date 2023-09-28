@@ -6,7 +6,7 @@
 #    By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/28 14:28:32 by mandriic         ###   ########.fr        #
+#    Updated: 2023/09/28 14:35:02 by mandriic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,17 +14,18 @@ ifeq ($(USER), $(filter mandriic,cmoranl))
        GLFWLFLAG = L/Users/$(USER)/.brew/opt/glfw/lib/
        # R42IFLAG = I/Users/$(USER)/.brew/opt/readline/include
 endif
-
-GLFWLFLAG = -L/opt/homebrew/opt/glfw/lib/
+ifeq ($(USER), sirius)
+	GLFWLFLAG = -L/opt/homebrew/opt/glfw/lib/
+endif
        # R42IFLAG = I/opt/homebrew/opt/readline/include
 
 SRCS           =   ./src/hooks.c ./src/utils.c ./src/parser/error_parser.c ./src/cub3d.c ./src/parser/parser.c ./src/parser/textures.c ./src/parser/init.c     ./src/parser/test.c     ./src/parser/color.c    ./src/parser/map.c
 
 OBJS		=	${SRCS:.c=.o}
 
-LIBMLX		=	./libraries/MLX42
+LIBMLX		=	./libraries/MLX42/
 
-LIBFT		=	./libraries/libft
+LIBFT		=	./libraries/libft/
 
 HEADERS		=	-I ${LIBMLX}/include/MLX42 -I ${LIBFT} 
 
@@ -49,10 +50,10 @@ all:	lib	$(NAME)
 $(NAME): ${OBJS}
 	@${GCC} ${OBJS} ${LIBS} -lglfw ${GLFWLFLAG} ${HEADERS} -o ${NAME}
 
-# clean:
-# 	@${RM} ${OBJS}
-# 	@make -C MLX42 fclean
-# 	@make -C libft fclean
+clean:
+	@${RM} ${OBJS}
+	@make -C MLX42 fclean
+	@make -C libft fclean
 
 fclean: clean
 	@${RM} ${NAME}
