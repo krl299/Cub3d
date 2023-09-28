@@ -6,7 +6,7 @@
 #    By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/28 14:35:02 by mandriic         ###   ########.fr        #
+#    Updated: 2023/09/28 17:03:57 by cmoran-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,17 @@ SRCS           =   ./src/hooks.c ./src/utils.c ./src/parser/error_parser.c ./src
 
 OBJS		=	${SRCS:.c=.o}
 
-LIBMLX		=	./libraries/MLX42/
+LIBMLX		=	./libraries/MLX42
 
-LIBFT		=	./libraries/libft/
+MLXHEADER	=	./libraries/MLX42/include/MLX42
 
-HEADERS		=	-I ${LIBMLX}/include/MLX42 -I ${LIBFT} 
+MLXBUILD	=	./libraries/MLX42/build
 
-LIBS		=	${LIBMLX}/libmlx42.a	${LIBFT}/libft.a
+LIBFT		=	./libraries/libft
+
+HEADERS		=	-I ${MLXHEADER} -I ${LIBFT} 
+
+LIBS		=	./libraries/MLX42/build/libmlx42.a	./libraries/libft/libft.a
 
 GCC = gcc #-Wall -Werror -Wextra
 
@@ -42,18 +46,18 @@ RM = rm -rf
 
 all:	lib	$(NAME)
 
-# lib:
-# 	@git submodule update --init
-# 	@make -C libft extra
-# 	@make -C MLX42
+lib:
+	@git submodule update --init
+	@make -C ${LIBFT} extra
+	@cmake ${LIBMLX} -B ${MLXBUILD} && make -C ${MLXBUILD} -j4
 
 $(NAME): ${OBJS}
-	@${GCC} ${OBJS} ${LIBS} -lglfw ${GLFWLFLAG} ${HEADERS} -o ${NAME}
+	@${GCC} ${OBJS} ${LIBS} -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" ${HEADERS} -o ${NAME}
 
 clean:
 	@${RM} ${OBJS}
-	@make -C MLX42 fclean
-	@make -C libft fclean
+	@make -C ${LIBFT} fclean
+	@rm -rf ./libraries/MLX42/build
 
 fclean: clean
 	@${RM} ${NAME}
@@ -63,7 +67,6 @@ re: fclean all
 # linux: fclean lib ${OBJS}
 # 	${GCC} ${OBJS} ${LIBS} -ldl -lglfw -pthread -lm ${HEADERS} -o ${NAME}
 
-.PHONY: all clean fclean re lib
 bonus: all
 
 .PHONY: all clean fclean re NAME LIBFT lib bonus
