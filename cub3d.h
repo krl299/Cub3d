@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mandriic <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:04:39 by mandriic          #+#    #+#             */
-/*   Updated: 2022/01/11 19:04:46 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/09/28 12:45:15 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <string.h>
-# include "MLX42/include/MLX42/MLX42.h"
+# include "libraries/MLX42/include/MLX42/MLX42.h"
 # include <unistd.h>
-# include "./libft/libft.h"
-# include "./libft/gnl/get_next_line.h"
+# include "./libraries/libft/libft.h"
+# include "./libraries/libft/gnl/get_next_line.h"
 
 
 #define WIDTH 2048

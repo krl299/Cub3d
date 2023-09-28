@@ -1,58 +1,61 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/13 08:49:18 by cmoran-l         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+USER = $(shell whoami)
+UNAME_S := $(shell uname -s)
+ifeq ($(USER), $(filter mandriic,cmoran-l))
+	GLFWLFLAG = -L/Users/$(USER)/.brew/opt/glfw/lib/
+	# R42IFLAG = -I/Users/$(USER)/.brew/opt/readline/include
+endif
+ifeq ($(USER), sirius)
+ifeq ($(UNAME_S),Darwin)
+	GLFWLFLAG = -L/opt/homebrew/opt/glfw/lib/
+	# R42IFLAG = -I/opt/homebrew/opt/readline/include
+endif
+endif
+# ifeq ($(UNAME_S),Linux)
+# 	R42LFLAG = -L/usr/share/readline 
+# 	R42IFLAG = -I/usr/include/readline
+# endif
 
-SRCS		=	./src/cub3d.c ./src/utils.c ./src/hooks.c
+SRCS		=	src/cub3d.c src/hooks.c src/utils.c  
 
 OBJS		=	${SRCS:.c=.o}
 
-LIBMLX		=	./libraries/MLX42	#Path of MLX42
+LIBMLX		=	libraries/MLX42
 
-MLXHEADER	=	./libraries/MLX42/include/MLX42	#Path of MLX header
+LIBFT		=	libraries/libft
 
-MLXBUILD	=	./libraries/MLX42/build	#Path of MLX build
+HEADERS		=	-I ${LIBMLX}/include/MLX42 -I ${LIBFT} 
 
-LIBFT		=	./libraries/libft	#Path of libft
+LIBS		=	${LIBMLX}/libmlx42.a	${LIBFT}/libft.a
 
-HEADERS		=	-I ${MLXHEADER} -I ${LIBFT} 
+GCC = gcc #-Wall -Werror -Wextra
 
-LIBS		=	./libraries/MLX42/build/libmlx42.a	./libraries/libft/libft.a
+NAME = cub3d
 
-GCC 		=	gcc -g #-Wall -Werror -Wextra
-
-NAME 		=	cub3d
-
-RM 			= 	rm -rf
+RM = rm -rf
 
 .c.o:
 	@${GCC} -c $< ${HEADERS} -o ${<:.c=.o}
 
 all:	lib	$(NAME)
 
-lib:
-	# git submodule update --init
-	# make -C ${LIBFT} extra
-	# cmake ${LIBMLX} -B ${MLXBUILD} && make -C ${MLXBUILD} -j4
+# lib:
+# 	@git submodule update --init
+# 	@make -C libft extra
+# 	@make -C MLX42
 
-$(NAME): ${OBJS} ./includes/cub3d.h
-	${GCC} ${OBJS} ${LIBS} -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" ${HEADERS} -o ${NAME}
+$(NAME): ${OBJS}
+	@${GCC} ${OBJS} ${LIBS} -lglfw $(GLFWLFLAG) ${HEADERS} -o ${NAME}
 
-clean:
-	${RM} ${OBJS}
-	# make -C ${LIBFT} fclean
-	# rm -rf ./libraries/MLX42/build
+# clean:
+# 	@${RM} ${OBJS}
+# 	@make -C MLX42 fclean
+# 	@make -C libft fclean
 
 fclean: clean
-	${RM} ${NAME}
+	@${RM} ${NAME}
 
 re: fclean all
 
-.PHONY: all clean fclean re lib
+bonus: all
+
+.PHONY: all clean fclean re NAME LIBFT lib bonus
