@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 10:06:26 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/27 10:09:48 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:40:40 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ void	ft_clean_info(t_file_info *info)
 		free(info->ea_texture);
 	if (info->ea_extension != NULL)
 		free(info->ea_extension);
+	if (info->map != NULL)
+		ft_clean_doublepointer(info->map, info->map_size);
+		free(info->map);
 }
 
 void	ft_init_rgb(t_rgb *rgb)
@@ -75,7 +78,6 @@ void	ft_init_map(t_file_info *info, int size, char **cpy)
 	while (i < size && cpy[i])
 	{
 		info->map[i] = ft_strtrim(cpy[i],"\n");
-		//printf("%s", info->map[i]);
 		i++;
 	}
 }

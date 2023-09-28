@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 08:49:06 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/21 12:49:00 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:42:12 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	ft_get_no_texture(t_file_info *info, char *line)
 {	
 	int	fd;
 
-	printf("no_texture\n");
 	if (info->no_texture == NULL)
 	{
 		line += 3;
@@ -55,7 +54,6 @@ void	ft_get_so_texture(t_file_info *info, char *line)
 {	
 	int	fd;
 
-	printf("so_texture\n");
 	if (info->so_texture == NULL)
 	{
 		line += 3;
@@ -78,7 +76,6 @@ void	ft_get_we_texture(t_file_info *info, char *line)
 {	
 	int	fd;
 
-	printf("we_texture\n");
 	if (info->we_texture == NULL)
 	{
 		line += 3;
@@ -101,7 +98,6 @@ void	ft_get_ea_texture(t_file_info *info, char *line)
 {	
 	int	fd;
 
-	printf("ea_texture\n");
 	if (info->ea_texture == NULL)
 	{
 		line += 3;

@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:33:43 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/26 12:06:11 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:41:53 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,12 @@ void	ft_get_info(t_file_info *info)
 	char	*line;
 	char	*tmp;
 
-	printf("get_info\n");
 	line = get_next_line(info->fd);
 	while (line != NULL)
 	{
 		tmp = line;
-		printf("%s", tmp);
-		printf("elements : %d\n", info->elements);
 		while (ft_isspace(*line) == 1)
 			line++;
-		printf("line : %s", line);
 		if (ft_strncmp(line, "NO ", 3) == 0)
 			ft_get_no_texture(info, line);
 		else if (ft_strncmp(line, "SO ", 3) == 0)
@@ -77,9 +73,7 @@ void	ft_get_info(t_file_info *info)
 		else if (info->elements == 6 && !(*tmp == '\n'))
 		{
 			ft_check_textures(info);
-			printf("\n");
 			ft_get_map(info, tmp);
-			printf("end get function\n");
 			break;
 		}
 		else if (!(*tmp == '\n'))
@@ -87,7 +81,6 @@ void	ft_get_info(t_file_info *info)
 		free(tmp);
 		line = get_next_line(info->fd);
 	}
-	//free(line);
 }
 
 //	check if has the correct extension "*.cub"
@@ -98,11 +91,12 @@ void	ft_get_info(t_file_info *info)
 //	check if there are more than one texture
 //	check if color is on rgb spectrum (0,255)
 //	get the map with spaces
+//	has only 1 player
+//	has surrounded by walls
 void	ft_check_arg(char *str, t_file_info *info)
 {
 	int	fd;
 
-	printf("inside check\n");
 	ft_extension_file(str, &info->file_extension);
 	if (info->file_extension != NULL && \
 ft_strncmp(info->file_extension, "cub", 3) == 0)

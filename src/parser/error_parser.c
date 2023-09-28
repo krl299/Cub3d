@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 10:19:24 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/19 16:21:58 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:40:30 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ Wrong arguments. Must execute like: ./cub3d <'path to map file'.cub>\n", 2);
 		ft_putstr_fd("Error.\nMore textures for the same orientation.\n", 2);
 	else if (i == 9)
 		ft_putstr_fd("Error.\nOne texture has been used twice or more.\n", 2);
-//	ft_clean_info(info);	
 	exit(2);
 }

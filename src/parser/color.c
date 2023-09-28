@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 12:11:07 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/26 11:38:13 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:40:19 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,13 @@ void	ft_get_color(t_rgb *color, char *line)
 	char	**tmp;
 	int 	i;
 
-	printf("get_color\n");
 	i = 0;
 	line += 2;
-	printf("color is rgb? %d\n", color->is_rgb);
 	if (color->is_rgb == 0)
 	{
 		tmp = ft_split(line, ',');
 		while (tmp[i])
 			i++;
-		printf("numbers? %d\n", i);
 		if (i == 3)
 		{
 			color->r = ft_atoi(tmp[0]);
@@ -48,7 +45,6 @@ void	ft_get_color(t_rgb *color, char *line)
 
 int	ft_rgb_spectrum(t_rgb *color)
 {
-	printf("get_color\n");
 	if (color->r < 0 || color->r > 255)
 		return (0);
 	else if (color->r < 0 || color->r > 255)
