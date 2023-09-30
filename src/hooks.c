@@ -24,9 +24,6 @@ void ft_hook(void* param)
 {
 	t_vars *vars;
 	vars = param;
-
-	// printf("vars->mini_unit_xy[0]%d, vars->mini_unit_xy[1]%d\n", vars->mini_unit_xy[0], vars->mini_unit_xy[1]);
-	// printf("vars->map_vars->map[vars->mini_unit_xy[0]][vars->mini_unit_xy[1] + 1]==== %c\n", vars->map_vars->map[vars->mini_unit_xy[0]][vars->mini_unit_xy[1] + 1]);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(vars->mlx);
 
@@ -39,17 +36,10 @@ void ft_hook(void* param)
 			vars->mini_unit->instances[0].x += SPEEX;
 		}
 		ft_trace_line(vars);
-
-		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->map_vars->len_char);
 		debug(vars);
 	}
 
-	// 	// 	vars->mini_unit->instances[0].x += SPEEX;
-	// 	// }
-	// 	// debug(vars);
-	// }
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_A))
-	// 	// vars->gun->instances[0].x-= 3;
 	{
 
 		if(vars->map_vars->map[(vars->map_vars->cont_x) / vars->map_vars->len_char][(vars->map_vars->cont_y  - 1) / vars->map_vars->len_char] != '1' &&\
@@ -60,24 +50,9 @@ void ft_hook(void* param)
 			vars->mini_unit->instances[0].x -= SPEEX;
 		}
 		ft_trace_line(vars);
-
-		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->map_vars->len_char);
 		debug(vars);
 	}
-		// else if (vars->map_vars->map[vars->mini_unit_xy[0]][vars->mini_unit_xy[1] - 1] == '1' && vars->map_vars->cont_x != 1)
-		// {
-		// 	if (vars->map_vars->cont_x-- == 1)
-		// 	{
-		// 			vars->mini_unit_xy[1] -= 1;
-		// 			vars->map_vars->cont_x = vars->map_vars->len_char;
-				
-		// 	}
-		// 	vars->mini_unit->instances[0].x -= SPEEX;
-		// }
-		// debug(vars);
 
-	// }
-	
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_W))
 	{	
 		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->map_vars->len_char);
@@ -90,7 +65,6 @@ void ft_hook(void* param)
 		}
 		debug(vars);
 		ft_trace_line(vars);
-
 	}
 
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_S))
@@ -103,11 +77,7 @@ void ft_hook(void* param)
 			vars->mini_unit->instances[0].y += SPEEX;
 		}
 		ft_trace_line(vars);
-
-		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->map_vars->len_char);
 		debug(vars);
-
-
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 	{

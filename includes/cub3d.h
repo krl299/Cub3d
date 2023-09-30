@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:39:19 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/30 09:26:38 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/09/30 11:52:07 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,14 @@ void	ft_replace(char *str, const char search, const char replace);
 //	Test funtions
 void	ft_print_info(t_file_info *info);
 void	ft_print_map(t_file_info *info);
+char **temp_map();
+
+// mini_map.c
+void ft_create_mmap(t_vars *vars);
+void ft_maxlen_mm(t_vars *vars);
+void ft_mini_unit(int x, int y, t_vars *vars);
+void ft_print_wall(int wall, int x, int y, t_vars *vars);
+
+
 
 #endif
