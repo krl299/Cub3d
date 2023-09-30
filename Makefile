@@ -6,7 +6,7 @@
 #    By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/29 15:12:18 by cmoran-l         ###   ########.fr        #
+#    Updated: 2023/09/30 09:30:00 by mandriic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ ifeq ($(USER), $(filter mandriic,cmoranl))
        # R42IFLAG = I/Users/$(USER)/.brew/opt/readline/include
 endif
 ifeq ($(USER), sirius)
-	GLFWLFLAG = /opt/homebrew/opt/glfw/lib/
+	GLFWLFLAG = -L /opt/homebrew/opt/glfw/lib/
 endif
        # R42IFLAG = I/opt/homebrew/opt/readline/include
 
