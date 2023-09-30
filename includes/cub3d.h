@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:39:19 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/28 14:19:11 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/09/30 09:26:38 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct var_idnf
 	mlx_image_t* texture3img;
 	mlx_image_t* for_texture_print;
 	xpm_t* xpm;
-
 	t_map	*map_vars;
 }t_vars;
 

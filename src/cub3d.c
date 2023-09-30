@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/28 14:20:35 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/09/30 09:23:51 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,12 +272,12 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, 
 
 	dist = sqrt(pow(x_w - x_u, 2) + pow(y_w - y_u, 2));
 	// dist = dist * cos(vars->map_vars->mini_u_angle);
-	int maxdist = WIDTH/4 + vars->map_vars->len_char; // /2
+	int maxdist = WIDTH/6 + vars->map_vars->len_char; // /2
 	float koef = (float)HEIGHT/(float)maxdist;
-	lenght_with_koef = (maxdist - (int)dist) * koef;
+	lenght_with_koef = (maxdist - (int)dist) * koef + 30;
 	int q,w,e = 0;
 		int i = -1;
-		while(++i < lenght_with_koef/2/2)
+		while(++i < lenght_with_koef)
 		{
 			if (y % 2 == 0)
 				y = HEIGHT/2 + i/2;
@@ -418,7 +418,7 @@ void ft_create_mmap(t_vars *vars)
 	}
 	ft_trace_line(vars);
 }
-int32_t	submain(void)
+int32_t	submain(t_file_info *info)
 {
 	t_vars *vars;
 	vars = malloc(sizeof(t_vars));
@@ -428,7 +428,7 @@ int32_t	submain(void)
 	vars->map_vars->mini_u_angle = M_PI/2 * 2;//1.5708;
 
 	// map = malloc(sizeof(t_map));
-	vars->map_vars->map = temp_map();
+	vars->map_vars->map = info->map;
 	// printf("%c\n", vars->map_vars->map[6][6]);
 	vars->mlx = mlx_init(WIDTH, HEIGHT, "Test", true);
 	// if (!vars->mlx)
@@ -436,7 +436,7 @@ int32_t	submain(void)
 
 	vars->sky = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
 	vars->mini_map = mlx_new_image(vars->mlx, WIDTH/4, WIDTH/4);
-	vars->wall = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
+	vars->wall = mlx_new_image(vars->mlx, WIDTH, HEIGHT + 100);
 	ft_create_sky(vars, vars->sky, WIDTH, HEIGHT, ft_get_rgba(100, 210, 250, 250));
 	ft_create_mmap(vars);
 	vars->map_vars->start_draw_y_mm = HEIGHT - (WIDTH/4/vars->map_vars->len_mm[1]) * vars->map_vars->len_mm[0];
@@ -466,7 +466,7 @@ int	main(int argc, char *argv[])
 		ft_init_info(&info);
 		ft_check_arg(argv[1], &info);
 		ft_clean_info(&info);
-		submain();
+		submain(&info);
 	}
 	else
 		ft_error_msg(1, &info);
