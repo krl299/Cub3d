@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/30 09:23:51 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/09/30 11:33:20 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,11 +252,11 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, 
 {
 	float dist;
 	float line_len;
-	int lenght_with_koef;
+	float lenght_with_koef;
 
 	int y = 1;
 	int y_mem = 1;
-	static int clean[WIDTH * HEIGHT][2];
+	static int clean[WIDTH * HEIGHT * 2][2];
 	static int i_cl = 0;
 	if (vars->map_vars->clean_walls == 1)
 	{
@@ -272,23 +272,23 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, 
 
 	dist = sqrt(pow(x_w - x_u, 2) + pow(y_w - y_u, 2));
 	// dist = dist * cos(vars->map_vars->mini_u_angle);
-	int maxdist = WIDTH/6 + vars->map_vars->len_char; // /2
-	float koef = (float)HEIGHT/(float)maxdist;
-	lenght_with_koef = (maxdist - (int)dist) * koef + 30;
+	lenght_with_koef = 128 / (dist * 2) * HEIGHT -1 ;
+	lenght_with_koef += 1;
 	int q,w,e = 0;
 		int i = -1;
-		while(++i < lenght_with_koef)
+		while(++i < (int)lenght_with_koef-1)
 		{
 			if (y % 2 == 0)
 				y = HEIGHT/2 + i/2;
 			else
 				y = HEIGHT/2 - i/2;
-			// 	y = HEIGHT/2 + i;
-			// else
-			// 	y = HEIGHT/2 - i + 2;
-				// printf("y, i = %d %d\n", y, i);
-			
-			mlx_put_pixel(vars->wall, x, y, ft_get_rgba(q++, w, e, 255));
+				
+			if (y < HEIGHT  && y > 0)
+			{
+				mlx_put_pixel(vars->wall, x, y, ft_get_rgba(0, q, q, 255));
+				clean[i_cl][0] = x;
+			clean[i_cl++][1] = y;
+			}
 			if (q == 255)
 			{
 				q = 0;
@@ -304,17 +304,8 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, 
 				e = 0;
 			}
 
-			clean[i_cl][0] = x;
-			clean[i_cl++][1] = y;
+
 		}
-	// printf("lenght_with_koef = %d\n", lenght_with_koef);
-	// printf("maxdist = %d\n", maxdist);
-	// printf("koef = %f\n", koef);
-	// printf("dist = %f\n", dist);
-
-	// // sleep(100);
-
-	// printf("dist = %f\n", dist);
 }
 void ft_trace_line(t_vars *vars)
 {
@@ -328,6 +319,7 @@ void ft_trace_line(t_vars *vars)
 		// vars->map_vars->mini_u_angle = M_PI/2 * 3;//1.5708;
 		static float angle_step = 0.1;
 		mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
+		// mem_x = 0;
 		mem_y = vars->map_vars->cont_y + 1;
 		if (mem_clean != 0)
 		{
@@ -339,8 +331,8 @@ void ft_trace_line(t_vars *vars)
 			mem_clean = 0;
 		}
 		float mem_angle = vars->map_vars->mini_u_angle;
-		int i2 = -1;
-		while(++i2 < 2048)
+		int i2 = WIDTH;
+		while(--i2 > 0)
 		{
 			i = 0;
 			while (i != WIDTH/4)
@@ -362,6 +354,8 @@ void ft_trace_line(t_vars *vars)
 				}
 		ft_draw_line(vars,vars->map_vars->cont_x + vars->map_vars->len_char, vars->map_vars->cont_y - 1, mem_x, mem_y, i2, mem_angle);
 
+			// mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
+			// mem_y = vars->map_vars->cont_y + 1;
 			mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
 			mem_y = vars->map_vars->cont_y + 1;
 			vars->map_vars->mini_u_angle+= 0.0003;
@@ -418,7 +412,8 @@ void ft_create_mmap(t_vars *vars)
 	}
 	ft_trace_line(vars);
 }
-int32_t	submain(t_file_info *info)
+// int32_t	submain(t_file_info *info)
+int32_t	submain()
 {
 	t_vars *vars;
 	vars = malloc(sizeof(t_vars));
@@ -428,7 +423,7 @@ int32_t	submain(t_file_info *info)
 	vars->map_vars->mini_u_angle = M_PI/2 * 2;//1.5708;
 
 	// map = malloc(sizeof(t_map));
-	vars->map_vars->map = info->map;
+	vars->map_vars->map = temp_map();
 	// printf("%c\n", vars->map_vars->map[6][6]);
 	vars->mlx = mlx_init(WIDTH, HEIGHT, "Test", true);
 	// if (!vars->mlx)
@@ -436,7 +431,7 @@ int32_t	submain(t_file_info *info)
 
 	vars->sky = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
 	vars->mini_map = mlx_new_image(vars->mlx, WIDTH/4, WIDTH/4);
-	vars->wall = mlx_new_image(vars->mlx, WIDTH, HEIGHT + 100);
+	vars->wall = mlx_new_image(vars->mlx, WIDTH, HEIGHT *2);
 	ft_create_sky(vars, vars->sky, WIDTH, HEIGHT, ft_get_rgba(100, 210, 250, 250));
 	ft_create_mmap(vars);
 	vars->map_vars->start_draw_y_mm = HEIGHT - (WIDTH/4/vars->map_vars->len_mm[1]) * vars->map_vars->len_mm[0];
@@ -463,10 +458,11 @@ int	main(int argc, char *argv[])
 //	atexit(ft_leaks);
 	if (argc == 2)
 	{
-		ft_init_info(&info);
-		ft_check_arg(argv[1], &info);
-		ft_clean_info(&info);
-		submain(&info);
+		// ft_init_info(&info);
+		// ft_check_arg(argv[1], &info);
+		// ft_clean_info(&info);
+		// submain(&info);
+		submain();
 	}
 	else
 		ft_error_msg(1, &info);

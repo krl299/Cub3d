@@ -111,13 +111,13 @@ void ft_hook(void* param)
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 	{
-		vars->map_vars->mini_u_angle -= 0.02;
+		vars->map_vars->mini_u_angle += 0.02;
 		ft_trace_line(vars);
 
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 	{
-		vars->map_vars->mini_u_angle += 0.02;
+		vars->map_vars->mini_u_angle -= 0.02;
 		ft_trace_line(vars);
 
 	}
