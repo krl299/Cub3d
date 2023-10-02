@@ -33,111 +33,159 @@ void ft_hook(void* param)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(vars->mlx);
 
-	// else if (mlx_is_key_down(vars->mlx, MLX_KEY_W) && mlx_is_key_down(vars->mlx, MLX_KEY_D))
-	// {
-	// 			if(vars->map_vars->map[(vars->map_vars->cont_x)/ vars->map_vars->len_char][(vars->map_vars->cont_y) / vars->map_vars->len_char + 1] != '1' &&\
-	// 		vars->map_vars->map[(vars->map_vars->cont_x + vars->map_vars->len_char - 1)/ vars->map_vars->len_char][(vars->map_vars->cont_y + vars->map_vars->len_char) / vars->map_vars->len_char] != '1')
-	// 	{
-	// 		vars->map_vars->cont_y++;
-	// 		vars->mini_unit->instances[0].x += SPEEX;
-	// 	}
-	// 			if(vars->map_vars->map[(vars->map_vars->cont_x - 1)/ vars->map_vars->len_char][(vars->map_vars->cont_y)/ vars->map_vars->len_char] != '1' &&\
-	// 		vars->map_vars->map[(vars->map_vars->cont_x - 1) / vars->map_vars->len_char][(vars->map_vars->cont_y + vars->map_vars->len_char - 1) / vars->map_vars->len_char] != '1')
-	// 	{
-	// 		vars->map_vars->cont_x--;
-
-	// 		vars->mini_unit->instances[0].y -= SPEEX;
-	// 	}
-	// 		ft_trace_line(vars);
-	// 	debug(vars);
-	// }
-	// else if (mlx_is_key_down(vars->mlx, MLX_KEY_W) && mlx_is_key_down(vars->mlx, MLX_KEY_A))
-	// {
-	// 	if(vars->map_vars->map[(vars->map_vars->cont_x - 1)/ vars->map_vars->len_char][(vars->map_vars->cont_y)/ vars->map_vars->len_char] != '1' &&\
-	// 		vars->map_vars->map[(vars->map_vars->cont_x - 1) / vars->map_vars->len_char][(vars->map_vars->cont_y + vars->map_vars->len_char - 1) / vars->map_vars->len_char] != '1')
-	// 	{
-	// 		vars->map_vars->cont_x--;
-
-	// 		vars->mini_unit->instances[0].y -= SPEEX;
-	// 	}
-	// 	if(vars->map_vars->map[(vars->map_vars->cont_x) / vars->map_vars->len_char][(vars->map_vars->cont_y  - 1) / vars->map_vars->len_char] != '1' &&\
-	// 		vars->map_vars->map[(vars->map_vars->cont_x + vars->map_vars->len_char - 1) / vars->map_vars->len_char][(vars->map_vars->cont_y - 1)/ vars->map_vars->len_char] != '1')
-	// 	{
-	// 		vars->map_vars->cont_y--;
-
-	// 		vars->mini_unit->instances[0].x -= SPEEX;
-	// 	}
-	// 		ft_trace_line(vars);
-	// 	debug(vars);
-	// }
 
 	else if (mlx_is_key_down(vars->mlx, MLX_KEY_UP))
 	{	
 		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->map_vars->len_char);
-		if(vars->map_vars->map[(vars->map_vars->cont_x - 1)/ vars->map_vars->len_char][(vars->map_vars->cont_y)/ vars->map_vars->len_char] != '1' &&\
-			vars->map_vars->map[(vars->map_vars->cont_x - 1) / vars->map_vars->len_char][(vars->map_vars->cont_y + vars->map_vars->len_char - 1) / vars->map_vars->len_char] != '1')
+		// if(vars->map_vars->map[(vars->map_vars->cont_x - 1)/ vars->map_vars->len_char][(vars->map_vars->cont_y)/ vars->map_vars->len_char] != '1' &&\
+		// 	vars->map_vars->map[(vars->map_vars->cont_x - 1) / vars->map_vars->len_char][(vars->map_vars->cont_y + vars->map_vars->len_char - 1) / vars->map_vars->len_char] != '1')
+		// {
+		if(vars->map_vars->go_angle > 24 && vars->map_vars->go_angle <= 32)
 		{
-			if (vars->map_vars->go_angle > 25 || vars->map_vars->go_angle < 8)
+			vars->map_vars->cont_x++;
+			vars->mini_unit->instances[0].y += SPEEX;
+			vars->map_vars->cont_y--;
+			vars->mini_unit->instances[0].x -= SPEEX;
+			if(vars->map_vars->go_angle > 24 && vars->map_vars->go_angle <= 28)
+			{
+				vars->map_vars->cont_y--;
+				vars->mini_unit->instances[0].x -= SPEEX;
+			}
+			else
 			{
 				vars->map_vars->cont_x++;
 				vars->mini_unit->instances[0].y += SPEEX;
-				if (vars->map_vars->go_angle > 25)
-				{
-					vars->map_vars->cont_y--;
-					vars->mini_unit->instances[0].x -= SPEEX;
-				}
-				else
-				{
-					vars->map_vars->cont_y++;
-					vars->mini_unit->instances[0].x += SPEEX;
-				}
 			}
-	
-			else
+		}
+		else if(vars->map_vars->go_angle > 16  && vars->map_vars->go_angle <= 24)
+		{
+			vars->map_vars->cont_x--;
+			vars->mini_unit->instances[0].y -= SPEEX;
+			vars->map_vars->cont_y--;
+			vars->mini_unit->instances[0].x -= SPEEX;
+			if(vars->map_vars->go_angle > 16 && vars->map_vars->go_angle <= 20)
 			{
 				vars->map_vars->cont_x--;
 				vars->mini_unit->instances[0].y -= SPEEX;
 			}
+			else
+			{
+				vars->map_vars->cont_y--;
+				vars->mini_unit->instances[0].x -= SPEEX;
+			}
 		}
+		else if(vars->map_vars->go_angle > 8  && vars->map_vars->go_angle <= 16)
+		{
+			vars->map_vars->cont_x--;
+			vars->mini_unit->instances[0].y -= SPEEX;
+			vars->map_vars->cont_y++;
+			vars->mini_unit->instances[0].x += SPEEX;
+			if(vars->map_vars->go_angle > 12 && vars->map_vars->go_angle <= 16)
+			{
+				vars->map_vars->cont_x--;
+				vars->mini_unit->instances[0].y -= SPEEX;
+			}
+			else
+			{
+				vars->map_vars->cont_x++;
+				vars->mini_unit->instances[0].x += SPEEX;
+			}
+		}
+		// if (vars->map_vars->go_angle >= 25 || vars->map_vars->go_angle < 8)
+		// {
+		// 	vars->map_vars->cont_x++;
+		// 	vars->mini_unit->instances[0].y += SPEEX;
+		// }
+		// if (vars->map_vars->go_angle > 0 && vars->map_vars->go_angle < 3)
+		// {
+		// 	vars->map_vars->cont_x++;
+		// 	vars->mini_unit->instances[0].y += SPEEX;
+		// }
+		// if (vars->map_vars->go_angle >= 3 && vars->map_vars->go_angle < 5)
+		// {
+		// 	vars->map_vars->cont_x++;
+		// 	vars->mini_unit->instances[0].y += SPEEX;
+		// 	vars->map_vars->cont_y--;
+		// 	vars->mini_unit->instances[0].x -= SPEEX;
+		// }
+
+		// if (vars->map_vars->go_angle > 16 && vars->map_vars->go_angle <= 32)
+		// {
+		// 	vars->map_vars->cont_y--;
+		// 	vars->mini_unit->instances[0].x -= SPEEX;
+
+		// }
+		// if (vars->map_vars->go_angle >= 8 && vars->map_vars->go_angle < 25)
+		// {
+		// 	vars->map_vars->cont_x--;
+		// 	vars->mini_unit->instances[0].y -= SPEEX;
+		// }
+		// if (vars->map_vars->go_angle > 0 && vars->map_vars->go_angle <= 16)
+		// {
+		// 	vars->map_vars->cont_y++;
+		// 	vars->mini_unit->instances[0].x += SPEEX;
+		// }	
 		if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 			vars->map_vars->mini_u_angle += 0.04;
 		if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 			vars->map_vars->mini_u_angle -= 0.04;
-		// if (mlx_is_key_down(vars->mlx, MLX_KEY_A))
-		// {
-		// 	if(vars->map_vars->map[(vars->map_vars->cont_x) / vars->map_vars->len_char][(vars->map_vars->cont_y  - 1) / vars->map_vars->len_char] != '1' &&\
-		// 		vars->map_vars->map[(vars->map_vars->cont_x + vars->map_vars->len_char - 1) / vars->map_vars->len_char][(vars->map_vars->cont_y - 1)/ vars->map_vars->len_char] != '1')
-		// 	{
-		// 		vars->map_vars->cont_y--;
-		// 		vars->mini_unit->instances[0].x -= SPEEX;
-		// 	}
-		// }
-	// 	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
-	// 	{
-	// 		if(vars->map_vars->map[(vars->map_vars->cont_x)/ vars->map_vars->len_char][(vars->map_vars->cont_y) / vars->map_vars->len_char + 1] != '1' &&\
-	// 			vars->map_vars->map[(vars->map_vars->cont_x + vars->map_vars->len_char - 1)/ vars->map_vars->len_char][(vars->map_vars->cont_y + vars->map_vars->len_char) / vars->map_vars->len_char] != '1')
-	// 		{
-	// 			vars->map_vars->cont_y++;
-	// 			vars->mini_unit->instances[0].x += SPEEX;
-	// 		}
-	// 	}
+
 		debug(vars);
 		ft_trace_line(vars);
 	}
 
-	else if (mlx_is_key_down(vars->mlx, MLX_KEY_DOWN))
-	{
+	// else if (mlx_is_key_down(vars->mlx, MLX_KEY_DOWN))
+	// {
 		// printf("instances y = %d", vars->mini_unit->instances[0].y/vars->map_vars->len_char);
-		if(vars->map_vars->map[(vars->map_vars->cont_x + vars->map_vars->len_char) / vars->map_vars->len_char][(vars->map_vars->cont_y + vars->map_vars->len_char - 1) / vars->map_vars->len_char] != '1' &&\
-			vars->map_vars->map[(vars->map_vars->cont_x+ vars->map_vars->len_char)/ vars->map_vars->len_char][vars->map_vars->cont_y  / vars->map_vars->len_char] != '1')
-		{
-			vars->map_vars->cont_x++;
-			vars->mini_unit->instances[0].y += SPEEX;
-		}
-		if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
-			vars->map_vars->mini_u_angle += 0.04;
-		if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
-			vars->map_vars->mini_u_angle -= 0.04;
+		// if((vars->map_vars->map[(vars->map_vars->cont_x + vars->map_vars->len_char) / vars->map_vars->len_char][(vars->map_vars->cont_y + vars->map_vars->len_char - 1) / vars->map_vars->len_char] != '1' &&\
+		// 	vars->map_vars->map[(vars->map_vars->cont_x+ vars->map_vars->len_char)/ vars->map_vars->len_char][vars->map_vars->cont_y  / vars->map_vars->len_char] != '1') || \
+		// 	(vars->map_vars->map[(vars->map_vars->cont_x - 1)/ vars->map_vars->len_char][(vars->map_vars->cont_y)/ vars->map_vars->len_char] != '1' &&\
+		// 	vars->map_vars->map[(vars->map_vars->cont_x - 1) / vars->map_vars->len_char][(vars->map_vars->cont_y + vars->map_vars->len_char - 1) / vars->map_vars->len_char] != '1'))
+		// {
+	// 		if (vars->map_vars->go_angle > 25 || vars->map_vars->go_angle < 16)
+	// 		{
+	// 			vars->map_vars->cont_x--;
+	// 			vars->mini_unit->instances[0].y -= SPEEX;
+	// 			if (vars->map_vars->go_angle > 25)
+	// 			{
+	// 				vars->map_vars->cont_y++;
+	// 				vars->mini_unit->instances[0].x += SPEEX;
+	// 			}
+	// 			else
+	// 			{
+	// 				vars->map_vars->cont_y--;
+	// 				vars->mini_unit->instances[0].x -= SPEEX;
+	// 			}
+	// 		}
+	// 		else 
+	// 		{
+	// 			vars->map_vars->cont_x++;
+	// 			vars->mini_unit->instances[0].y += SPEEX;
+	// 		}
+	// 	// }
+	// 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
+	// 		vars->map_vars->mini_u_angle += 0.04;
+	// 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
+	// 		vars->map_vars->mini_u_angle -= 0.04;
+
+	// 	ft_trace_line(vars);
+	// 	debug(vars);
+	// }
+	else if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
+	{
+		vars->map_vars->mini_u_angle += 0.04;
+		ft_trace_line(vars);
+
+	}
+	else if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
+	{
+		vars->map_vars->mini_u_angle -= 0.04;
+		ft_trace_line(vars);
+
+	}
+
+
+
 		// if (mlx_is_key_down(vars->mlx, MLX_KEY_A))
 		// {
 		// 	if(vars->map_vars->map[(vars->map_vars->cont_x) / vars->map_vars->len_char][(vars->map_vars->cont_y  - 1) / vars->map_vars->len_char] != '1' &&\
@@ -156,21 +204,25 @@ void ft_hook(void* param)
 		// 		vars->mini_unit->instances[0].x += SPEEX;
 		// 	}
 		// }
-		ft_trace_line(vars);
-		debug(vars);
-	}
-	else if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
-	{
-		vars->map_vars->mini_u_angle += 0.04;
-		ft_trace_line(vars);
 
-	}
-	else if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
-	{
-		vars->map_vars->mini_u_angle -= 0.04;
-		ft_trace_line(vars);
-
-	}
+			// if (mlx_is_key_down(vars->mlx, MLX_KEY_A))
+		// {
+		// 	if(vars->map_vars->map[(vars->map_vars->cont_x) / vars->map_vars->len_char][(vars->map_vars->cont_y  - 1) / vars->map_vars->len_char] != '1' &&\
+		// 		vars->map_vars->map[(vars->map_vars->cont_x + vars->map_vars->len_char - 1) / vars->map_vars->len_char][(vars->map_vars->cont_y - 1)/ vars->map_vars->len_char] != '1')
+		// 	{
+		// 		vars->map_vars->cont_y--;
+		// 		vars->mini_unit->instances[0].x -= SPEEX;
+		// 	}
+		// }
+	// 	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
+	// 	{
+	// 		if(vars->map_vars->map[(vars->map_vars->cont_x)/ vars->map_vars->len_char][(vars->map_vars->cont_y) / vars->map_vars->len_char + 1] != '1' &&\
+	// 			vars->map_vars->map[(vars->map_vars->cont_x + vars->map_vars->len_char - 1)/ vars->map_vars->len_char][(vars->map_vars->cont_y + vars->map_vars->len_char) / vars->map_vars->len_char] != '1')
+	// 		{
+	// 			vars->map_vars->cont_y++;
+	// 			vars->mini_unit->instances[0].x += SPEEX;
+	// 		}
+	// 	}
 	// 	else if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
 	// {																					//+ 1
 	// 	if(vars->map_vars->map[(vars->map_vars->cont_x)/ vars->map_vars->len_char][(vars->map_vars->cont_y) / vars->map_vars->len_char + 1] != '1' &&\
