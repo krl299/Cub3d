@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:33:43 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/28 11:41:53 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:22:55 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	ft_extension_file(char *str, char **file_ext)
 
 	extension = NULL;
 	tmp = ft_strchr(str, '/');
+	if (tmp == NULL)
+		return ; 
 	while (tmp != NULL)
 	{
 		extension = ++tmp;
