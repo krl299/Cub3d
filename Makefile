@@ -6,7 +6,7 @@
 #    By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/30 11:49:02 by mandriic         ###   ########.fr        #
+#    Updated: 2023/10/03 15:13:53 by cmoran-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ lib:
 	@cmake ${LIBMLX} -B ${MLXBUILD} && make -C ${MLXBUILD} -j4
 
 $(NAME): ${OBJS}
-	@${GCC} ${OBJS} ${LIBS} -lglfw ${GLFWLFLAG} ${HEADERS} -o ${NAME}
+	@${GCC} ${OBJS} ${LIBS} -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ ${HEADERS} -o ${NAME}
 
 clean:
 	@${RM} ${OBJS}
