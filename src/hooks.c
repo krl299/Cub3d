@@ -57,7 +57,7 @@ void ft_yx(t_vars *vars, int corector_x, int corector_y)
 	}
 	else
 	{
-		fy += 1;
+		fy = 1;
 		ft_move_y(vars, corector_y);
 	}
 
@@ -65,16 +65,23 @@ void ft_yx(t_vars *vars, int corector_x, int corector_y)
 
 void ft_2xy(t_vars *vars, int corector_x, int corector_y)
 {
-	static int fx = 0;
-	if (fx == 2) //crear funciones 2yx, 2xy, xy, 1/2x 1/2y
+	static int i = 0;
+	static int print_y = 0;
+
+	if (i++ <= 2)
 	{
-		ft_move_y(vars, corector_x);
-		fx = 0;
+		// ft_move_x(vars, corector_x);
 	}
-	else
+	else if (print_y++ <= 1)
 	{
-		fx += 1;
-		ft_move_x(vars, corector_y);
+		ft_move_x(vars, corector_x);
+		ft_move_x(vars, corector_x);
+		ft_move_y(vars,corector_y);
+		if (print_y == 1)
+		{
+			i = 0;
+			print_y = 0;
+		}
 	}
 
 }
@@ -116,15 +123,24 @@ void ft_hook(void* param)
 		else if ((vars->map_vars->go_angle > 23 && vars->map_vars->go_angle <= 25)\
 		|| 	(vars->map_vars->go_angle > 7 && vars->map_vars->go_angle <= 9))
 			ft_move_x(vars, corector_x);
-		else if (vars->map_vars->go_angle > 1 && vars->map_vars->go_angle <= 3)
+		else if ((vars->map_vars->go_angle > 1 && vars->map_vars->go_angle <= 3)\
+		|| (vars->map_vars->go_angle > 17 && vars->map_vars->go_angle <= 19)\
+		|| (vars->map_vars->go_angle > 29 && vars->map_vars->go_angle <= 31)\
+		|| (vars->map_vars->go_angle > 13 && vars->map_vars->go_angle <= 15))
 		{
 			ft_2yx(vars, corector_x, corector_y);
 		}
-		else if (vars->map_vars->go_angle > 3 && vars->map_vars->go_angle <= 5)
+		else if ((vars->map_vars->go_angle > 3 && vars->map_vars->go_angle <= 5)\
+		|| (vars->map_vars->go_angle > 19 && vars->map_vars->go_angle <= 21)\
+		|| (vars->map_vars->go_angle > 27 && vars->map_vars->go_angle <= 29)\
+		|| (vars->map_vars->go_angle > 11 && vars->map_vars->go_angle <= 13))
 		{
 			ft_yx(vars, corector_x, corector_y);
 		}
-		else if (vars->map_vars->go_angle > 5 && vars->map_vars->go_angle <= 7)
+		else if ((vars->map_vars->go_angle > 5 && vars->map_vars->go_angle <= 7)\
+		|| (vars->map_vars->go_angle > 21 && vars->map_vars->go_angle <= 23)\
+		|| (vars->map_vars->go_angle > 9 && vars->map_vars->go_angle <= 11)\
+		|| (vars->map_vars->go_angle > 25 && vars->map_vars->go_angle <= 27))
 		{
 			ft_2xy(vars, corector_x, corector_y);
 		}
