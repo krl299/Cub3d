@@ -19,6 +19,7 @@ void debug(t_vars *vars)
 	// // write(1, ft_itoa(vars->mini_unit_xy[1]), ft_strlen(ft_itoa(vars->mini_unit_xy[1])));
 	// write(1, "\n", 1);
 }
+
 void ft_move_x(t_vars *vars, int corrector_x)
 {
 	vars->map_vars->cont_y += 1 * corrector_x;
@@ -28,6 +29,54 @@ void ft_move_y(t_vars *vars, int corrector_y)
 {
 	vars->map_vars->cont_x += 1 * corrector_y;
 	vars->mini_unit->instances[0].y += SPEEX;
+}
+
+void ft_2yx(t_vars *vars, int corector_x, int corector_y)
+{
+	static int fy = 0;
+	if (fy == 2) //crear funciones 2yx, 2xy, xy, 1/2x 1/2y
+	{
+		ft_move_x(vars, corector_x);
+		fy = 0;
+	}
+	else
+	{
+		fy += 1;
+		ft_move_y(vars, corector_y);
+	}
+
+}
+
+void ft_yx(t_vars *vars, int corector_x, int corector_y)
+{
+	static int fy = 0;
+	if (fy == 1) //crear funciones 2yx, 2xy, xy, 1/2x 1/2y
+	{
+		ft_move_x(vars, corector_x);
+		fy = 0;
+	}
+	else
+	{
+		fy += 1;
+		ft_move_y(vars, corector_y);
+	}
+
+}
+
+void ft_2xy(t_vars *vars, int corector_x, int corector_y)
+{
+	static int fx = 0;
+	if (fx == 2) //crear funciones 2yx, 2xy, xy, 1/2x 1/2y
+	{
+		ft_move_y(vars, corector_x);
+		fx = 0;
+	}
+	else
+	{
+		fx += 1;
+		ft_move_x(vars, corector_y);
+	}
+
 }
 void ft_hook(void* param)
 {
@@ -43,14 +92,14 @@ void ft_hook(void* param)
 		vars->map_vars->mini_u_angle = 0.0000000001;
 			if (vars->map_vars->mini_u_angle < 0.0000000001)
 		vars->map_vars->mini_u_angle =  M_PI * 2;
-	if (vars->map_vars->go_angle >= 9 && vars->map_vars->go_angle <= 15)
+	if (vars->map_vars->go_angle >= 8 && vars->map_vars->go_angle <= 25)
 		corector_y = -1;
-	if (vars->map_vars->go_angle >= 17 && vars->map_vars->go_angle <= 23)
-	{
-		corector_x = -1;
-		corector_y = -1;
-	}
-	if (vars->map_vars->go_angle >= 25 && vars->map_vars->go_angle <= 31)
+	// if (vars->map_vars->go_angle >= 17 && vars->map_vars->go_angle <= 23)
+	// {
+	// 	corector_x = -1;
+	// 	corector_y = -1;
+	// }
+	if (vars->map_vars->go_angle >= 16 && vars->map_vars->go_angle <= 32)
 		corector_x = -1;
 	// if (mlx_is_key_down(vars->mlx, MLX_KEY_UP))
 	sect_calc = vars->map_vars->go_angle;
@@ -61,48 +110,25 @@ void ft_hook(void* param)
 
 	else if (mlx_is_key_down(vars->mlx, MLX_KEY_UP))
 	{
-		if (vars->map_vars->go_angle >= 31 || vars->map_vars->go_angle <= 1)
+		if ((vars->map_vars->go_angle >= 31 || vars->map_vars->go_angle <= 1)\
+		|| (vars->map_vars->go_angle > 15 && vars->map_vars->go_angle <=17))
 			ft_move_y(vars, corector_y);
-		if (vars->map_vars->go_angle > 1 && vars->map_vars->go_angle <= 3)
+		else if ((vars->map_vars->go_angle > 23 && vars->map_vars->go_angle <= 25)\
+		|| 	(vars->map_vars->go_angle > 7 && vars->map_vars->go_angle <= 9))
+			ft_move_x(vars, corector_x);
+		else if (vars->map_vars->go_angle > 1 && vars->map_vars->go_angle <= 3)
 		{
-			if (fy == 2) //crear funciones 2yx, 2xy, xy, 1/2x 1/2y
-			{
-				ft_move_x(vars, corector_x);
-				fy = 0;
-			}
-			else
-			{
-				fy += 1;
-				ft_move_y(vars, corector_y);
-			}
+			ft_2yx(vars, corector_x, corector_y);
 		}
-		if (vars->map_vars->go_angle > 3 && vars->map_vars->go_angle <= 5)
+		else if (vars->map_vars->go_angle > 3 && vars->map_vars->go_angle <= 5)
 		{
-			if (fy == 1)//crear funciones 2yx, 2xy, xy, 1/2x 1/2y
-			{
-				ft_move_x(vars, corector_x);
-				fy = 0;
-			}
-			else
-			{
-				fy += 1;
-				ft_move_y(vars, corector_y);
-			}
+			ft_yx(vars, corector_x, corector_y);
 		}
-		if (vars->map_vars->go_angle > 5 && vars->map_vars->go_angle <= 7)
+		else if (vars->map_vars->go_angle > 5 && vars->map_vars->go_angle <= 7)
 		{
-			if (fx == 2)//crear funciones 2yx, 2xy, xy, 1/2x 1/2y
-			{
-				ft_move_y(vars, corector_y);
-				fx = 0;
-			}
-			else
-			{
-				fx += 1;
-				ft_move_x(vars, corector_x);
-			}
+			ft_2xy(vars, corector_x, corector_y);
 		}
-		if (vars->map_vars->go_angle > 7 && vars->map_vars->go_angle <= 9)
+		else if (vars->map_vars->go_angle > 7 && vars->map_vars->go_angle <= 9)
 			ft_move_x(vars, corector_x);
 		if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 			vars->map_vars->mini_u_angle += 0.04;

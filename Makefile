@@ -6,7 +6,7 @@
 #    By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/09/30 11:49:02 by mandriic         ###   ########.fr        #
+#    Updated: 2023/10/05 14:09:03 by mandriic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,10 @@ USER = $(shell whoami)
        GLFWLFLAG = -L /Users/$(USER)/.brew/opt/glfw/lib/
        # R42IFLAG = I/Users/$(USER)/.brew/opt/readline/include
 # endif
-# ifeq ($(USER), sirius)
-# 	GLFWLFLAG = -L /opt/homebrew/opt/glfw/lib/
-# endif
-       # R42IFLAG = I/opt/homebrew/opt/readline/include
+ifeq ($(USER), sirius)
+	GLFWLFLAG = -L /opt/homebrew/opt/glfw/lib/
+endif
+       R42IFLAG = I/opt/homebrew/opt/readline/include
 
 SRCS           =   ./src/mini_map.c ./src/hooks.c ./src/utils.c ./src/parser/error_parser.c ./src/cub3d.c ./src/parser/parser.c ./src/parser/textures.c ./src/parser/init.c     ./src/parser/test.c     ./src/parser/color.c    ./src/parser/map.c
 
