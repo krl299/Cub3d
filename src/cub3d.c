@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/30 11:53:23 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/10/01 16:55:30 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, 
 		i_cl = 0;
 	}
 	dist = sqrt(pow(x_w - x_u, 2) + pow(y_w - y_u, 2));
-	lenght_with_koef = 128 / (dist * 2) * HEIGHT - 1 ;
-	lenght_with_koef += 1;
+	lenght_with_koef = 128 / (dist * 2) * HEIGHT;
+	// lenght_with_koef += 1;
 	int q,w,e = 0;
 		int i = -1;
 		while(++i < (int)lenght_with_koef-1)
@@ -77,6 +77,7 @@ void ft_trace_line(t_vars *vars)
 		static int mem_clean = 0;
 		static int i = 0;
 		static float angle_step = 0.1;
+
 		mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
 		mem_y = vars->map_vars->cont_y + 1;
 		if (mem_clean != 0)
@@ -89,11 +90,11 @@ void ft_trace_line(t_vars *vars)
 			mem_clean = 0;
 		}
 		float mem_angle = vars->map_vars->mini_u_angle;
-		int i2 = WIDTH;
-		while(--i2 > 0)
+		int i2 = WIDTH/2;
+		while(i2-- > 0)
 		{
 			i = 0;
-			while (i != WIDTH/4)
+			while (i++ != WIDTH/4)
 			{
 				mem_x = cos(vars->map_vars->mini_u_angle) + mem_x;
 				mem_y = sin(vars->map_vars->mini_u_angle) + mem_y;
@@ -111,7 +112,46 @@ void ft_trace_line(t_vars *vars)
 			mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
 			mem_y = vars->map_vars->cont_y + 1;
 			vars->map_vars->mini_u_angle+= 0.0003;
+			// printf("angle: %f\n", (M_PI * 2 / 32) * 32); // angle / 1 sector
 		}
+		vars->map_vars->mini_u_angle = mem_angle;
+		// float center = vars->map_vars->mini_u_angle;
+		i2 = WIDTH/2-1;
+		while(i2++ < WIDTH)
+		{
+			i = 0;
+			while (i++ != WIDTH/4)
+			{
+				mem_x = cos(vars->map_vars->mini_u_angle) + mem_x;
+				mem_y = sin(vars->map_vars->mini_u_angle) + mem_y;
+				if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char] != '1' &&\
+					vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char /2) / vars->map_vars->len_char][((int)mem_y + vars->map_vars->len_char /2) / vars->map_vars->len_char] != '1')
+					{
+						mlx_put_pixel(vars->mini_map, mem_y + (vars->map_vars->len_char/2), mem_x - (vars->map_vars->len_char/2), ft_get_rgba(255, 255, 255, 255));
+						clean[mem_clean][0] = mem_y + (vars->map_vars->len_char/2);
+						clean[mem_clean++][1] = mem_x - (vars->map_vars->len_char/2);
+					}
+					else
+						break;
+			}
+			ft_draw_line(vars,vars->map_vars->cont_x + vars->map_vars->len_char, vars->map_vars->cont_y - 1, mem_x, mem_y, i2, mem_angle);
+			mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
+			mem_y = vars->map_vars->cont_y + 1;
+			vars->map_vars->mini_u_angle-= 0.0003;
+			// printf("angle: %f\n", (M_PI * 2 / 32) * 32); // angle / 1 sector
+		}
+		static float one_grad = (M_PI * 2)/ 360;
+		static float sect_grad = 360 / 32;
+		static float sector = ((M_PI * 2) / 32);
+		vars->map_vars->go_angle = (mem_angle / sector);
+		// float one_sect_step
+		// if (sector_now > 32)
+		// 	sector_now = 0;
+		// if (sector_now < 0)
+		// 	sector_now = 32;
+		printf("angle: %f sect now: %f\n", mem_angle, vars->map_vars->go_angle); // angle / 1 sector
+		// printf("angle: %f %f %f\n", one_grad, sect_grad, sector); // angle / 1 sector
+
 		vars->map_vars->clean_walls = 1;
 		vars->map_vars->mini_u_angle = mem_angle;
 }
@@ -124,7 +164,7 @@ int32_t	submain()
 	*vars = (t_vars){};
 	vars->map_vars = malloc(sizeof(t_map));
 	*vars->map_vars = (t_map){};
-	vars->map_vars->mini_u_angle = M_PI/2 * 2;//1.5708;
+	vars->map_vars->mini_u_angle = M_PI/2;//1.5708;
 
 	vars->map_vars->map = temp_map(); //aqui se cambia luego a mapa de parser
 	vars->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true);

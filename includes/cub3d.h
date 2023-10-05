@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:39:19 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/30 11:52:07 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/10/01 16:54:47 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct var_map
 	int		save_pos_x;
 	int		save_pos_y;
 	int		clean_walls;
+	float 	go_angle;
 	
 }t_map;
 
