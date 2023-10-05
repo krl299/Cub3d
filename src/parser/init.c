@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 10:06:26 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/28 11:40:40 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:27:46 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,13 @@ void	ft_init_map(t_file_info *info, int size, char **cpy)
 
 	i = 0;
 	info->map_size = size;
-	info->map = malloc(sizeof(char *) * size);
+	info->map = malloc(sizeof(char *) * size + 1);
 	if (!info->map)
 		return ;
-	while (i < size && cpy[i])
+	while (i <= size && cpy[i])
 	{
 		info->map[i] = ft_strtrim(cpy[i],"\n");
 		i++;
 	}
+	info->map[i] = NULL;
 }
