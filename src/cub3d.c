@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/06 13:12:59 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:21:05 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, 
 				
 			if (y < HEIGHT  && y > 0)
 			{
+				//take de texture to a image and them pass the pixel color rgba.
+				//depends on the angle to go we need to change what wall print.
 				mlx_put_pixel(vars->wall, x, y, ft_get_rgba(0, 0, 0, 255));
 				clean[i_cl][0] = x;
 				clean[i_cl++][1] = y;
@@ -193,14 +195,13 @@ int	main(int argc, char *argv[])
 {
 	t_file_info	info;
 
-	atexit(ft_leaks);
+	//atexit(ft_leaks);
 	if (argc == 2)
 	{
 		ft_init_info(&info);
 		ft_check_arg(argv[1], &info);
 		ft_print_info(&info);
-	//	submain(&info);
-		//submain();
+		submain(&info);
 		ft_clean_info(&info);
 	}
 	else
