@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 10:06:26 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/05 16:27:46 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/10/06 13:14:33 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_clean_info(t_file_info *info)
 	if (info->ea_extension != NULL)
 		free(info->ea_extension);
 	if (info->map != NULL)
-		ft_clean_doublepointer(info->map, info->map_size);
+		ft_clean_doublepointer(info->map, info->map_size + 1);
 		free(info->map);
 }
 
