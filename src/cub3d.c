@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/01 16:55:30 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:35:10 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void ft_trace_line(t_vars *vars)
 }
 
 // int32_t	submain(t_file_info *info)
-int32_t	submain()
+int32_t	submain(t_file_info *info)
 {
 	t_vars *vars; // Todas variables
 	vars = malloc(sizeof(t_vars));
@@ -166,7 +166,7 @@ int32_t	submain()
 	*vars->map_vars = (t_map){};
 	vars->map_vars->mini_u_angle = M_PI/2;//1.5708;
 
-	vars->map_vars->map = temp_map(); //aqui se cambia luego a mapa de parser
+	vars->map_vars->map = info->map;//temp_map(); //aqui se cambia luego a mapa de parser
 	vars->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
 	// if (!vars->mlx)
     //     error();
@@ -196,11 +196,12 @@ int	main(int argc, char *argv[])
 //	atexit(ft_leaks);
 	if (argc == 2)
 	{
-		// ft_init_info(&info);
-		// ft_check_arg(argv[1], &info);
+		ft_init_info(&info);
+		ft_check_arg(argv[1], &info);
 		// ft_clean_info(&info);
-		// submain(&info);
-		submain();
+		ft_print_info(&info);
+		submain(&info);
+		//submain();
 	}
 	else
 		ft_error_msg(1, &info);
