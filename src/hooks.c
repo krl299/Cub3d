@@ -47,7 +47,6 @@ void ft_2yx(t_vars *vars, int corector_x, int corector_y)
 {
 
 		ft_move_y(vars, corector_y, 2);
-
 		ft_move_x(vars, corector_x, 1);
 			ft_trace_line(vars);
 
@@ -156,7 +155,7 @@ void ft_hook(void* param)
 
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(vars->mlx);
-	else if (mlx_is_key_down(vars->mlx, MLX_KEY_DOWN))
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_DOWN))
 	{
 		corector_x *= -1;
 		corector_y *= -1;
@@ -164,19 +163,19 @@ void ft_hook(void* param)
 
 	}
 
-	else if (mlx_is_key_down(vars->mlx, MLX_KEY_UP))
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_UP))
 	{
 
 					// vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char /2) / vars->map_vars->len_char + 1][((int)mem_y + vars->map_vars->len_char /2) / vars->map_vars->len_char] != '1' &&\
 					// vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char /2) / vars->map_vars->len_char][((int)mem_y + vars->map_vars->len_char /2) / vars->map_vars->len_char + 1] != '1')
-			ft_move(vars, corector_x, corector_y);
+		ft_move(vars, corector_x, corector_y);
+
 		debug(vars);
 		// if (vars->steps == 2)
 		// {
 		// 	vars->steps = 0;
 		// }
 	}
-
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 	{
 		vars->map_vars->mini_u_angle += ONE_DEG * 3;
@@ -189,6 +188,8 @@ void ft_hook(void* param)
 		ft_trace_line(vars);
 
 	}
+
+	
 }
 
 

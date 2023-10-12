@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/12 15:03:26 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/10/12 19:27:54 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,15 @@ void	ft_leaks(void)
 {
 	system("leaks -q cub3d");
 }
-
+int ft_colour_of_wall(t_vars * vars, float mem_angle)
+{
+		if (vars->map_vars->go_angle >= 4 && vars->map_vars->go_angle <= 12)
+		{
+			return (ft_get_rgba(255, 0, 0, 255));
+		}
+		else
+			return (ft_get_rgba(255, 255, 0, 255));
+}
 void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, float mem_angle)
 {
 	float dist;
@@ -46,6 +54,8 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, 
 		vars->map_vars->clean_walls = 0;
 		i_cl = 0;
 	}
+	int colour_of_line = ft_colour_of_wall(vars, mem_angle);
+	// colour_of_line = ft_colour_of_wall(vars);
 	dist = sqrt(pow(x_w - x_u, 2) + pow(y_w - y_u, 2));
 	lenght_with_koef = HEIGHT / dist * KOEF;
 	// lenght_with_koef += 1;
@@ -60,7 +70,7 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, 
 				
 			if (y < HEIGHT  && y > 0)
 			{
-				mlx_put_pixel(vars->wall, x, y, ft_get_rgba(0, 0, 0, 255));
+				mlx_put_pixel(vars->wall, x, y, colour_of_line);
 				clean[i_cl][0] = x;
 				clean[i_cl++][1] = y;
 			}
