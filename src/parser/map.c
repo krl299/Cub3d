@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:39:18 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/28 11:39:38 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:36:34 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,14 @@ void	ft_get_map(t_file_info *info, char *line)
 				return ;
 			}
 			ptr[i] = ft_substr(line, 0, ft_strlen(line));
+			ft_replace(ptr[i], ' ', '1');
 			free(line);
 			line = get_next_line(info->fd);
 			i++;
 		}
 		ft_init_map(info, i, ptr);
-		i = 0;
-		while (i < info->map_size && info->map[i])
-		{
-			ft_replace(info->map[i], ' ', '1');
-			i++;
-		}
 		if (ft_hasplayer(info))
 			ft_checkwalls(info);
-		else
-			ft_error_msg(6, NULL);
 		ft_clean_doublepointer(ptr, i);
 	}
 }
@@ -79,22 +72,57 @@ int	ft_hasplayer(t_file_info *info)
 		i++;
 	}
 	if (info->players != 1)
+	{
+		ft_error_msg(6, NULL);
 		return (0);
+	}
 	else
 		return (1);
 }
 
+static void	ft_endline_map(t_file_info *info, int diff, int i)
+{
+	if (i >= 1)
+	{
+		diff = ft_strlen(info->map[i - 1]) - \
+				ft_strlen(info->map[i]);
+		if (diff < 0)
+		{
+			while (diff != 0)
+			{
+				if (info->map[i][ft_strlen(info->map[i]) + diff - 1] == '1')
+					diff++;
+				else
+					ft_error_msg(6, NULL);
+			}
+		}
+		else if (diff > 0)
+		{
+			while (diff != 0)
+			{
+				if (info->map[i - 1][ft_strlen(info->map[i]) + diff - 1] == '1')
+					diff--;
+				else
+					ft_error_msg(6, NULL);
+			}
+		}
+	}
+}
+
+//too long
 void	ft_checkwalls(t_file_info *info)
 {
 	int	i;
 
 	i = -1;
 	while (info->map[0][++i])
+	{
 		if (info->map[0][i] != '1')
 		{
 			ft_error_msg(6, NULL);
 			return ;
 		}
+	}
 	i = 0;
 	while (info->map[++i] && i < info->map_size - 1)
 	{
@@ -103,34 +131,10 @@ void	ft_checkwalls(t_file_info *info)
 			ft_error_msg(6, NULL);
 			return ;
 		}
-		if (i >= 1)
-		{
-			int diff = ft_strlen(info->map[i - 1]) - ft_strlen(info->map[i]);
-			if (diff < 0)
-			{
-				while (diff != 0)
-				{
-					if (info->map[i][ft_strlen(info->map[i]) + diff - 1] == '1')
-						diff++;
-					else
-						ft_error_msg(6, NULL);
-				}
-			}
-			else if (diff > 0)
-			{
-				while (diff != 0)
-				{
-					if (info->map[i - 1][ft_strlen(info->map[i]) + diff - 1] == '1')
-						diff--;
-					else
-						ft_error_msg(6, NULL);
-				}
-			}
-		}
+		ft_endline_map(info, 0, i);
 	}
 	i = -1;
 	while (info->map[info->map_size -1][++i])
 		if (info->map[info->map_size - 1][i] != '1')
 			ft_error_msg(6, NULL);
-
 }

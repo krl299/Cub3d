@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 10:20:06 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/26 13:53:26 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:16:36 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ void	ft_print_info(t_file_info *info)
 	printf("we_extension : %s\n", info->we_extension);
 	printf("ea_texture : %s\n", info->ea_texture);
 	printf("ea_extension : %s\n", info->ea_extension);
-	printf("floor_color : (%d, %d, %d)\n", info->floor_color.r, info->floor_color.g, info->floor_color.b);
-	printf("ceiling_color : (%d, %d, %d)\n", info->ceiling_color.r, info->ceiling_color.g, info->ceiling_color.b);
+	printf("floor_color : (%d, %d, %d)\n", info->floor_color.r, \
+			info->floor_color.g, info->floor_color.b);
+	printf("ceiling_color : (%d, %d, %d)\n", info->ceiling_color.r, \
+			info->ceiling_color.g, info->ceiling_color.b);
 	printf("map :\n");
 	ft_print_map(info);
 }
@@ -45,13 +47,13 @@ void	ft_print_map(t_file_info *info)
 	}
 }
 
-void	ft_clean_doublepointer(char ** tmp, int size)
+void	ft_clean_doublepointer(char **tmp, int size)
 {
 	int	i;
 
 	i = 0;
 	if (tmp == NULL)
-		return;
+		return ;
 	while (tmp[i] && i < size)
 	{
 		if (tmp[i] != NULL)

@@ -1,7 +1,7 @@
-NO ./maps/no.png     
-SO ./maps/so.png
-WE ./maps/we.png
-EA ./maps/ea.png
+NO ./maps/Wolfenstein/bluestone.png     
+SO ./maps/Wolfenstein/redbrick.png
+WE ./maps/Wolfenstein/greystone.png
+EA ./maps/Wolfenstein/mossy.png
 
 F 220,100,0
 C 225,30,0
