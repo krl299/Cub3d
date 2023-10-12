@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:39:19 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/12 13:44:17 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:12:41 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@
 # include "../libraries/MLX42/include/MLX42/MLX42.h"
 # include "../libraries/libft/libft.h"
 
-#define WIDTH 1024
-#define HEIGHT 512
-#define KOEF 64
-#define SPEEX 1
+#define WIDTH 2048
+#define HEIGHT 1024
+#define KOEF WIDTH/64
+#define SPEEX WIDTH/1024
 #define SPEEY 5
-
+#define FOV 60
+#define ONE_DEG 0.0174533
 typedef struct var_map
 {
 	float mini_u_angle;

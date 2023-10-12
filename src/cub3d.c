@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/12 14:06:34 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:03:26 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, 
 		i_cl = 0;
 	}
 	dist = sqrt(pow(x_w - x_u, 2) + pow(y_w - y_u, 2));
-	lenght_with_koef = HEIGHT - (dist * 2 * cos(vars->map_vars->mini_u_angle - mem_angle)) ;
+	lenght_with_koef = HEIGHT / dist * KOEF;
 	// lenght_with_koef += 1;
 	int q,w,e = 0;
 		int i = -1;
@@ -111,7 +111,7 @@ void ft_trace_line(t_vars *vars)
 			ft_draw_line(vars,vars->map_vars->cont_x + vars->map_vars->len_char, vars->map_vars->cont_y - 1, mem_x, mem_y, i2, mem_angle);
 			mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
 			mem_y = vars->map_vars->cont_y + 1;
-			vars->map_vars->mini_u_angle+= 0.0003;
+			vars->map_vars->mini_u_angle+= ONE_DEG/(WIDTH/FOV);
 			// printf("angle: %f\n", (M_PI * 2 / 32) * 32); // angle / 1 sector
 		}
 		vars->map_vars->mini_u_angle = mem_angle;
@@ -137,7 +137,7 @@ void ft_trace_line(t_vars *vars)
 			ft_draw_line(vars,vars->map_vars->cont_x + vars->map_vars->len_char, vars->map_vars->cont_y - 1, mem_x, mem_y, i2, mem_angle);
 			mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
 			mem_y = vars->map_vars->cont_y + 1;
-			vars->map_vars->mini_u_angle-= 0.0003;
+			vars->map_vars->mini_u_angle-= ONE_DEG/(WIDTH/FOV);
 			// printf("angle: %f\n", (M_PI * 2 / 32) * 32); // angle / 1 sector
 		}
 		static float one_grad = (M_PI * 2)/ 360;
