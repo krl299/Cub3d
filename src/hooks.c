@@ -22,11 +22,23 @@ void debug(t_vars *vars)
 
 void ft_move_x(t_vars *vars, int corrector_x, int speed)
 {
-	vars->map_vars->cont_y += 1 * corrector_x * speed;
+	float mem_x;
+	float mem_y;
+	mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
+	mem_y = vars->map_vars->cont_y + 1;
+	// if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char ] != '1' &&
+	if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char + corrector_x] != '1')
+		vars->map_vars->cont_y += 1 * corrector_x * speed;
 	// vars->mini_unit->instances[0].x += speed * corrector_x;
 }
 void ft_move_y(t_vars *vars, int corrector_y, int speed)
 {
+		float mem_x;
+	float mem_y;
+	mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
+	mem_y = vars->map_vars->cont_y + 1;
+// if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) + 1][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char] != '1' &&
+		if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) + corrector_y][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char] != '1')
 	vars->map_vars->cont_x += 1 * corrector_y * speed;
 	// vars->mini_unit->instances[0].y += speed * corrector_y;
 }
@@ -73,13 +85,13 @@ void ft_move(t_vars * vars, int corector_x, int corector_y)
 	if ((vars->map_vars->go_angle >= 31 || vars->map_vars->go_angle <= 1)\
 		|| (vars->map_vars->go_angle > 15 && vars->map_vars->go_angle <=17))
 		{
-			ft_move_y(vars, corector_y, 2);
+			ft_move_y(vars, corector_y, 3);
 			ft_trace_line(vars);
 		}
 		else if ((vars->map_vars->go_angle > 23 && vars->map_vars->go_angle <= 25)\
 		|| 	(vars->map_vars->go_angle > 7 && vars->map_vars->go_angle <= 9))
 			{
-			ft_move_x(vars, corector_x,2);
+			ft_move_x(vars, corector_x, 3);
 			ft_trace_line(vars);	
 			}
 		else if ((vars->map_vars->go_angle > 1 && vars->map_vars->go_angle <= 3)\
@@ -154,7 +166,10 @@ void ft_hook(void* param)
 
 	else if (mlx_is_key_down(vars->mlx, MLX_KEY_UP))
 	{
-		ft_move(vars, corector_x, corector_y);
+
+					// vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char /2) / vars->map_vars->len_char + 1][((int)mem_y + vars->map_vars->len_char /2) / vars->map_vars->len_char] != '1' &&\
+					// vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char /2) / vars->map_vars->len_char][((int)mem_y + vars->map_vars->len_char /2) / vars->map_vars->len_char + 1] != '1')
+			ft_move(vars, corector_x, corector_y);
 		debug(vars);
 		// if (vars->steps == 2)
 		// {

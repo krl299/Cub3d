@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:39:19 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/12 17:23:11 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:48:37 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include "../libraries/MLX42/include/MLX42/MLX42.h"
 # include "../libraries/libft/libft.h"
 
-#define WIDTH 2048
-#define HEIGHT 1024
+#define WIDTH 1024
+#define HEIGHT 512
 #define KOEF WIDTH/64
 #define SPEEX WIDTH/1024
 #define SPEEY 5
