@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/01 16:55:30 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:06:34 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, 
 		i_cl = 0;
 	}
 	dist = sqrt(pow(x_w - x_u, 2) + pow(y_w - y_u, 2));
-	lenght_with_koef = 128 / (dist * 2) * HEIGHT;
+	lenght_with_koef = HEIGHT - (dist * 2 * cos(vars->map_vars->mini_u_angle - mem_angle)) ;
 	// lenght_with_koef += 1;
 	int q,w,e = 0;
 		int i = -1;
