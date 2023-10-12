@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 08:49:06 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/28 11:42:12 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:15:15 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,18 @@ void	ft_check_textures(t_file_info *info)
 {
 	if (info->no_texture != NULL && info->so_texture != NULL && \
 		info->we_texture != NULL && info->ea_texture != NULL && \
-		ft_strncmp(info->no_texture, info->so_texture, ft_strlen(info->no_texture)) != 0 && \
-		ft_strncmp(info->no_texture, info->we_texture, ft_strlen(info->no_texture)) != 0 && \
-		ft_strncmp(info->no_texture, info->ea_texture, ft_strlen(info->no_texture)) != 0 && \
-		ft_strncmp(info->so_texture, info->we_texture, ft_strlen(info->so_texture)) != 0 && \
-		ft_strncmp(info->so_texture, info->ea_texture, ft_strlen(info->so_texture)) != 0 && \
-		ft_strncmp(info->we_texture, info->ea_texture, ft_strlen(info->we_texture)) != 0)
+		ft_strncmp(info->no_texture, info->so_texture, \
+			ft_strlen(info->no_texture)) != 0 && \
+		ft_strncmp(info->no_texture, info->we_texture, \
+			ft_strlen(info->no_texture)) != 0 && \
+		ft_strncmp(info->no_texture, info->ea_texture, \
+			ft_strlen(info->no_texture)) != 0 && \
+		ft_strncmp(info->so_texture, info->we_texture, \
+			ft_strlen(info->so_texture)) != 0 && \
+		ft_strncmp(info->so_texture, info->ea_texture, \
+			ft_strlen(info->so_texture)) != 0 && \
+		ft_strncmp(info->we_texture, info->ea_texture, \
+			ft_strlen(info->we_texture)) != 0)
 		return ;
 	else
 		ft_error_msg(9, info);

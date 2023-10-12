@@ -6,11 +6,23 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:33:43 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/03 13:22:55 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/10/12 13:02:59 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+static void	ft_get_extension(char *extension, char **file_ext)
+{
+	if (ft_strncmp(extension, ".cub\0", 5) == 0)
+		*file_ext = ft_strdup("cub");
+	else if (ft_strncmp(extension, ".png\0", 5) == 0)
+		*file_ext = ft_strdup("png");
+	else if (ft_strncmp(extension, ".xmp42\0", 7) == 0)
+		*file_ext = ft_strdup("xmp42");
+	else
+		*file_ext = NULL;
+}
 
 void	ft_extension_file(char *str, char **file_ext)
 {
@@ -20,7 +32,7 @@ void	ft_extension_file(char *str, char **file_ext)
 	extension = NULL;
 	tmp = ft_strchr(str, '/');
 	if (tmp == NULL)
-		return ; 
+		return ;
 	while (tmp != NULL)
 	{
 		extension = ++tmp;
@@ -29,18 +41,36 @@ void	ft_extension_file(char *str, char **file_ext)
 	extension = ft_strchr(extension, '.');
 	if (extension != NULL)
 	{
-	extension[ft_strlen(extension)] = 0;
-		if (ft_strncmp(extension, ".cub\0", 5) == 0)
-			*file_ext = ft_strdup("cub");
-		else if (ft_strncmp(extension, ".png\0", 5) == 0)
-			*file_ext = ft_strdup("png");
-		else if (ft_strncmp(extension, ".xmp42\0", 7) == 0)
-			*file_ext = ft_strdup("xmp42");
-		else
-			*file_ext = NULL;
+		extension[ft_strlen(extension)] = 0;
+		ft_get_extension(extension, file_ext);
 	}
 	else
 		*file_ext = NULL;
+}
+
+static int	ft_identify_textures_colors(char *line, t_file_info *info)
+{
+	if (ft_strncmp(line, "NO ", 3) == 0)
+		ft_get_no_texture(info, line);
+	else if (ft_strncmp(line, "SO ", 3) == 0)
+		ft_get_so_texture(info, line);
+	else if (ft_strncmp(line, "WE ", 3) == 0)
+		ft_get_we_texture(info, line);
+	else if (ft_strncmp(line, "EA ", 3) == 0)
+		ft_get_ea_texture(info, line);
+	else if (ft_strncmp(line, "F ", 2) == 0)
+	{
+		ft_get_color(&info->floor_color, line);
+		info->elements++;
+	}
+	else if (ft_strncmp(line, "C ", 2) == 0)
+	{
+		ft_get_color(&info->ceiling_color, line);
+		info->elements++;
+	}
+	else
+		return (0);
+	return (1);
 }
 
 void	ft_get_info(t_file_info *info)
@@ -54,32 +84,17 @@ void	ft_get_info(t_file_info *info)
 		tmp = line;
 		while (ft_isspace(*line) == 1)
 			line++;
-		if (ft_strncmp(line, "NO ", 3) == 0)
-			ft_get_no_texture(info, line);
-		else if (ft_strncmp(line, "SO ", 3) == 0)
-			ft_get_so_texture(info, line);
-		else if (ft_strncmp(line, "WE ", 3) == 0)
-			ft_get_we_texture(info, line);
-		else if (ft_strncmp(line, "EA ", 3) == 0)
-			ft_get_ea_texture(info, line);
-		else if (ft_strncmp(line, "F ", 2) == 0)
+		if (!ft_identify_textures_colors(line, info))
 		{
-			ft_get_color(&info->floor_color, line);
-			info->elements++;
+			if (info->elements == 6 && !(*tmp == '\n'))
+			{
+				ft_check_textures(info);
+				ft_get_map(info, tmp);
+				break ;
+			}
+			else if (!(*tmp == '\n'))
+				ft_error_msg(3, info);
 		}
-		else if (ft_strncmp(line, "C ", 2) == 0)
-		{
-			ft_get_color(&info->ceiling_color, line);
-			info->elements++;
-		}
-		else if (info->elements == 6 && !(*tmp == '\n'))
-		{
-			ft_check_textures(info);
-			ft_get_map(info, tmp);
-			break;
-		}
-		else if (!(*tmp == '\n'))
-			ft_error_msg(3, info);
 		free(tmp);
 		line = get_next_line(info->fd);
 	}

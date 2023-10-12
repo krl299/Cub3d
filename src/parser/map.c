@@ -6,12 +6,13 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:39:18 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/09/28 11:39:38 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:23:18 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+//too long
 void	ft_get_map(t_file_info *info, char *line)
 {
 	char	*ptr[200];
@@ -84,28 +85,34 @@ int	ft_hasplayer(t_file_info *info)
 		return (1);
 }
 
+//too long
 void	ft_checkwalls(t_file_info *info)
 {
 	int	i;
+	int	diff;
 
 	i = -1;
 	while (info->map[0][++i])
+	{
 		if (info->map[0][i] != '1')
 		{
 			ft_error_msg(6, NULL);
 			return ;
 		}
+	}
 	i = 0;
 	while (info->map[++i] && i < info->map_size - 1)
 	{
-		if (info->map[i][0] != '1' || info->map[i][ft_strlen(info->map[i]) - 1] != '1')
+		if (info->map[i][0] != '1' || \
+			info->map[i][ft_strlen(info->map[i]) - 1] != '1')
 		{
 			ft_error_msg(6, NULL);
 			return ;
 		}
 		if (i >= 1)
 		{
-			int diff = ft_strlen(info->map[i - 1]) - ft_strlen(info->map[i]);
+			diff = ft_strlen(info->map[i - 1]) - \
+					ft_strlen(info->map[i]);
 			if (diff < 0)
 			{
 				while (diff != 0)
@@ -120,7 +127,8 @@ void	ft_checkwalls(t_file_info *info)
 			{
 				while (diff != 0)
 				{
-					if (info->map[i - 1][ft_strlen(info->map[i]) + diff - 1] == '1')
+					if (info->map[i - 1][ft_strlen(info->map[i]) + \
+						diff - 1] == '1')
 						diff--;
 					else
 						ft_error_msg(6, NULL);
@@ -132,5 +140,4 @@ void	ft_checkwalls(t_file_info *info)
 	while (info->map[info->map_size -1][++i])
 		if (info->map[info->map_size - 1][i] != '1')
 			ft_error_msg(6, NULL);
-
 }
