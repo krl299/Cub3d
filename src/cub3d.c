@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/12 19:27:54 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/10/13 12:06:13 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,38 @@ void	ft_leaks(void)
 {
 	system("leaks -q cub3d");
 }
-int ft_colour_of_wall(t_vars * vars, float mem_angle)
+int ft_colour_of_wall(t_vars * vars, float mem_angle, float x, float y)
 {
-		if (vars->map_vars->go_angle >= 4 && vars->map_vars->go_angle <= 12)
+	static float mem_x_w = -1;
+	static float mem_y_w = -1;
+
+	// printf("x: %f y: %f\n", x, y);
+	// if (round(mem_x_w) + 1 >= round(x) && round(mem_x_w) - 1 <= round(x))
+	// {
+	// 	mem_x_w = x;
+	// 	mem_y_w = y;
+	// 	return (ft_get_rgba(255, 0, 0, 255));
+	// }
+	// else
+	// {
+	// 	mem_x_w = x;
+	// 	mem_y_w = y;
+	// 	return (ft_get_rgba(255, 255, 0, 255));
+	// }
+		if (vars->map_vars->wall_side == 0)
+		{
+			return (ft_get_rgba(0, 255, 0, 255));
+		}
+		else if (vars->map_vars->wall_side == 1)
+		{
+			return (ft_get_rgba(0, 0, 0, 255));
+		}
+		else if (vars->map_vars->wall_side == 2)
 		{
 			return (ft_get_rgba(255, 0, 0, 255));
 		}
 		else
-			return (ft_get_rgba(255, 255, 0, 255));
+			return(ft_get_rgba(255, 255, 0, 255));
 }
 void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, float mem_angle)
 {
@@ -54,14 +78,14 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, 
 		vars->map_vars->clean_walls = 0;
 		i_cl = 0;
 	}
-	int colour_of_line = ft_colour_of_wall(vars, mem_angle);
+	int colour_of_line = ft_colour_of_wall(vars, mem_angle, x_w, y_w);
 	// colour_of_line = ft_colour_of_wall(vars);
 	dist = sqrt(pow(x_w - x_u, 2) + pow(y_w - y_u, 2));
 	lenght_with_koef = HEIGHT / dist * KOEF;
 	// lenght_with_koef += 1;
 	int q,w,e = 0;
 		int i = -1;
-		while(++i < (int)lenght_with_koef-1)
+		while(++i < ceil(lenght_with_koef))
 		{
 			if (y % 2 == 0)
 				y = HEIGHT/2 + i/2;
@@ -108,15 +132,23 @@ void ft_trace_line(t_vars *vars)
 			{
 				mem_x = cos(vars->map_vars->mini_u_angle) + mem_x;
 				mem_y = sin(vars->map_vars->mini_u_angle) + mem_y;
-				if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char] != '1' &&\
-					vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char /2) / vars->map_vars->len_char][((int)mem_y + vars->map_vars->len_char /2) / vars->map_vars->len_char] != '1')
+				if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char] != '1')
+					// vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char /2) / vars->map_vars->len_char][((int)mem_y + vars->map_vars->len_char /2) / vars->map_vars->len_char] != '1')
 					{
 						mlx_put_pixel(vars->mini_map, mem_y + (vars->map_vars->len_char/2), mem_x - (vars->map_vars->len_char/2), ft_get_rgba(255, 255, 255, 255));
 						clean[mem_clean][0] = mem_y + (vars->map_vars->len_char/2);
 						clean[mem_clean++][1] = mem_x - (vars->map_vars->len_char/2);
 					}
 					else
+					{
+						if(vars->map_vars->map[(int)(mem_x - cos(vars->map_vars->mini_u_angle)- vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)(mem_y - sin(vars->map_vars->mini_u_angle)) + vars->map_vars->len_char/2)/ vars->map_vars->len_char] == '1')
+							vars->map_vars->wall_side = 0;
+						if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)(mem_y - sin(vars->map_vars->mini_u_angle)) + vars->map_vars->len_char/2)/ vars->map_vars->len_char] == '1')
+							vars->map_vars->wall_side = 1;
+						else
+							vars->map_vars->wall_side = 0;
 						break;
+					}
 			}
 			ft_draw_line(vars,vars->map_vars->cont_x + vars->map_vars->len_char, vars->map_vars->cont_y - 1, mem_x, mem_y, i2, mem_angle);
 			mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
@@ -125,12 +157,14 @@ void ft_trace_line(t_vars *vars)
 			// printf("angle: %f\n", (M_PI * 2 / 32) * 32); // angle / 1 sector
 		}
 		vars->map_vars->mini_u_angle = mem_angle;
+		vars->map_vars->wall_side = 1;
+
 		// float center = vars->map_vars->mini_u_angle;
-		i2 = WIDTH/2-1;
+		i2 = WIDTH/2 - 1;
 		while(i2++ < WIDTH)
 		{
 			i = 0;
-			while (i++ != WIDTH/4)
+			while (++i != WIDTH/4)
 			{
 				mem_x = cos(vars->map_vars->mini_u_angle) + mem_x;
 				mem_y = sin(vars->map_vars->mini_u_angle) + mem_y;
@@ -142,7 +176,15 @@ void ft_trace_line(t_vars *vars)
 						clean[mem_clean++][1] = mem_x - (vars->map_vars->len_char/2);
 					}
 					else
+					{
+						if(vars->map_vars->map[(int)(mem_x - cos(vars->map_vars->mini_u_angle)- vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)(mem_y - sin(vars->map_vars->mini_u_angle)) + vars->map_vars->len_char/2)/ vars->map_vars->len_char] == '1')
+							vars->map_vars->wall_side = 0;
+						else if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)(mem_y - sin(vars->map_vars->mini_u_angle)) + vars->map_vars->len_char/2)/ vars->map_vars->len_char] == '1')
+							vars->map_vars->wall_side = 1;
+						else
+							vars->map_vars->wall_side = 0;
 						break;
+					}
 			}
 			ft_draw_line(vars,vars->map_vars->cont_x + vars->map_vars->len_char, vars->map_vars->cont_y - 1, mem_x, mem_y, i2, mem_angle);
 			mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;

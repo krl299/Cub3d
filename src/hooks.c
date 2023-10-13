@@ -45,9 +45,10 @@ void ft_move_y(t_vars *vars, int corrector_y, int speed)
 
 void ft_2yx(t_vars *vars, int corector_x, int corector_y)
 {
-
+	static int fx = 0;
 		ft_move_y(vars, corector_y, 2);
 		ft_move_x(vars, corector_x, 1);
+		if (fx++ % 3 == 0)
 			ft_trace_line(vars);
 
 
@@ -55,9 +56,11 @@ void ft_2yx(t_vars *vars, int corector_x, int corector_y)
 
 void ft_yx(t_vars *vars, int corector_x, int corector_y)
 {
+	static int fx = 0;
 
 		ft_move_x(vars, corector_x, 1);
 		ft_move_y(vars, corector_y, 1);
+		if (fx++ % 3 == 0)
 			ft_trace_line(vars);
 
 
@@ -71,8 +74,11 @@ void ft_2xy(t_vars *vars, int corector_x, int corector_y)
 
 		ft_move_x(vars, corector_x, 2);
 		ft_move_y(vars, corector_y, 1);
+		if (fx++ % 3 == 0)
+			{
 			ft_trace_line(vars);
-		fx = 0;
+			// fx = 0;
+			}
 		// ft_trace_line(vars);	
 
 
@@ -84,13 +90,13 @@ void ft_move(t_vars * vars, int corector_x, int corector_y)
 	if ((vars->map_vars->go_angle >= 31 || vars->map_vars->go_angle <= 1)\
 		|| (vars->map_vars->go_angle > 15 && vars->map_vars->go_angle <=17))
 		{
-			ft_move_y(vars, corector_y, 3);
+			ft_move_y(vars, corector_y, 2);
 			ft_trace_line(vars);
 		}
 		else if ((vars->map_vars->go_angle > 23 && vars->map_vars->go_angle <= 25)\
 		|| 	(vars->map_vars->go_angle > 7 && vars->map_vars->go_angle <= 9))
 			{
-			ft_move_x(vars, corector_x, 3);
+			ft_move_x(vars, corector_x, 2);
 			ft_trace_line(vars);	
 			}
 		else if ((vars->map_vars->go_angle > 1 && vars->map_vars->go_angle <= 3)\
