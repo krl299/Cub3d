@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/13 12:06:13 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:37:46 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, 
 	// lenght_with_koef += 1;
 	int q,w,e = 0;
 		int i = -1;
-		while(++i < ceil(lenght_with_koef))
+		while(++i < (int)(lenght_with_koef))
 		{
 			if (y % 2 == 0)
 				y = HEIGHT/2 + i/2;
@@ -140,9 +140,13 @@ void ft_trace_line(t_vars *vars)
 						clean[mem_clean++][1] = mem_x - (vars->map_vars->len_char/2);
 					}
 					else
-					{
-						if(vars->map_vars->map[(int)(mem_x - cos(vars->map_vars->mini_u_angle)- vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)(mem_y - sin(vars->map_vars->mini_u_angle)) + vars->map_vars->len_char/2)/ vars->map_vars->len_char] == '1')
-							vars->map_vars->wall_side = 0;
+					{	
+						if (vars->map_vars->go_angle > 17 && vars->map_vars->go_angle < 32)
+							if(vars->map_vars->map[(int)(mem_x - cos(vars->map_vars->mini_u_angle)- vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)(mem_y) + vars->map_vars->len_char/2)/ vars->map_vars->len_char] == '1')
+							{
+								vars->map_vars->wall_side = 0;
+								break;
+							}
 						if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)(mem_y - sin(vars->map_vars->mini_u_angle)) + vars->map_vars->len_char/2)/ vars->map_vars->len_char] == '1')
 							vars->map_vars->wall_side = 1;
 						else
@@ -168,8 +172,8 @@ void ft_trace_line(t_vars *vars)
 			{
 				mem_x = cos(vars->map_vars->mini_u_angle) + mem_x;
 				mem_y = sin(vars->map_vars->mini_u_angle) + mem_y;
-				if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char] != '1' &&\
-					vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char /2) / vars->map_vars->len_char][((int)mem_y + vars->map_vars->len_char /2) / vars->map_vars->len_char] != '1')
+				if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char] != '1')
+					// vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char /2) / vars->map_vars->len_char][((int)mem_y + vars->map_vars->len_char /2) / vars->map_vars->len_char] != '1')
 					{
 						mlx_put_pixel(vars->mini_map, mem_y + (vars->map_vars->len_char/2), mem_x - (vars->map_vars->len_char/2), ft_get_rgba(255, 255, 255, 255));
 						clean[mem_clean][0] = mem_y + (vars->map_vars->len_char/2);
@@ -177,9 +181,14 @@ void ft_trace_line(t_vars *vars)
 					}
 					else
 					{
-						if(vars->map_vars->map[(int)(mem_x - cos(vars->map_vars->mini_u_angle)- vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)(mem_y - sin(vars->map_vars->mini_u_angle)) + vars->map_vars->len_char/2)/ vars->map_vars->len_char] == '1')
-							vars->map_vars->wall_side = 0;
-						else if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)(mem_y - sin(vars->map_vars->mini_u_angle)) + vars->map_vars->len_char/2)/ vars->map_vars->len_char] == '1')
+						if (vars->map_vars->go_angle > 17 && vars->map_vars->go_angle < 32)
+							if(vars->map_vars->map[(int)(mem_x - cos(vars->map_vars->mini_u_angle)- vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)(mem_y) + vars->map_vars->len_char/2)/ vars->map_vars->len_char] == '1')
+							{
+								vars->map_vars->wall_side = 0;
+								break;
+							}
+						if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)]
+							[((int)(mem_y - sin(vars->map_vars->mini_u_angle)) + vars->map_vars->len_char/2)/ vars->map_vars->len_char] == '1')
 							vars->map_vars->wall_side = 1;
 						else
 							vars->map_vars->wall_side = 0;
@@ -219,7 +228,7 @@ int32_t	submain()
 	vars->map_vars->mini_u_angle = M_PI/2;//1.5708;
 
 	vars->map_vars->map = temp_map(); //aqui se cambia luego a mapa de parser
-	vars->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
+	vars->mlx = mlx_init(WIDTH * 2, HEIGHT, "CUB3D", false);
 	// if (!vars->mlx)
     //     error();
 	vars->sky = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
