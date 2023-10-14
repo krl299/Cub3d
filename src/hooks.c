@@ -27,7 +27,7 @@ void ft_move_x(t_vars *vars, int corrector_x, int speed)
 	mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
 	mem_y = vars->map_vars->cont_y + 1;
 	// if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char ] != '1' &&
-	if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char + corrector_x] != '1')
+	if(vars->map_vars->map[(int)((mem_x + cos(vars->map_vars->mini_u_angle)) - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][(int)((mem_y + sin(vars->map_vars->mini_u_angle))+ vars->map_vars->len_char/2)/ vars->map_vars->len_char + corrector_x] != '1')
 		vars->map_vars->cont_y += 1 * corrector_x * speed;
 	// vars->mini_unit->instances[0].x += speed * corrector_x;
 }
@@ -48,7 +48,7 @@ void ft_2yx(t_vars *vars, int corector_x, int corector_y)
 	static int fx = 0;
 		ft_move_y(vars, corector_y, 2);
 		ft_move_x(vars, corector_x, 1);
-		if (fx++ % 3 == 0)
+		if (fx++ % 2 == 0)
 			ft_trace_line(vars);
 
 
@@ -60,7 +60,7 @@ void ft_yx(t_vars *vars, int corector_x, int corector_y)
 
 		ft_move_x(vars, corector_x, 1);
 		ft_move_y(vars, corector_y, 1);
-		if (fx++ % 3 == 0)
+		if (fx++ % 2 == 0)
 			ft_trace_line(vars);
 
 
@@ -74,7 +74,7 @@ void ft_2xy(t_vars *vars, int corector_x, int corector_y)
 
 		ft_move_x(vars, corector_x, 2);
 		ft_move_y(vars, corector_y, 1);
-		if (fx++ % 3 == 0)
+		if (fx++ % 2 == 0)
 			{
 			ft_trace_line(vars);
 			// fx = 0;

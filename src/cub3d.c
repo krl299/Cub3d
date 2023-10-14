@@ -133,7 +133,6 @@ void ft_trace_line(t_vars *vars)
 				mem_x = cos(vars->map_vars->mini_u_angle) + mem_x;
 				mem_y = sin(vars->map_vars->mini_u_angle) + mem_y;
 				if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char] != '1')
-					// vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char /2) / vars->map_vars->len_char][((int)mem_y + vars->map_vars->len_char /2) / vars->map_vars->len_char] != '1')
 					{
 						mlx_put_pixel(vars->mini_map, mem_y + (vars->map_vars->len_char/2), mem_x - (vars->map_vars->len_char/2), ft_get_rgba(255, 255, 255, 255));
 						clean[mem_clean][0] = mem_y + (vars->map_vars->len_char/2);

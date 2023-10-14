@@ -21,8 +21,8 @@
 # include "../libraries/MLX42/include/MLX42/MLX42.h"
 # include "../libraries/libft/libft.h"
 
-#define WIDTH 1024
-#define HEIGHT 512
+#define WIDTH 2048
+#define HEIGHT 1024
 #define KOEF WIDTH/64
 #define SPEEX WIDTH/1024
 #define SPEEY 5
