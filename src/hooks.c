@@ -122,13 +122,13 @@ void ft_move(t_vars * vars, int corector_x, int corector_y)
 		}
 		if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 		{	
-			vars->map_vars->mini_u_angle += ONE_DEG;
+			vars->map_vars->mini_u_angle += ONE_DEG * 3;
 			ft_trace_line(vars);
 		}
 		if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 		{	
 			
-			vars->map_vars->mini_u_angle -= ONE_DEG;
+			vars->map_vars->mini_u_angle -= ONE_DEG * 3;
 			ft_trace_line(vars);	
 
 		}
