@@ -172,7 +172,7 @@ void ft_get_wall_side(t_vars *vars, float mem_x, float mem_y)
 				vars->map_vars->wall_side = 4;
 				return ;
 		}
-		else
+		else if ((int) ((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)) != 0)
 			{
 				vars->map_vars->wall_side = 2;
 				return ;
@@ -181,7 +181,8 @@ void ft_get_wall_side(t_vars *vars, float mem_x, float mem_y)
 	if (vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char))][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char + 0.05)] == '1' &&
 	vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) - 0.05)][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char)] == '1') 
 	{
-		if (vars->map_vars->mini_u_angle > 0 && vars->map_vars->mini_u_angle  < M_PI)
+		// printf("vars->map_vars->mini_u_angle %f\n", vars->map_vars->mini_u_angle);
+		if (vars->map_vars->mini_u_angle >= 0 && vars->map_vars->mini_u_angle  < M_PI || vars->map_vars->mini_u_angle > 2 * M_PI)
 			{	
 				vars->map_vars->wall_side = 4;
 				return ;
@@ -215,76 +216,14 @@ void ft_get_wall_side(t_vars *vars, float mem_x, float mem_y)
 				vars->map_vars->wall_side = 3;
 				return ;
 			}
-		else 
+		else
 					{	
 				vars->map_vars->wall_side = 2;
 				return ;
 			}
 	}
-	// if (vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char))][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char + 0.05)] == '1' &&
-	// vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) - 0.05)][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char)] == '1' &&
-	// 	vars->map_vars->mini_u_angle > 0 && vars->map_vars->mini_u_angle  < M_PI / 2)
-	// {
-	// 	vars->map_vars->wall_side = 4;
-	// 		return ;
-	// }
-	// if (vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char))][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char + 0.05)] == '1' &&
-	// vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) - 0.05)][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char)] == '1' && 
-	// vars->map_vars->mini_u_angle > M_PI && vars->map_vars->mini_u_angle  < 3 * M_PI / 2)
-	// {	vars->map_vars->wall_side = 1;
-	// 	return ;
-	// }
-	// if (vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char))][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char - 0.05)] == '1' &&
-	// vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) - 0.05)][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char)] == '1' && 
-	// vars->map_vars->mini_u_angle > M_PI && vars->map_vars->mini_u_angle  < 3 * M_PI / 2)
-	// {	vars->map_vars->wall_side = 3;
-	// 	return ;
-	// }
-	// if (vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char))][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char - 0.05)] == '1' &&
-	// vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) + 0.05)][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char)] == '1' && 
-	// vars->map_vars->mini_u_angle > 0 && vars->map_vars->mini_u_angle  < M_PI)
-	// {	vars->map_vars->wall_side = 2;
-	// 	return ;
-	// }
-	
-	// 	if (vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char))][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char - 0.05)] == '1' &&
-	// vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) - 0.05)][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char)] == '1' && 
-	// vars->map_vars->mini_u_angle > 3 * M_PI /2  && vars->map_vars->mini_u_angle  < 2 * M_PI)
-	// {	vars->map_vars->wall_side = 3;
-	// 	return ;
-	// }
-	// if (vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char))][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char + 0.05)] == '1' &&
-	// vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) - 0.05)][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char)] == '1' && 
-	// vars->map_vars->go_angle > 16 && vars->map_vars->go_angle <= 32)
-	// {	
-	// 	vars->map_vars->wall_side = 1;
-	// 	return ;
-	// }
-	// if (vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char))][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char - 0.05)] == '1' &&
-	// vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) - 0.05)][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char)] == '1' && 
-	// vars->map_vars->go_angle > 16 && vars->map_vars->go_angle <= 32)
-	// {	
-	// 	vars->map_vars->wall_side = 3;
-	// 	return ;
-	// }
-	// 	if (vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char))][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char - 0.05)] == '1' &&
-	// vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) - 0.05)][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char)] == '1' && 
-	// vars->map_vars->go_angle > 8 && vars->map_vars->go_angle < 24)
-	// {	vars->map_vars->wall_side = 3;
-	// 	return ;
-	// }
-	// if (vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char))][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char - 0.05)] == '1' &&
-	// vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) + 0.05)][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char)] == '1')
-	// {	vars->map_vars->wall_side = 2;
-	// 	return ;
-	// }
 	vars->map_vars->wall_side = 0;
 
-	// if (vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char))][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char - 0.05)] == '1' &&
-	// vars->map_vars->map[(int)((mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) - 0.05)][(int)((mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char)] == '1')
-	// {	vars->map_vars->wall_side = 2;
-	// 	return ;
-	// }
 }
 void ft_trace_line(t_vars *vars)
 {
