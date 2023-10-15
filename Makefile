@@ -20,7 +20,7 @@
 # endif
     #    R42IFLAG = I/opt/homebrew/opt/readline/include
 
-SRCS           =   ./src/mini_map.c ./src/hooks.c ./src/utils.c ./src/parser/error_parser.c ./src/cub3d.c ./src/parser/parser.c ./src/parser/textures.c ./src/parser/init.c     ./src/parser/test.c     ./src/parser/color.c    ./src/parser/map.c
+SRCS           =   ./src/texturas.c ./src/mini_map.c ./src/hooks.c ./src/utils.c ./src/parser/error_parser.c ./src/cub3d.c ./src/parser/parser.c ./src/parser/textures.c ./src/parser/init.c     ./src/parser/test.c     ./src/parser/color.c    ./src/parser/map.c
 
 OBJS		=	${SRCS:.c=.o}
 

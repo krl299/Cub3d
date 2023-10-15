@@ -27,8 +27,14 @@ void ft_move_x(t_vars *vars, int corrector_x, int speed)
 	mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
 	mem_y = vars->map_vars->cont_y + 1;
 	// if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char ] != '1' &&
-	if(vars->map_vars->map[(int)((mem_x + cos(vars->map_vars->mini_u_angle)) - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)][(int)((mem_y + sin(vars->map_vars->mini_u_angle))+ vars->map_vars->len_char/2)/ vars->map_vars->len_char + corrector_x] != '1')
+	if(vars->map_vars->map[(int)(mem_x  - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)]
+		[(int)((mem_y + vars->map_vars->len_char/2)/ vars->map_vars->len_char + (corrector_x * 0.5))] != '1' &&
+			vars->map_vars->map[(int)((mem_x  - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)+ (corrector_x * 0.5))]
+		[(int)((mem_y + vars->map_vars->len_char/2)/ vars->map_vars->len_char )] != '1' &&
+			vars->map_vars->map[(int)((mem_x  - vars->map_vars->len_char/2)/ (vars->map_vars->len_char)+ (-corrector_x * 0.5))]
+		[(int)((mem_y + vars->map_vars->len_char/2)/ vars->map_vars->len_char )])
 		vars->map_vars->cont_y += 1 * corrector_x * speed;
+	// printf("correct %f\n", ((mem_y + vars->map_vars->len_char/2)/ vars->map_vars->len_char + (corrector_x / 10)));
 	// vars->mini_unit->instances[0].x += speed * corrector_x;
 }
 void ft_move_y(t_vars *vars, int corrector_y, int speed)
@@ -38,7 +44,8 @@ void ft_move_y(t_vars *vars, int corrector_y, int speed)
 	mem_x = vars->map_vars->cont_x + vars->map_vars->len_char;
 	mem_y = vars->map_vars->cont_y + 1;
 // if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) + 1][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char] != '1' &&
-		if(vars->map_vars->map[(int)(mem_x - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) + corrector_y][((int)mem_y+ vars->map_vars->len_char/2)/ vars->map_vars->len_char] != '1')
+	if(vars->map_vars->map[(int)((mem_x  - vars->map_vars->len_char/2)/ (vars->map_vars->len_char) + (corrector_y))]
+		[(int)((mem_y + vars->map_vars->len_char/2)/ vars->map_vars->len_char)] != '1')
 	vars->map_vars->cont_x += 1 * corrector_y * speed;
 	// vars->mini_unit->instances[0].y += speed * corrector_y;
 }

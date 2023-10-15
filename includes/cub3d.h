@@ -151,6 +151,7 @@ void ft_maxlen_mm(t_vars *vars);
 void ft_mini_unit(int x, int y, t_vars *vars);
 void ft_print_wall(int wall, int x, int y, t_vars *vars);
 
-
+//texturas.c
+void ft_open_texturas(t_vars *vars);																							
 
 #endif

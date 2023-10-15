@@ -49,15 +49,21 @@ int ft_colour_of_wall(t_vars * vars, float mem_angle, float x, float y)
 		}
 		else if (vars->map_vars->wall_side == 1)
 		{
-			return (ft_get_rgba(100, 0, 0, 255));
+			static int num = 0;
+			int colour;
+			colour	= ft_get_rgba(vars->texture->pixels[num], vars->texture->pixels[num + 1], vars->texture->pixels[num +2],  vars->texture->pixels[num + 3]);
+			num+=4;
+			if (num >= vars->texture->width * vars->texture->height * 4)
+				num = 0;
+			return (colour);
 		}
 		else if (vars->map_vars->wall_side == 2)
 		{
-			return (ft_get_rgba(0, 100, 0, 255));
+			return (ft_get_rgba(178, 223, 219, 255));
 		}
 		else if (vars->map_vars->wall_side == 3)
 		{
-			return (ft_get_rgba(0, 0, 110, 255));
+			return (ft_get_rgba(187, 222, 251, 255));
 		}
 		else if (vars->map_vars->wall_side == 4)
 			return(ft_get_rgba(100, 100, 100, 255));
@@ -331,9 +337,11 @@ int32_t	submain()
 	vars->map_vars = malloc(sizeof(t_map));
 	*vars->map_vars = (t_map){};
 	vars->map_vars->mini_u_angle = M_PI/2;//1.5708;
-
 	vars->map_vars->map = temp_map(); //aqui se cambia luego a mapa de parser
-	vars->mlx = mlx_init(WIDTH * 2, HEIGHT, "CUB3D", false);
+	vars->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", false);
+
+	ft_open_texturas(vars);
+
 	// if (!vars->mlx)
     //     error();
 	vars->sky = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
@@ -347,6 +355,8 @@ int32_t	submain()
 	mlx_image_to_window(vars->mlx, vars->mini_unit, 0, vars->map_vars->start_draw_y_mm);
 	mlx_image_to_window(vars->mlx, vars->wall, 0, 0);
 	mlx_image_to_window(vars->mlx, vars->mini_map, 0, vars->map_vars->start_draw_y_mm);
+    // mlx_image_to_window(vars->mlx, vars->texture2img, 500, 500);
+
 	mlx_loop_hook(vars->mlx, ft_hook, vars);
 	mlx_loop(vars->mlx);
 	mlx_delete_image(vars->mlx, vars->sky);
