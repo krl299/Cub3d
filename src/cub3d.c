@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/06 17:21:05 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:46:25 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,12 @@ void ft_trace_line(t_vars *vars)
 		vars->map_vars->mini_u_angle = mem_angle;
 }
 
+/*void	myResizeCallBack(int32_t width, int32_t height, void *param)
+{
+	((t_file_info*)param)->width = width;
+	((t_file_info*)param)->height = height;
+}
+*/
 // int32_t	submain(t_file_info *info)
 int32_t	submain(t_file_info *info)
 {
@@ -172,6 +178,7 @@ int32_t	submain(t_file_info *info)
 	vars->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
 	// if (!vars->mlx)
     //     error();
+	mlx_set_window_limit(vars->mlx, 2048, 1024, 2048, 1024); //min/max size window allowed
 	vars->sky = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
 	vars->mini_map = mlx_new_image(vars->mlx, WIDTH/4, WIDTH/4);
 	vars->wall = mlx_new_image(vars->mlx, WIDTH, HEIGHT *2);
@@ -184,6 +191,9 @@ int32_t	submain(t_file_info *info)
 	mlx_image_to_window(vars->mlx, vars->wall, 0, 0);
 	mlx_image_to_window(vars->mlx, vars->mini_map, 0, vars->map_vars->start_draw_y_mm);
 	mlx_loop_hook(vars->mlx, ft_hook, vars);
+//Resize window
+//	mlx_resizefunc resizeCallBack = myResizeCallBack;
+//	mlx_resize_hook(vars->mlx, resizeCallBack, (void*)info);
 	mlx_loop(vars->mlx);
 	mlx_delete_image(vars->mlx, vars->sky);
 	mlx_terminate(vars->mlx);
