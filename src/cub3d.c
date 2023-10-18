@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/18 17:05:42 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:12:57 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,7 +332,7 @@ int32_t	submain(t_file_info *info)
 	*vars->map_vars = (t_map){};
 	vars->map_vars->mini_u_angle = M_PI/2;//1.5708;
 
-	vars->map_vars->map = info->map;//temp_map(); //aqui se cambia luego a mapa de parser
+	vars->map_vars->map = temp_map();//temp_map(); //aqui se cambia luego a mapa de parser
 	vars->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
 	// if (!vars->mlx)
     //     error();
@@ -363,7 +363,7 @@ int	main(int argc, char *argv[])
 	if (argc == 2)
 	{
 		ft_init_info(&info);
-		ft_check_arg(argv[1], &info);
+		// ft_check_arg(argv[1], &info);
 		ft_print_info(&info);
 		submain(&info);
 		ft_clean_info(&info);
