@@ -6,7 +6,7 @@
 /*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:39:19 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/01 16:54:47 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:31:00 by mandriic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@
 
 #define WIDTH 2048
 #define HEIGHT 1024
-#define KOEF 64
-#define SPEEX 1
+#define KOEF WIDTH/64
+#define SPEEX WIDTH/1024
 #define SPEEY 5
-
+#define FOV 60
+#define ONE_DEG 0.0174533
 typedef struct var_map
 {
 	float mini_u_angle;
@@ -45,6 +46,7 @@ typedef struct var_map
 	int		save_pos_y;
 	int		clean_walls;
 	float 	go_angle;
+	int 	wall_side;
 	
 }t_map;
 
@@ -64,6 +66,7 @@ typedef struct var_idnf
 	mlx_image_t* for_texture_print;
 	xpm_t* xpm;
 	t_map	*map_vars;
+	int		steps;
 }t_vars;
 
 

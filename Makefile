@@ -10,15 +10,15 @@
 #                                                                              #
 # **************************************************************************** #
 
-USER = $(shell whoami)
+# USER = $(shell whoami)
 # ifeq ($(USER), $(filter mandriic,cmoranl))
        GLFWLFLAG = -L /Users/$(USER)/.brew/opt/glfw/lib/
        # R42IFLAG = I/Users/$(USER)/.brew/opt/readline/include
 # endif
-ifeq ($(USER), sirius)
-	GLFWLFLAG = -L /opt/homebrew/opt/glfw/lib/
-endif
-       R42IFLAG = I/opt/homebrew/opt/readline/include
+# ifeq ($(USER), sirius)
+# 	GLFWLFLAG = -L /opt/homebrew/opt/glfw/lib/
+# endif
+    #    R42IFLAG = I/opt/homebrew/opt/readline/include
 
 SRCS           =   ./src/mini_map.c ./src/hooks.c ./src/utils.c ./src/parser/error_parser.c ./src/cub3d.c ./src/parser/parser.c ./src/parser/textures.c ./src/parser/init.c     ./src/parser/test.c     ./src/parser/color.c    ./src/parser/map.c
 
