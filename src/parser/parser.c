@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:33:43 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/12 13:02:59 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:08:24 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	ft_extension_file(char *str, char **file_ext)
 
 static int	ft_identify_textures_colors(char *line, t_file_info *info)
 {
+	//printf("identify_textures_colors\n");
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		ft_get_no_texture(info, line);
 	else if (ft_strncmp(line, "SO ", 3) == 0)
@@ -77,7 +78,7 @@ void	ft_get_info(t_file_info *info)
 {
 	char	*line;
 	char	*tmp;
-
+//printf("get_info\n");
 	line = get_next_line(info->fd);
 	while (line != NULL)
 	{
@@ -113,7 +114,7 @@ void	ft_get_info(t_file_info *info)
 void	ft_check_arg(char *str, t_file_info *info)
 {
 	int	fd;
-
+//printf("check_arg\n");
 	ft_extension_file(str, &info->file_extension);
 	if (info->file_extension != NULL && \
 ft_strncmp(info->file_extension, "cub", 3) == 0)

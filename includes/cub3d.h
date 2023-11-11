@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:39:19 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/13 13:31:00 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/11/11 10:58:51 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include "../libraries/MLX42/include/MLX42/MLX42.h"
 # include "../libraries/libft/libft.h"
 
-#define WIDTH 2048
-#define HEIGHT 1024
+#define WIDTH 1920
+#define HEIGHT 1080
 #define KOEF WIDTH/64
 #define SPEEX WIDTH/1024
 #define SPEEY 5
@@ -60,7 +60,10 @@ typedef struct var_idnf
 	mlx_image_t* mini_unit;
 	mlx_image_t* gun;
 	mlx_texture_t *gun_text;
-	mlx_texture_t* texture;
+	mlx_texture_t* no_wall_texture;
+	mlx_texture_t* so_wall_texture;
+	mlx_texture_t* we_wall_texture;
+	mlx_texture_t* ea_wall_texture;
 	mlx_image_t* texture2img;
 	mlx_image_t* texture3img;
 	mlx_image_t* for_texture_print;
@@ -151,6 +154,8 @@ void ft_maxlen_mm(t_vars *vars);
 void ft_mini_unit(int x, int y, t_vars *vars);
 void ft_print_wall(int wall, int x, int y, t_vars *vars);
 
+// loadtextures.c
+void ft_loadtextures(t_file_info *info, t_vars *vars);
 
 
 #endif

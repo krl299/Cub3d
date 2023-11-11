@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+         #
+#    By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 09:18:17 by cmoran-l          #+#    #+#              #
-#    Updated: 2023/10/18 17:08:30 by mandriic         ###   ########.fr        #
+#    Updated: 2023/11/11 10:59:39 by cmoran-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@
 # endif
     #    R42IFLAG = I/opt/homebrew/opt/readline/include
 
-SRCS           =   ./src/mini_map.c ./src/hooks.c ./src/utils.c ./src/parser/error_parser.c ./src/cub3d.c ./src/parser/parser.c ./src/parser/textures.c ./src/parser/init.c     ./src/parser/test.c     ./src/parser/color.c    ./src/parser/map.c
+SRCS           =   ./src/mini_map.c ./src/hooks.c ./src/utils.c ./src/loadtextures.c ./src/parser/error_parser.c ./src/cub3d.c ./src/parser/parser.c ./src/parser/textures.c ./src/parser/init.c     ./src/parser/test.c     ./src/parser/color.c    ./src/parser/map.c
 
 OBJS		=	${SRCS:.c=.o}
 
@@ -65,8 +65,8 @@ fclean: clean
 
 re: fclean all
 
-# linux: fclean lib ${OBJS}
-# 	${GCC} ${OBJS} ${LIBS} -ldl -lglfw -pthread -lm ${HEADERS} -o ${NAME}
+linux: fclean lib ${OBJS}
+	${GCC} ${OBJS} ${LIBS} -ldl -lglfw -pthread -lm ${HEADERS} -o ${NAME}
 
 bonus: all
 

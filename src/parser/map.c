@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmoran-l <cmoran-l@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:39:18 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/12 14:36:34 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:08:01 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_get_map(t_file_info *info, char *line)
 {
-	char	*ptr[200];
+	char	*ptr[20000];
 	int		i;
-
+//printf("get_map\n");
 	i = 0;
 	if (ft_strchr(line, '1') != NULL)
 	{

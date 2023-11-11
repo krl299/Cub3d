@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mandriic <mandriic@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:50 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/18 17:12:57 by mandriic         ###   ########.fr       */
+/*   Updated: 2023/11/11 17:38:40 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,26 @@ void	ft_leaks(void)
 {
 	system("leaks -q cub3d");
 }
+
 int ft_colour_of_wall(t_vars * vars, float mem_angle, float x, float y)
 {
 	static float mem_x_w = -1;
 	static float mem_y_w = -1;
-
-	// printf("x: %f y: %f\n", x, y);
-	// if (round(mem_x_w) + 1 >= round(x) && round(mem_x_w) - 1 <= round(x))
-	// {
-	// 	mem_x_w = x;
-	// 	mem_y_w = y;
-	// 	return (ft_get_rgba(255, 0, 0, 255));
-	// }
-	// else
-	// {
-	// 	mem_x_w = x;
-	// 	mem_y_w = y;
-	// 	return (ft_get_rgba(255, 255, 0, 255));
-	// }
+	
+	
 		if (vars->map_vars->wall_side == 0)
 		{
 			return (ft_get_rgba(255, 255, 255, 255));
 		}
 		else if (vars->map_vars->wall_side == 1)
 		{
+			//trying to detect pixel color on texture to draw
+			printf("x = %f \t y = %f\n", x, y);
+			printf("widht = %d \t height = %d\n", vars->no_wall_texture->width, vars->no_wall_texture->height);
+			int r = vars->no_wall_texture->pixels[4];
+			int g = vars->no_wall_texture->pixels[5];
+			int b = vars->no_wall_texture->pixels[6];
+			int a = vars->no_wall_texture->pixels[7];
 			return (ft_get_rgba(100, 0, 0, 255));
 		}
 		else if (vars->map_vars->wall_side == 2)
@@ -100,7 +96,7 @@ void	ft_draw_line(t_vars * vars, int x_u, int y_u, float x_w, float y_w, int x, 
 				
 			if (y < HEIGHT  && y > 0)
 			{
-				mlx_put_pixel(vars->wall, x, y, colour_of_line);
+				mlx_put_pixel(vars->wall, x, y, colour_of_line);//colour of line = pixel of wall
 				clean[i_cl][0] = x;
 				clean[i_cl++][1] = y;
 			}
@@ -332,10 +328,12 @@ int32_t	submain(t_file_info *info)
 	*vars->map_vars = (t_map){};
 	vars->map_vars->mini_u_angle = M_PI/2;//1.5708;
 
-	vars->map_vars->map = temp_map();//temp_map(); //aqui se cambia luego a mapa de parser
-	vars->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
-	// if (!vars->mlx)
-    //     error();
+	vars->map_vars->map = info->map;//aqui se cambia luego a mapa de parser
+	//load textures of walls
+	ft_loadtextures(info, vars);
+	vars->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", false);
+	if (!vars->mlx)
+        perror("mlx_init failed\n");
 	vars->sky = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
 	vars->mini_map = mlx_new_image(vars->mlx, WIDTH/4, WIDTH/4);
 	vars->wall = mlx_new_image(vars->mlx, WIDTH, HEIGHT *2);
@@ -346,7 +344,7 @@ int32_t	submain(t_file_info *info)
 	// mlx_image_to_window(vars->mlx, vars->mini_map, 0, vars->map_vars->start_draw_y_mm);
 	mlx_image_to_window(vars->mlx, vars->mini_unit, 0, vars->map_vars->start_draw_y_mm);
 	mlx_image_to_window(vars->mlx, vars->wall, 0, 0);
-	mlx_image_to_window(vars->mlx, vars->mini_map, 0, vars->map_vars->start_draw_y_mm);
+	//mlx_image_to_window(vars->mlx, vars->mini_map, 0, vars->map_vars->start_draw_y_mm);
 	mlx_loop_hook(vars->mlx, ft_hook, vars);
 	mlx_loop(vars->mlx);
 	mlx_delete_image(vars->mlx, vars->sky);
@@ -363,8 +361,8 @@ int	main(int argc, char *argv[])
 	if (argc == 2)
 	{
 		ft_init_info(&info);
-		// ft_check_arg(argv[1], &info);
-		ft_print_info(&info);
+		ft_check_arg(argv[1], &info);
+		//ft_print_info(&info);
 		submain(&info);
 		ft_clean_info(&info);
 	}

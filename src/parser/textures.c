@@ -6,7 +6,7 @@
 /*   By: cmoran-l <cmoran-l@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 08:49:06 by cmoran-l          #+#    #+#             */
-/*   Updated: 2023/10/12 14:15:15 by cmoran-l         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:08:42 by cmoran-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 //	Different textures for each wall
 void	ft_check_textures(t_file_info *info)
 {
+	//printf("check_textures\n");
 	if (info->no_texture != NULL && info->so_texture != NULL && \
 		info->we_texture != NULL && info->ea_texture != NULL && \
 		ft_strncmp(info->no_texture, info->so_texture, \
